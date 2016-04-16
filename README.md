@@ -1,2 +1,3 @@
-# Algorithms-C-Plus
+# Algorithms-C-Plus (Eclipse project)
 Some algorithms implemented by C++
+

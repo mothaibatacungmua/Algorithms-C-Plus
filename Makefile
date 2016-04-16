@@ -38,16 +38,12 @@ all: $(OUTPUTLIB) $(TESTTARGET)
 $(OUTPUTLIB): $(DBGOBJS) 
 		ar rcs $(OUTPUTLIB) $(DBGOBJS)
 
-$(TESTTARGET): $(FINAL_TESTOBJS)
-		$(CXX) $(CXXFLAGS) -o $@ $^
+$(TESTTARGET): $(FINAL_TESTOBJS) $(OUTPUTLIB)
+		$(CXX) $(CXXFLAGS) -o $@ $^ -L $(OUTPUTLIB)
 
 $(DBGDIR)/%.o:%.cpp $(COMBINE_SRCS)
 		@mkdir -p $(@D)
-		$(CXX) $(CXXFLAGS) -c $< -o $@
-
- 
-		
-
+		$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 clean:
 	rm -f $(DBGOBJS) $(OUTS) $(FINAL_TESTOBJS)

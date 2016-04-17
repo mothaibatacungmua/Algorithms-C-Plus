@@ -8,3 +8,5 @@ Some algorithms implemented by C++
 ### How do I run unit testing? ###
 1. ./debug/tests/main
 
+### Coding style
+https://google.github.io/styleguide/cppguide.html

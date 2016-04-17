@@ -1,19 +1,19 @@
 # TODO list
 **Data structures to implement:**
-    - Tree
+    * Tree
         - Binary tree
         - AVL tree
         - Red-Black tree
         - Splay tree
         - B-tree
-    - Hashmap
+    * Hashmap
         - Jenkins algorithm
-    - Skip list
-    - Double hashing
-    - Union-Find
+    * Skip list
+    * Double hashing
+    * Union-Find
     
 **Algorithms to implement:**
-    - Sorting
+    * Sorting
         - Merge Sort
         - Bubble Sort
         - Heap Sort
@@ -21,7 +21,7 @@
         - Radix Sort
         - Insert Sort
         - Selection Sort
-     - Graph
+     * Graph
         - Breadth-First Search
         - Depth-First Search
         - Uniform Cost Search
@@ -31,5 +31,5 @@
         - Prim's algorithm
         - Kruskal's algorithm
         - Huffman Coding
-      - Dynamic Programming (Update later)
-      - Linear Programming (Update later)
+      * Dynamic Programming (Update later)
+      * Linear Programming (Update later)

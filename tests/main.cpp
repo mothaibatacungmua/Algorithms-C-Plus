@@ -6,16 +6,23 @@
  */
 #include <iostream>
 #include "../headers/data-structures.hpp"
+#include <cppunit/TestResult.h>
+#include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/TestSuccessListener.h>
+#include <cppunit/TextTestProgressListener.h>
+#include <cppunit/CompilerOutputter.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
+#include "data-structures-test.hpp"
 
 using namespace std;
 
-typedef WrapperDataStr::SingleLinkedList<int> SingleLinkedList;
-
 int main(){
-    SingleLinkedList list = SingleLinkedList();
+    CppUnit::TextUi::TestRunner runner;
+    CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
 
-    list.Push(1);
-    cout << list.ToString() << "\n";
+    runner.addTest( registry.makeTest() );
+    runner.run();
     return 0;
 }
 

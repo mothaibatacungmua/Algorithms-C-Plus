@@ -56,7 +56,7 @@ int SingleLinkedList<T>::GetCount(){
 
     if(head == NULL) return number_nodes;
 
-    while(travel->next != NULL){
+    while(travel != NULL){
         travel = (Node*)travel->next;
         number_nodes++;
     }
@@ -70,7 +70,7 @@ string SingleLinkedList<T>::ToString(){
     Node* travel = head;
 
     ret_str.append("[");
-    while(travel->next != NULL){
+    while(travel != NULL){
        ret_str.append(" ");
        ret_str.append(Utils::ToString(travel->value));
        ret_str.append(" ");

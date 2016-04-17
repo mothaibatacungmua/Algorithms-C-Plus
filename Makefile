@@ -23,7 +23,7 @@ TESTDIR = tests
 TESTSRCS := $(wildcard ${TESTDIR}/*.cpp)
 PRE_TESTOBJS = $(patsubst %.cpp,%.o,$(TESTSRCS))
 FINAL_TESTOBJS = $(addprefix $(DBGDIR)/, $(PRE_TESTOBJS))
-
+TESTLIBS = -lcppunit
 #
 # Output files 
 #
@@ -39,16 +39,16 @@ $(OUTPUTLIB): $(DBGOBJS)
 		ar rcs $(OUTPUTLIB) $(DBGOBJS)
 
 $(TESTTARGET): $(FINAL_TESTOBJS)
-		$(CXX) $(DBGCFLAGS) -o $@ $^ $(OUTPUTLIB)
+		$(CXX) $(DBGCFLAGS) -o $@ $^ $(OUTPUTLIB) $(TESTLIBS)
 
 $(DBGDIR)/%.o:%.cpp $(SRCS) $(DEPS)
 		@mkdir -p $(@D)
 		$(CXX) $(DBGCFLAGS) -c $< -o $@  
 
-$(DBGDIR)/tests/main.o: $(TESTSRCS) $(DEPS)
+$(DBGDIR)/tests/%.o:%.cpp  $(TESTSRCS) $(DEPS)
 		@mkdir -p $(@D)
 		$(CXX) $(DBGCFLAGS) -c $< -o $@ 
 
 
 clean:
-	rm -f $(DBGOBJS) $(OUTS) $(FINAL_TESTOBJS)
+	rm -f $(DBGOBJS) $(OUTS) $(FINAL_TESTOBJS) $(TESTTARGET)

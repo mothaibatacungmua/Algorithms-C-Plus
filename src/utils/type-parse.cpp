@@ -5,12 +5,15 @@
  *      Author: asm
  */
 #include "../../headers/type-parse.hpp"
+#include <stdio.h>
 
 namespace Utils{
     template<typename T>
     std::string ToString(T a){
         if(COMPARE_TYPE(T,"int")){
-            return "YES";
+            char buffer[16];
+            sprintf ( buffer, "%d", a );
+            return buffer;
         }
 
         return "NOT IMPLEMENTED YET";

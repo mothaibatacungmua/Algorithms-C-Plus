@@ -1,5 +1,6 @@
 # TODO list
 **Data structures to implement:**
+
     * Tree
         - Binary tree
         - AVL tree
@@ -13,6 +14,7 @@
     * Union-Find
     
 **Algorithms to implement:**
+
     * Sorting
         - Merge Sort
         - Bubble Sort

@@ -17,8 +17,13 @@ Stack<T>::Stack():SingleLinkedList<T>(){
 }
 
 template <typename T>
+Stack<T>::~Stack(){
+
+}
+
+template <typename T>
 typename Stack<T>::Node* Stack<T>::Push(T value){
-    return (Node*)this->Push(value);
+    return (Node*)SingleLinkedList<T>::Push(value);
 }
 
 template <typename T>
@@ -44,6 +49,19 @@ typename Stack<T>::Node* Stack<T>::Pop(){
 
     return tail;
 }
+
+template <typename T>
+int Stack<T>::GetCount(){
+    return SingleLinkedList<T>::GetCount();
+}
+
+template <typename T>
+string Stack<T>::ToString(){
+    return SingleLinkedList<T>::ToString();
+}
+
+template class Stack<int>;
+template class Stack<double>;
 
 
 

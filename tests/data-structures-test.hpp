@@ -16,9 +16,17 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST_SUITE( DataStructuresTest );
     CPPUNIT_TEST( testSingleLinkedListPush);
     CPPUNIT_TEST( testSingleLinkedListPop);
+    CPPUNIT_TEST( testQueuePush);
+    CPPUNIT_TEST( testQueuePop);
+    CPPUNIT_TEST( testStackPush);
+    CPPUNIT_TEST( testStackPop);
     CPPUNIT_TEST_SUITE_END();
 private:
     WrapperDataStr::SingleLinkedList<int> * list_0, *list_1;
+
+    WrapperDataStr::Queue<int> * queue_0, *queue_1;
+
+    WrapperDataStr::Stack<int> * stack_0, *stack_1;
 
 public:
     void setUp();
@@ -28,6 +36,14 @@ public:
     void testSingleLinkedListPush();
 
     void testSingleLinkedListPop();
+
+    void testQueuePush();
+
+    void testQueuePop();
+
+    void testStackPush();
+
+    void testStackPop();
 };
 
 #endif /* DATA_STRUCTURES_TEST_HPP_ */

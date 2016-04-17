@@ -5,6 +5,7 @@
  *      Author: asm
  */
 #include <iostream>
+#include <string.h>
 #include "../headers/data-structures.hpp"
 #include <cppunit/TestResult.h>
 #include <cppunit/BriefTestProgressListener.h>
@@ -17,12 +18,20 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char *argv[]){
     CppUnit::TextUi::TestRunner runner;
     CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+    CppUnit::TestResult controller;
+    CppUnit::BriefTestProgressListener progress;
+    controller.addListener(&progress);
 
     runner.addTest( registry.makeTest() );
-    runner.run();
+    if((argc == 2) && (strcmp(argv[1],"brief") == 0)){
+        runner.run(controller);
+    }else{
+        runner.run();
+    }
+
     return 0;
 }
 

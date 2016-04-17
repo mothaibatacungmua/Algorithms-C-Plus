@@ -18,13 +18,28 @@ Queue<T>::Queue():SingleLinkedList<T>(){
 }
 
 template <typename T>
+Queue<T>::~Queue(){
+
+}
+
+template <typename T>
 typename Queue<T>::Node* Queue<T>::Push(T value){
-    return (Node*)this->Push(value);
+    return (Node*)SingleLinkedList<T>::Push(value);
 }
 
 template <typename T>
 typename Queue<T>::Node* Queue<T>::Pop(){
-    return (Node*)this->Pop();
+    return (Node*)SingleLinkedList<T>::Pop();
+}
+
+template <typename T>
+int Queue<T>::GetCount(){
+    return SingleLinkedList<T>::GetCount();
+}
+
+template <typename T>
+string Queue<T>::ToString(){
+    return SingleLinkedList<T>::ToString();
 }
 
 template class Queue<int>;

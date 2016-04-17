@@ -17,21 +17,16 @@ SingleLinkedList<T>::SingleLinkedList(){
 }
 
 template <typename T>
-typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Push(SingleLinkedList<T>::Node* node){
-    if(head == 0){
-        head = node;
-        return node;
+SingleLinkedList<T>::~SingleLinkedList(){
+    //free all node in the list
+    Node* travel = head;
+    Node* next = NULL;
+
+    while(travel != NULL){
+        next = (Node*)travel->next;
+        delete travel;
+        travel = next;
     }
-
-    Node* tail = head;
-
-    while(tail->next != NULL){
-        tail = (Node*)tail->next;
-    }
-
-    tail->next = (Node*)node;
-
-    return node;
 }
 
 template <typename T>

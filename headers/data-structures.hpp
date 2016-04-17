@@ -29,6 +29,9 @@ namespace Algorithms{
             }
         };
 
+        //
+        // Single Linked List declare
+        //
         template <typename T>
         class SingleLinkedList{
         public:
@@ -40,11 +43,52 @@ namespace Algorithms{
             Node* head;
 
             SingleLinkedList();
-            Node* Push(Node* node);
-            Node* Push(T value);
-            Node* Pop();
-            int GetCount();
-            string ToString();
+            virtual ~SingleLinkedList(){};
+            virtual Node* Push(Node* node);
+            virtual Node* Push(T value);
+            virtual Node* Pop();
+            virtual int GetCount();
+            virtual string ToString();
+        };
+
+        //
+        // Queue declare
+        //
+        template <typename T>
+        class Queue:public SingleLinkedList<T>{
+        public:
+            class Node: public SingleLinkedList<T>::Node{
+            public:
+                Node(T value):SingleLinkedList<T>::Node(value){}
+            };
+
+            Queue();
+            virtual ~Queue(){};
+            virtual Node* Push(Node* node);
+            virtual Node* Push(T value);
+            virtual Node* Pop();
+            virtual int GetCount();
+            virtual string ToString();
+        };
+
+        //
+        // Stack declare
+        //
+        template <typename T>
+        class Stack:public SingleLinkedList<T>{
+        public:
+            class Node: public SingleLinkedList<T>::Node{
+            public:
+                Node(T value):SingleLinkedList<T>::Node(value){}
+            };
+
+            Stack();
+            virtual ~Stack(){};
+            virtual Node* Push(Node* node);
+            virtual Node* Push(T value);
+            virtual Node* Pop();
+            virtual int GetCount();
+            virtual string ToString();
         };
     }
 }

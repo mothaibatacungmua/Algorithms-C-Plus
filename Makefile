@@ -13,7 +13,7 @@ OBJS = $(SRCS:.cpp=.o)
 # Debug build settings
 #
 DBGDIR = debug
-DBGCFLAGS = -g -O0 -DDEBUG
+DBGCFLAGS = -g -O0 -DDEBUG -Wall
 DBGOBJS = $(addprefix $(DBGDIR)/, $(OBJS))
 
 #
@@ -28,22 +28,27 @@ FINAL_TESTOBJS = $(addprefix $(DBGDIR)/, $(PRE_TESTOBJS))
 # Output files 
 #
 OUTPUTLIB = ${DBGDIR}/libalg.a
-TESTTARGET = ${DBGDIR}/${TESTDIR}/tests
+TESTTARGET = ${DBGDIR}/${TESTDIR}/main
 
-COMBINE_SRCS = $(SRCS)
-COMBINE_SRCS := $(TESTSRCS)
+HEADERDIR = headers
+DEPS := $(shell find $(HEADERDIR)/ -name *.hpp)
 
 all: $(OUTPUTLIB) $(TESTTARGET) 
 
 $(OUTPUTLIB): $(DBGOBJS) 
 		ar rcs $(OUTPUTLIB) $(DBGOBJS)
 
-$(TESTTARGET): $(FINAL_TESTOBJS) $(OUTPUTLIB)
-		$(CXX) $(CXXFLAGS) -o $@ $^ -L $(OUTPUTLIB)
+$(TESTTARGET): $(FINAL_TESTOBJS)
+		$(CXX) $(DBGCFLAGS) -o $@ $^ $(OUTPUTLIB)
 
-$(DBGDIR)/%.o:%.cpp $(COMBINE_SRCS)
+$(DBGDIR)/%.o:%.cpp $(SRCS) $(DEPS)
 		@mkdir -p $(@D)
-		$(CXX) $(CXXFLAGS) -c $< -o $@ 
+		$(CXX) $(DBGCFLAGS) -c $< -o $@  
+
+$(DBGDIR)/tests/main.o: $(TESTSRCS) $(DEPS)
+		@mkdir -p $(@D)
+		$(CXX) $(DBGCFLAGS) -c $< -o $@ 
+
 
 clean:
 	rm -f $(DBGOBJS) $(OUTS) $(FINAL_TESTOBJS)

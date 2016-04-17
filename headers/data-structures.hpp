@@ -43,7 +43,7 @@ namespace Algorithms{
             Node* head;
 
             SingleLinkedList();
-            virtual ~SingleLinkedList(){};
+            virtual ~SingleLinkedList();
             virtual Node* Push(T value);
             virtual Node* Pop();
             virtual int GetCount();
@@ -62,7 +62,7 @@ namespace Algorithms{
             };
 
             Queue();
-            virtual ~Queue(){};
+            virtual ~Queue();
             virtual Node* Push(Node* node);
             virtual Node* Pop();
             virtual int GetCount();
@@ -81,7 +81,7 @@ namespace Algorithms{
             };
 
             Stack();
-            virtual ~Stack(){};
+            virtual ~Stack();
             virtual Node* Push(T value);
             virtual Node* Pop();
             virtual int GetCount();

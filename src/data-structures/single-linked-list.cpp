@@ -22,18 +22,36 @@ SingleLinkedList<T>::~SingleLinkedList(){
     Node* travel = head;
     Node* next = NULL;
 
-    while(travel != NULL){
-        next = (Node*)travel->next;
-        delete travel;
-        travel = next;
+    try{
+        while(travel != NULL){
+            next = (Node*)travel->next;
+            delete travel;
+            travel = next;
+        }
+    }
+    catch(const std::exception& e){
+        //do nothing
     }
 }
 
 template <typename T>
 typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Push(T value){
-    Node* new_node = new Node(value);
+    Node* new_node = (Node*)(new Node(value));
 
-    return this->Push(new_node);
+    Node* tail = head;
+
+    if(tail == NULL){
+        head = new_node;
+        return new_node;
+    }
+
+    while(tail->next != NULL){
+        tail = (Node*)tail->next;
+    }
+
+    tail->next = (Node*)new_node;
+
+    return new_node;
 }
 
 template <typename T>

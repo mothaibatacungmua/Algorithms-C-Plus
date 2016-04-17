@@ -63,7 +63,7 @@ namespace Algorithms{
 
             Queue();
             virtual ~Queue();
-            virtual Node* Push(Node* node);
+            virtual Node* Push(T value);
             virtual Node* Pop();
             virtual int GetCount();
             virtual string ToString();

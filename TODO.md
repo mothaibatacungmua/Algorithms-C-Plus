@@ -1,6 +1,7 @@
 # TODO list
 **Data structures to implement:**
-
+    
+    * Priority Queue
     * Tree
         - Binary tree
         - AVL tree
@@ -32,6 +33,19 @@
         - Topological sorting
         - Prim's algorithm
         - Kruskal's algorithm
-        - Huffman Coding
+      * Huffman Coding
       * Dynamic Programming (Update later)
       * Linear Programming (Update later)
+      * Crytography
+        - RSA
+        - MD5
+        - SHA256
+        - AES
+        - DES
+      * Pseudorandom number generator (Update later)
+      * Random algorithms (Update later)
+      * Math
+        - Newton roots approximation method
+        - Bairstow roots approximation method
+        - SVD decompostion
+        - Extened-Euclid algorithm

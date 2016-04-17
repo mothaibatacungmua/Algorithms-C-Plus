@@ -36,9 +36,11 @@ void DataStructuresTest::testSingleLinkedListPop(){
 
     pop_node = list_1->Pop();
     CPPUNIT_ASSERT_EQUAL(3, pop_node->value);
+    delete pop_node;    //always remember this after popping
 
     pop_node = list_1->Pop();
     CPPUNIT_ASSERT_EQUAL(10, pop_node->value);
+    delete pop_node;    //always remember this after popping
 
     pop_node = list_1->Pop();
 

@@ -44,7 +44,9 @@ typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Push(T value){
 template <typename T>
 typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Pop(){
     Node* ret = head;
-    head = NULL;
+    if(head != NULL){
+        head = (Node*)head->next;
+    }
 
     return ret;
 }

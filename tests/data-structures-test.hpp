@@ -15,15 +15,19 @@
 class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST_SUITE( DataStructuresTest );
     CPPUNIT_TEST( testSingleLinkedListPush);
+    CPPUNIT_TEST( testSingleLinkedListPop);
     CPPUNIT_TEST_SUITE_END();
 private:
-    WrapperDataStr::SingleLinkedList<int> * list_0;
+    WrapperDataStr::SingleLinkedList<int> * list_0, *list_1;
+
 public:
     void setUp();
 
     void tearDown();
 
     void testSingleLinkedListPush();
+
+    void testSingleLinkedListPop();
 };
 
 #endif /* DATA_STRUCTURES_TEST_HPP_ */

@@ -9,7 +9,7 @@
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
 
-using namespace WrapperDataStr;
+using namespace DataStructures;
 
 template <typename T>
 SingleLinkedList<T>::SingleLinkedList(){

@@ -10,7 +10,7 @@
 #include "../../headers/data-structures.hpp"
 
 
-using namespace WrapperDataStr;
+using namespace DataStructures;
 
 template <typename T>
 Queue<T>::Queue():SingleLinkedList<T>(){

@@ -22,11 +22,11 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testStackPop);
     CPPUNIT_TEST_SUITE_END();
 private:
-    WrapperDataStr::SingleLinkedList<int> * list_0, *list_1;
+    DataStructures::SingleLinkedList<int> * list_0, *list_1;
 
-    WrapperDataStr::Queue<int> * queue_0, *queue_1;
+    DataStructures::Queue<int> * queue_0, *queue_1;
 
-    WrapperDataStr::Stack<int> * stack_0, *stack_1;
+    DataStructures::Stack<int> * stack_0, *stack_1;
 
 public:
     void setUp();

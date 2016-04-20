@@ -32,15 +32,6 @@ typename Queue<T>::Node* Queue<T>::Pop(){
     return (Node*)SingleLinkedList<T>::Pop();
 }
 
-template <typename T>
-int Queue<T>::GetCount(){
-    return SingleLinkedList<T>::GetCount();
-}
-
-template <typename T>
-string Queue<T>::ToString(){
-    return SingleLinkedList<T>::ToString();
-}
 
 template class Queue<int>;
 template class Queue<double>;

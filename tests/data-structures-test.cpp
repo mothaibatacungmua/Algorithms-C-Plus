@@ -10,14 +10,14 @@
 CPPUNIT_TEST_SUITE_REGISTRATION( DataStructuresTest);
 
 void DataStructuresTest::setUp(){
-    list_0 = new WrapperDataStr::SingleLinkedList<int>();
-    list_1 = new WrapperDataStr::SingleLinkedList<int>();
+    list_0 = new DataStructures::SingleLinkedList<int>();
+    list_1 = new DataStructures::SingleLinkedList<int>();
 
-    queue_0 = new WrapperDataStr::Queue<int>();
-    queue_1 = new WrapperDataStr::Queue<int>();
+    queue_0 = new DataStructures::Queue<int>();
+    queue_1 = new DataStructures::Queue<int>();
 
-    stack_0 = new WrapperDataStr::Stack<int>();
-    stack_1 = new WrapperDataStr::Stack<int>();
+    stack_0 = new DataStructures::Stack<int>();
+    stack_1 = new DataStructures::Stack<int>();
 }
 
 void DataStructuresTest::tearDown(){
@@ -40,7 +40,7 @@ void DataStructuresTest::testSingleLinkedListPush(){
 }
 
 void DataStructuresTest::testSingleLinkedListPop(){
-    WrapperDataStr::SingleLinkedList<int>::Node* pop_node = NULL;
+    DataStructures::SingleLinkedList<int>::Node* pop_node = NULL;
     list_1->Push(3);
     list_1->Push(10);
 
@@ -66,7 +66,7 @@ void DataStructuresTest::testQueuePush(){
 }
 
 void DataStructuresTest::testQueuePop(){
-    WrapperDataStr::Queue<int>::Node* pop_node = NULL;
+    DataStructures::Queue<int>::Node* pop_node = NULL;
     queue_1->Push(3);
     queue_1->Push(10);
 
@@ -91,7 +91,7 @@ void DataStructuresTest::testStackPush(){
 }
 
 void DataStructuresTest::testStackPop(){
-    WrapperDataStr::Stack<int>::Node* pop_node = NULL;
+    DataStructures::Stack<int>::Node* pop_node = NULL;
     stack_1->Push(3);
     stack_1->Push(10);
 

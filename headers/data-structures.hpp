@@ -28,6 +28,22 @@ namespace DataStructures{
         }
     };
 
+    template <typename T>
+    class CycleNode{
+    public:
+        CycleNode<T>* next;
+        CycleNode<T>* prev;
+        T value;
+
+        CycleNode(T value){
+            next = prev = NULL;
+            this->value = value;
+        }
+
+        bool operator== (const CycleNode<T>& a){
+            return (value == a.value);
+        }
+    };
     //
     // Single Linked List declare
     //
@@ -64,8 +80,6 @@ namespace DataStructures{
         virtual ~Queue();
         virtual Node* Push(T value);
         virtual Node* Pop();
-        virtual int GetCount();
-        virtual string ToString();
     };
 
     //
@@ -83,6 +97,81 @@ namespace DataStructures{
         virtual ~Stack();
         virtual Node* Push(T value);
         virtual Node* Pop();
+    };
+
+    //
+    // Doubly linked list
+    //
+    template <typename T>
+    class DoublyLinkedList{
+    public:
+        class Node: public CycleNode<T>{
+        public:
+            Node(T value):CycleNode<T>(value){}
+        };
+
+        DoublyLinkedList();
+        Node* head;
+        Node* tail;
+        virtual ~DoublyLinkedList();
+        virtual Node* InsertAfter(Node* node, Node* new_node);
+        virtual Node* InsertAfter(Node* node, T value);
+        virtual Node* InsertBefore(Node* node, Node* new_node);
+        virtual Node* InsertBefore(Node* node, T value);
+        virtual Node* InsertBeginning(Node* new_node);
+        virtual Node* InsertBeginning(T value);
+        virtual Node* InsertEnd(Node* new_node);
+        virtual Node* InsertEnd(T value);
+        virtual int GetCount();
+        virtual string ToString();
+    };
+
+    //
+    // Open Doubly Linked List
+    //
+    template <typename T>
+    class OpenDoublyLinkedList: public DoublyLinkedList<T>{
+    public:
+        class Node: public DoublyLinkedList<T>::Node{
+        public:
+            Node(T value):DoublyLinkedList<T>::Node(value){}
+        };
+
+        OpenDoublyLinkedList();
+        virtual ~OpenDoublyLinkedList();
+        virtual Node* InsertAfter(Node* node, Node* new_node);
+        virtual Node* InsertAfter(Node* node, T value);
+        virtual Node* InsertBefore(Node* node, Node* new_node);
+        virtual Node* InsertBefore(Node* node, T value);
+        virtual Node* InsertBeginning(Node* new_node);
+        virtual Node* InsertBeginning(T value);
+        virtual Node* InsertEnd(Node* new_node);
+        virtual Node* InsertEnd(T value);
+        virtual int GetCount();
+        virtual string ToString();
+    };
+
+    //
+    // Circular Doubly Linked List
+    //
+    template <typename T>
+    class CircularDoublyLinkedList: public DoublyLinkedList<T>{
+    public:
+        class Node: public DoublyLinkedList<T>::Node{
+        public:
+            Node(T value):DoublyLinkedList<T>::Node(value){}
+        };
+
+        CircularDoublyLinkedList();
+        virtual ~CircularDoublyLinkedList();
+        virtual Node* InsertAfter(Node* node, Node* new_node);
+        virtual Node* InsertAfter(Node* node, T value);
+        virtual Node* InsertBefore(Node* node, Node* new_node);
+        virtual Node* InsertBefore(Node* node, T value);
+        virtual Node* InsertBeginning(Node* new_node);
+        virtual Node* InsertBeginning(T value);
+        virtual Node* InsertEnd(Node* new_node);
+        virtual Node* InsertEnd(T value);
         virtual int GetCount();
         virtual string ToString();
     };

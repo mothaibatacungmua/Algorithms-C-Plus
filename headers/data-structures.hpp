@@ -122,6 +122,9 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
+        virtual Node* Remove(Node* node);
+        virtual Node* RemoveBeginning();
+        virtual Node* RemoveEnd();
         virtual int GetCount();
         virtual string ToString();
     };
@@ -147,8 +150,9 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual int GetCount();
-        virtual string ToString();
+        virtual Node* Remove(Node* node);
+        virtual Node* RemoveBeginning();
+        virtual Node* RemoveEnd();
     };
 
     //
@@ -172,8 +176,9 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual int GetCount();
-        virtual string ToString();
+        virtual Node* Remove(Node* node);
+        virtual Node* RemoveBeginning();
+        virtual Node* RemoveEnd();
     };
 }
 

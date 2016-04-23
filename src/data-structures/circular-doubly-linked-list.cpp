@@ -55,7 +55,7 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertB
 
     if(this->head == NULL){
         this->head = (Node*)new_node;
-        this->tail = (Node*)new_node;
+        this->tail = this->head;
 
         new_node->prev = (Node*)new_node;
         new_node->next = (Node*)new_node;
@@ -66,7 +66,7 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertB
 
     if(this->head == this->tail){
         this->tail = (Node*)new_node;
-        this->head->prev= (Node*)new_node;
+        this->head->prev = (Node*)new_node;
     }
     return new_node;
 }
@@ -125,8 +125,15 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::RemoveB
         return remove;
     }
 
-    return (Node*)DoublyLinkedList<T>::Remove(
+    remove = (Node*)DoublyLinkedList<T>::Remove(
                     (typename DoublyLinkedList<T>::Node*)remove);
+
+    this->head = (Node*)this->tail->next;
+    if(this->tail->next == this->tail){
+        this->head = this->tail;
+    }
+
+    return remove;
 }
 
 template <typename T>
@@ -141,8 +148,14 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::RemoveE
         return remove;
     }
 
-    return (Node*)DoublyLinkedList<T>::Remove(
+    remove = (Node*)DoublyLinkedList<T>::Remove(
                     (typename DoublyLinkedList<T>::Node*)remove);
+
+    this->tail = (Node*)this->head->prev;
+    if(this->head->next == this->head){
+        this->tail = this->head;
+    }
+    return remove;
 }
 
 template class CircularDoublyLinkedList<int>;

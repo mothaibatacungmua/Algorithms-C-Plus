@@ -61,11 +61,10 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning
         return new_node;
     }
 
-    new_node->next = this->head;
-    this->head->prev = new_node;
-    new_node->prev = NULL;
+    this->InsertAfter((Node*)this->head, new_node);
 
-    this->head = new_node;
+    if(this->head == this->tail)
+        this->tail = new_node;
 
     return new_node;
 }
@@ -87,11 +86,10 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node*
         return new_node;
     }
 
-    new_node->next = NULL;
-    this->tail->next = new_node;
-    new_node->prev = this->tail;
+    this->InsertAfter((Node*)this->tail, new_node);
 
-    this->tail = new_node;
+    if(this->head == this->tail)
+            this->tail = new_node;
 
     return new_node;
 }
@@ -125,6 +123,10 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveBeginning
 
     this->head = (Node*)this->head->next;
 
+    if(remove == this->tail){
+        this->tail = NULL;
+    }
+
     return remove;
 }
 
@@ -143,6 +145,10 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveEnd(){
     (this->tail->prev)->next = NULL;
 
     this->tail = (Node*)this->tail->prev;
+
+    if(remove == this->head){
+        this->head = NULL;
+    }
 
     return remove;
 }

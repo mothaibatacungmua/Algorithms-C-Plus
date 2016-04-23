@@ -39,6 +39,8 @@ DoublyLinkedList<T>::~DoublyLinkedList(){
     }catch(const std::exception& e){
         //do nothing
     }
+    head = NULL;
+    tail = NULL;
 }
 
 template <typename T>
@@ -169,8 +171,8 @@ int DoublyLinkedList<T>::GetCount(){
     if(head != NULL)
         count_node = 1;
 
-    //forward traveling to delete all node
-    while(travel != tail){
+    //forward traveling to count all nodes
+    while(travel != tail && travel != NULL){
         travel = (Node*)travel->next;
         count_node++;
     }
@@ -184,10 +186,23 @@ string DoublyLinkedList<T>::ToString(){
     Node* travel = head;
     char buffer[512];
 
+    if(head == NULL){
+        ret_str = "[]\n";
+        return ret_str;
+    }
+
+    sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)head, (int)head->prev, Utils::ToString(head->value).c_str(), (int)head->next);
+    ret_str.append(buffer);
+
+    if((int)head == (int)tail){
+        return ret_str;
+    }
+
+
     while(travel != tail){
-       sprintf(buffer, "[prev=0x%X, value=%s, next=0x%X]\n", (int)travel->prev, Utils::ToString(travel->value).c_str(), (int)travel->next);
-       ret_str.append(buffer);
        travel = (Node*)travel->next;
+       sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)travel, (int)travel->prev, Utils::ToString(travel->value).c_str(), (int)travel->next);
+       ret_str.append(buffer);
     }
 
     return ret_str;

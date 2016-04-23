@@ -50,14 +50,61 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertB
 
 template <typename T>
 typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertBeginning(Node* new_node){
-    /* NOT IMPLEMENTED */
-    return NULL;
+    if(new_node == NULL)
+        return NULL;
+
+    if(this->head == NULL){
+        this->head = (Node*)new_node;
+        this->tail = (Node*)new_node;
+
+        new_node->prev = (Node*)new_node;
+        new_node->next = (Node*)new_node;
+        return new_node;
+    }
+
+    this->InsertAfter((Node*)this->head, new_node);
+
+    if(this->head == this->tail){
+        this->tail = (Node*)new_node;
+        this->head->prev= (Node*)new_node;
+    }
+    return new_node;
+}
+template <typename T>
+typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertBeginning(T value){
+    Node* new_node = new Node(value);
+
+    return this->InsertBeginning(new_node);
 }
 
 template <typename T>
 typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertEnd(Node* new_node){
-    /* NOT IMPLEMENTED */
-    return NULL;
+    if(new_node == NULL)
+        return NULL;
+
+    if(this->tail == NULL){
+        this->head = (Node*)new_node;
+        this->tail = (Node*)new_node;
+
+        new_node->prev = (Node*)new_node;
+        new_node->next = (Node*)new_node;
+        return new_node;
+    }
+
+    this->InsertAfter((Node*)this->tail, new_node);
+
+    this->tail = new_node;
+    if(this->head == this->tail){
+        this->head->prev= new_node;
+    }
+
+    return new_node;
+}
+template <typename T>
+typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::InsertEnd(T value){
+    Node* new_node = new Node(value);
+
+    return this->InsertEnd(new_node);
 }
 
 template <typename T>
@@ -65,3 +112,38 @@ typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::Remove(
     return (Node*)DoublyLinkedList<T>::Remove(
                 (typename DoublyLinkedList<T>::Node*)node);
 }
+
+template <typename T>
+typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::RemoveBeginning(){
+    Node* remove = (Node*)this->head;
+
+    if(remove == NULL) return remove;
+
+    if(remove->next == this->head){
+        this->head = NULL;
+        this->tail = NULL;
+        return remove;
+    }
+
+    return (Node*)DoublyLinkedList<T>::Remove(
+                    (typename DoublyLinkedList<T>::Node*)remove);
+}
+
+template <typename T>
+typename CircularDoublyLinkedList<T>::Node* CircularDoublyLinkedList<T>::RemoveEnd(){
+    Node* remove = (Node*)this->tail;
+
+    if(remove == NULL) return remove;
+
+    if(remove->next == this->tail){
+        this->head = NULL;
+        this->tail = NULL;
+        return remove;
+    }
+
+    return (Node*)DoublyLinkedList<T>::Remove(
+                    (typename DoublyLinkedList<T>::Node*)remove);
+}
+
+template class CircularDoublyLinkedList<int>;
+template class CircularDoublyLinkedList<double>;

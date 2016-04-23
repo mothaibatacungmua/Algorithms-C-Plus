@@ -6,6 +6,8 @@
  */
 #include <iostream>
 #include <string>
+#include <stdio.h>
+
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
 
@@ -30,7 +32,7 @@ DoublyLinkedList<T>::~DoublyLinkedList(){
     //forward traveling to delete all node
     try{
         while(travel != tail){
-            travel = travel->next;
+            travel = (Node*)travel->next;
             delete save;
             save = travel;
         }
@@ -44,7 +46,7 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertAfter(Node* node,
     if(node == NULL || new_node == NULL)
         return NULL;
 
-    Node* save = node->next;
+    Node* save = (Node*)node->next;
 
     node->next = new_node;
     new_node->next = save;
@@ -70,7 +72,7 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBefore(Node* node
     if(node == NULL || new_node == NULL)
         return NULL;
 
-    Node* save = node->prev;
+    Node* save = (Node*)node->prev;
 
     node->prev = new_node;
     new_node->prev = save;
@@ -91,12 +93,36 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBefore(Node* node
 }
 
 template <typename T>
+typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBeginning(Node* new_node){
+    /* NOT IMPLEMENTED */
+    return NULL;
+}
+
+template <typename T>
+typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertEnd(Node* new_node){
+    /* NOT IMPLEMENTED */
+    return NULL;
+}
+
+template <typename T>
+typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBeginning(T value){
+    /* NOT IMPLEMENTED */
+    return NULL;
+}
+
+template <typename T>
+typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertEnd(T value){
+    /* NOT IMPLEMENTED */
+    return NULL;
+}
+
+template <typename T>
 typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::Remove(Node* node){
     if(node == NULL)
         return NULL;
 
-    Node* next = node->next;
-    Node* prev = node->prev;
+    Node* next = (Node*)node->next;
+    Node* prev = (Node*)node->prev;
 
     if(prev){
         prev->next = next;
@@ -114,7 +140,7 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveBeginning(){
     if(head == NULL)
         return NULL;
 
-    Node* new_head = head->next;
+    Node* new_head = (Node*)head->next;
     Node* remove_head = this->Remove(head);
 
     head = new_head;
@@ -127,7 +153,7 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveEnd(){
     if(tail == NULL)
         return NULL;
 
-    Node* new_tail = tail->next;
+    Node* new_tail = (Node*)tail->next;
     Node* remove_tail = this->Remove(tail);
 
     tail = new_tail;
@@ -145,9 +171,27 @@ int DoublyLinkedList<T>::GetCount(){
 
     //forward traveling to delete all node
     while(travel != tail){
-        travel = travel->next;
+        travel = (Node*)travel->next;
         count_node++;
     }
 
     return count_node;
 }
+
+template <typename T>
+string DoublyLinkedList<T>::ToString(){
+    string ret_str;
+    Node* travel = head;
+    char buffer[512];
+
+    while(travel != tail){
+       sprintf(buffer, "[prev=0x%X, value=%s, next=0x%X]\n", (int)travel->prev, Utils::ToString(travel->value).c_str(), (int)travel->next);
+       ret_str.append(buffer);
+       travel = (Node*)travel->next;
+    }
+
+    return ret_str;
+}
+
+template class DoublyLinkedList<int>;
+template class DoublyLinkedList<double>;

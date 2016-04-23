@@ -18,6 +18,12 @@ void DataStructuresTest::setUp(){
 
     stack_0 = new DataStructures::Stack<int>();
     stack_1 = new DataStructures::Stack<int>();
+
+    c_db_list_0 = new DataStructures::CircularDoublyLinkedList<int>();
+    c_db_list_1 = new DataStructures::CircularDoublyLinkedList<int>();
+
+    o_db_list_0 = new DataStructures::OpenDoublyLinkedList<int>();
+    o_db_list_1 = new DataStructures::OpenDoublyLinkedList<int>();
 }
 
 void DataStructuresTest::tearDown(){
@@ -27,6 +33,10 @@ void DataStructuresTest::tearDown(){
     delete queue_1;
     delete stack_0;
     delete stack_1;
+    delete c_db_list_0;
+    delete c_db_list_1;
+    delete o_db_list_0;
+    delete o_db_list_1;
 }
 
 void DataStructuresTest::testSingleLinkedListPush(){
@@ -107,4 +117,58 @@ void DataStructuresTest::testStackPop(){
     CPPUNIT_ASSERT_MESSAGE("Queue must be empty",(pop_node == NULL));
 }
 
+void DataStructuresTest::testCircularDoublyLinkedListInsertBeginning(){
 
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListInsertEnd(){
+
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListInsertAfter(){
+
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListInsertBefore(){
+
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListRemove(){
+
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListRemoveEnd(){
+
+}
+
+void DataStructuresTest::testCircularDoublyLinkedListRemoveBeginning(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListInsertBeginning(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListInsertEnd(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListInsertAfter(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListInsertBefore(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListRemove(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListRemoveEnd(){
+
+}
+
+void DataStructuresTest::testOpenDoublyLinkedListRemoveBeginning(){
+
+}

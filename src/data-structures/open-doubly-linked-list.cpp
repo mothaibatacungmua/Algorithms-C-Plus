@@ -69,6 +69,12 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning
 
     return new_node;
 }
+template <typename T>
+typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning(T value){
+    Node* new_node = new Node(value);
+
+    return this->InsertBeginning(new_node);
+}
 
 template <typename T>
 typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node* new_node){
@@ -91,7 +97,55 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node*
 }
 
 template <typename T>
+typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(T value){
+    Node* new_node = new Node(value);
+
+    return this->InsertEnd(new_node);
+}
+
+template <typename T>
 typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::Remove(Node* node){
     return (Node*)DoublyLinkedList<T>::Remove(
                 (typename DoublyLinkedList<T>::Node*)node);
 }
+
+template <typename T>
+typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveBeginning(){
+    Node* remove = (Node*)this->head;
+
+    if(remove == NULL) return remove;
+
+    if(remove->next == NULL){
+        this->head = NULL;
+        this->tail = NULL;
+        return remove;
+    }
+
+    (this->head->next)->prev = NULL;
+
+    this->head = (Node*)this->head->next;
+
+    return remove;
+}
+
+template <typename T>
+typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveEnd(){
+    Node* remove = (Node*)this->tail;
+
+    if(remove == NULL) return remove;
+
+    if(remove->prev == NULL){
+        this->head = NULL;
+        this->tail = NULL;
+        return remove;
+    }
+
+    (this->tail->prev)->next = NULL;
+
+    this->tail = (Node*)this->tail->prev;
+
+    return remove;
+}
+
+template class OpenDoublyLinkedList<int>;
+template class OpenDoublyLinkedList<double>;

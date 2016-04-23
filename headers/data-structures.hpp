@@ -180,6 +180,24 @@ namespace DataStructures{
         virtual Node* RemoveBeginning();
         virtual Node* RemoveEnd();
     };
+
+    //
+    // Priority Queue
+    //
+    template <typename T>
+    class PriorityQueue{
+    public:
+        PriorityQueue(int length, int(*compar)(const T&, const T&));
+        ~PriorityQueue();
+        T* heap;
+        T Insert(T value);
+        T GetMin();
+        void Delete(int pos);
+        T* PopMin();
+    private:
+        void HeapifyUp(int pos);
+        void HeapifyDown(int pos);
+    };
 }
 
 

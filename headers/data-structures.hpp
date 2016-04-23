@@ -190,10 +190,10 @@ namespace DataStructures{
         PriorityQueue(int length, int(*compar)(const T&, const T&));
         ~PriorityQueue();
         T* heap;
-        T Insert(T value);
-        T GetMin();
+        T Push(T value);
+        T GetTopValue();
         void Delete(int pos);
-        T* PopMin();
+        T* Pop();
     private:
         void HeapifyUp(int pos);
         void HeapifyDown(int pos);

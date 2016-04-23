@@ -88,8 +88,7 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node*
 
     this->InsertAfter((Node*)this->tail, new_node);
 
-    if(this->head == this->tail)
-            this->tail = new_node;
+    this->tail = new_node;
 
     return new_node;
 }

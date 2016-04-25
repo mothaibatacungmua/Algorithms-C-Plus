@@ -35,7 +35,7 @@ void PriorityQueue<T>::HeapifyUp(int pos){
     T* parent = &this->heap[(travel-1)/2];
     T* current = &this->heap[travel];
 
-    while(Utils::DoCompare(*current, *parent) < 0){
+    while(Utils::DoCompare(*current, *parent, compar) < 0){
         Utils::Swap(*current, *parent);
         travel = (travel - 1)/2;
         parent = &this->heap[(travel-1)/2];
@@ -50,7 +50,7 @@ void PriorityQueue<T>::HeapifyDown(int pos){
 
     if((2*pos + 1) > current_length-1) return;
 
-    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 1]) > 0){
+    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 1], compar) > 0){
         Utils::Swap(this->heap[pos], this->heap[2*pos + 1]);
         return this->HeapifyDown(2*pos + 1);
     }

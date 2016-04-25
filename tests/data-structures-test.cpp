@@ -24,6 +24,8 @@ void DataStructuresTest::setUp(){
 
     o_db_list_0 = new DataStructures::OpenDoublyLinkedList<int>();
     o_db_list_1 = new DataStructures::OpenDoublyLinkedList<int>();
+
+    pr_queue = new DataStructures::PriorityQueue<int>(100);
 }
 
 void DataStructuresTest::tearDown(){
@@ -37,6 +39,7 @@ void DataStructuresTest::tearDown(){
     delete c_db_list_1;
     delete o_db_list_0;
     delete o_db_list_1;
+    delete pr_queue;
 }
 
 void DataStructuresTest::testSingleLinkedListPush(){
@@ -343,4 +346,12 @@ void DataStructuresTest::testOpenDoublyLinkedListRemoveBeginning(){
     delete remove;
 
     CPPUNIT_ASSERT_EQUAL(2, o_db_list_1->GetCount());
+}
+
+void DataStructuresTest::testPriorityQueuePush(){
+
+}
+
+void DataStructuresTest::testPriorityQueuePop(){
+
 }

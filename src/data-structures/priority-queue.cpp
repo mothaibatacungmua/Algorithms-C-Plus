@@ -13,7 +13,7 @@
 using namespace DataStructures;
 
 template <typename T>
-PriorityQueue<T>::PriorityQueue(int max_length, int(*compar)(const T, const T)){
+PriorityQueue<T>::PriorityQueue(int max_length, int(*compar)(const T&, const T&)){
     if(max_length <= 0) return;
 
     this->heap = new T[max_length];
@@ -55,7 +55,7 @@ void PriorityQueue<T>::HeapifyDown(int pos){
         return this->HeapifyDown(2*pos + 1);
     }
 
-    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 2]) > 0){
+    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 2], compar) > 0){
         Utils::Swap(this->heap[pos], this->heap[2*pos + 2]);
         return this->HeapifyDown(2*pos + 2);
     }

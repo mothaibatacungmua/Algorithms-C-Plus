@@ -34,6 +34,8 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testOpenDoublyLinkedListRemove);
     CPPUNIT_TEST( testOpenDoublyLinkedListRemoveEnd);
     CPPUNIT_TEST( testOpenDoublyLinkedListRemoveBeginning);
+    CPPUNIT_TEST( testPriorityQueuePush);
+    CPPUNIT_TEST( testPriorityQueuePop);
     CPPUNIT_TEST_SUITE_END();
 private:
     DataStructures::SingleLinkedList<int>* list_0, *list_1;
@@ -45,6 +47,8 @@ private:
     DataStructures::CircularDoublyLinkedList<int>* c_db_list_0, *c_db_list_1;
 
     DataStructures::OpenDoublyLinkedList<int>* o_db_list_0, *o_db_list_1;
+
+    DataStructures::PriorityQueue<int>* pr_queue;
 
 public:
     void setUp();
@@ -90,6 +94,10 @@ public:
     void testOpenDoublyLinkedListRemoveEnd();
 
     void testOpenDoublyLinkedListRemoveBeginning();
+
+    void testPriorityQueuePush();
+
+    void testPriorityQueuePop();
 
 };
 

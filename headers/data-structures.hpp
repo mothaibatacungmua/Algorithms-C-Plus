@@ -187,7 +187,7 @@ namespace DataStructures{
     template <typename T>
     class PriorityQueue{
     public:
-        PriorityQueue(int max_length, int(*compar)(const T, const T) = NULL);
+        PriorityQueue(int max_length, int(*compar)(const T&, const T&) = NULL);
         ~PriorityQueue();
         T* heap;
         void Push(T value);
@@ -200,7 +200,7 @@ namespace DataStructures{
     private:
         int max_length;
         int current_length;
-        int (*compar)(const T, const T);
+        int (*compar)(const T&, const T&);
         void HeapifyUp(int pos);
         void HeapifyDown(int pos);
     };

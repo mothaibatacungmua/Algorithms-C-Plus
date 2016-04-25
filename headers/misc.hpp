@@ -10,7 +10,7 @@
 
 namespace Utils{
     template <typename T>
-    int DoCompare(T A, T B);
+    int DoCompare(T& A, T& B, int(*compar)(const T&, const T&));
 
     template <typename T>
     void Swap(T& A, T& B);

@@ -50,14 +50,14 @@ void PriorityQueue<T>::HeapifyDown(int pos){
 
     if((2*pos + 1) > current_length-1) return;
 
-    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 1], compar) > 0){
-        Utils::Swap(this->heap[pos], this->heap[2*pos + 1]);
-        return this->HeapifyDown(2*pos + 1);
+    int select_path = 2*pos + 1;
+    if(2*pos + 2 <= current_length -1){
+        select_path = Utils::DoCompare(this->heap[2*pos + 1], this->heap[2*pos + 2], compar) > 0?(2*pos+2):(2*pos+1);
     }
 
-    if(Utils::DoCompare(this->heap[pos], this->heap[2*pos + 2], compar) > 0){
-        Utils::Swap(this->heap[pos], this->heap[2*pos + 2]);
-        return this->HeapifyDown(2*pos + 2);
+    if(Utils::DoCompare(this->heap[pos], this->heap[select_path], compar) > 0){
+        Utils::Swap(this->heap[pos], this->heap[select_path]);
+        return this->HeapifyDown(select_path);
     }
 }
 

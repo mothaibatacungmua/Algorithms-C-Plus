@@ -349,9 +349,34 @@ void DataStructuresTest::testOpenDoublyLinkedListRemoveBeginning(){
 }
 
 void DataStructuresTest::testPriorityQueuePush(){
+    pr_queue->Push(10);
+    pr_queue->Push(7);
+    pr_queue->Push(4);
+    pr_queue->Push(22);
+    pr_queue->Push(15);
+    pr_queue->Push(18);
+
+    CPPUNIT_ASSERT_EQUAL(6, pr_queue->GetCount());
+    CPPUNIT_ASSERT_EQUAL(4, (*pr_queue)[0]);
+    CPPUNIT_ASSERT_EQUAL(10, (*pr_queue)[1]);
+    CPPUNIT_ASSERT_EQUAL(7, (*pr_queue)[2]);
+    CPPUNIT_ASSERT_EQUAL(22, (*pr_queue)[3]);
+    CPPUNIT_ASSERT_EQUAL(15, (*pr_queue)[4]);
+    CPPUNIT_ASSERT_EQUAL(18, (*pr_queue)[5]);
 
 }
 
 void DataStructuresTest::testPriorityQueuePop(){
+    pr_queue->Push(10);
+    pr_queue->Push(7);
+    pr_queue->Push(4);
+    pr_queue->Push(22);
+    pr_queue->Push(15);
+    pr_queue->Push(18);
 
+    int pop_value = pr_queue->Pop();
+    CPPUNIT_ASSERT_EQUAL(5, pr_queue->GetCount());
+    CPPUNIT_ASSERT_EQUAL(4, pop_value);
+    CPPUNIT_ASSERT_EQUAL(7, (*pr_queue)[0]);
+    CPPUNIT_ASSERT_EQUAL(18, (*pr_queue)[2]);
 }

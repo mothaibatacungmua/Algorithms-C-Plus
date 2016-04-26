@@ -204,6 +204,21 @@ namespace DataStructures{
         void HeapifyUp(int pos);
         void HeapifyDown(int pos);
     };
+
+    //
+    // Hashmap
+    //
+    template <typename K, typename V>
+    class Hashmap{
+    public:
+        Hashmap(int bucket_length, int(*hash_algr)(K));
+        ~Hashmap();
+        SingleLinkedList<V>** map;
+        void Set(K key, V value);
+        V Get(K key);
+        int GetCount();
+        string ToString();
+    };
 }
 
 

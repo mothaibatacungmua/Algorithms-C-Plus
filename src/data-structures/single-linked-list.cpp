@@ -11,20 +11,20 @@
 
 using namespace DataStructures;
 
-template <typename T>
-SingleLinkedList<T>::SingleLinkedList(){
+template <typename T, class Node>
+SingleLinkedList<T,Node>::SingleLinkedList(){
     head = 0;
 }
 
-template <typename T>
-SingleLinkedList<T>::~SingleLinkedList(){
+template <typename T, class Node>
+SingleLinkedList<T,Node>::~SingleLinkedList(){
     //free all node in the list
     Node* travel = head;
     Node* next = NULL;
 
     try{
         while(travel != NULL){
-            next = (Node*)travel->next;
+            next = travel->next;
             delete travel;
             travel = next;
         }
@@ -34,9 +34,9 @@ SingleLinkedList<T>::~SingleLinkedList(){
     }
 }
 
-template <typename T>
-typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Push(T value){
-    Node* new_node = (Node*)(new Node(value));
+template <typename T, class Node>
+Node* SingleLinkedList<T,Node>::Push(T value){
+    Node* new_node = (new Node(value));
 
     Node* tail = head;
 
@@ -46,26 +46,43 @@ typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Push(T value){
     }
 
     while(tail->next != NULL){
-        tail = (Node*)tail->next;
+        tail = tail->next;
     }
 
-    tail->next = (Node*)new_node;
+    tail->next = new_node;
 
     return new_node;
 }
 
-template <typename T>
-typename SingleLinkedList<T>::Node* SingleLinkedList<T>::Pop(){
+template <typename T, class Node>
+Node* SingleLinkedList<T,Node>::Find(T value){
+    Node* travel = head;
+
+    if(travel == NULL) return NULL;
+
+    while(travel != NULL){
+        if(travel->value == value){
+            return travel;
+        }
+
+        travel = travel->next;
+    }
+
+    return NULL;
+}
+
+template <typename T, class Node>
+Node* SingleLinkedList<T,Node>::Pop(){
     Node* ret = head;
     if(head != NULL){
-        head = (Node*)head->next;
+        head = head->next;
     }
 
     return ret;
 }
 
-template <typename T>
-int SingleLinkedList<T>::GetCount(){
+template <typename T, class Node>
+int SingleLinkedList<T,Node>::GetCount(){
     int number_nodes = 0;
     Node* travel = head;
 
@@ -79,8 +96,8 @@ int SingleLinkedList<T>::GetCount(){
     return number_nodes;
 }
 
-template <typename T>
-string SingleLinkedList<T>::ToString(){
+template <typename T, class Node>
+string SingleLinkedList<T,Node>::ToString(){
     string ret_str;
     Node* travel = head;
 
@@ -89,7 +106,7 @@ string SingleLinkedList<T>::ToString(){
        ret_str.append(" ");
        ret_str.append(Utils::ToString(travel->value));
        ret_str.append(" ");
-       travel = (Node*)travel->next;
+       travel = travel->next;
     }
     ret_str.append("]");
 

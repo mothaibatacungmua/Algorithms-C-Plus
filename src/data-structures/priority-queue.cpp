@@ -12,30 +12,29 @@
 
 using namespace DataStructures;
 
-template <typename T>
-PriorityQueue<T>::PriorityQueue(int max_length, int(*compar)(const T&, const T&)){
+template <typename T, class Comp>
+PriorityQueue<T, Comp>::PriorityQueue(int max_length){
     if(max_length <= 0) return;
 
     this->heap = new T[max_length];
     this->max_length = max_length;
     this->current_length = 0;
-    this->compar = compar;
 }
 
-template <typename T>
-PriorityQueue<T>::~PriorityQueue(){
+template <typename T, class Comp>
+PriorityQueue<T, Comp>::~PriorityQueue(){
     delete this->heap;
 }
 
-template <typename T>
-void PriorityQueue<T>::HeapifyUp(int pos){
+template <typename T, class Comp>
+void PriorityQueue<T, Comp>::HeapifyUp(int pos){
     if(pos > this->current_length-1) return;
 
     int travel = pos;
     T* parent = &this->heap[(travel-1)/2];
     T* current = &this->heap[travel];
 
-    while(Utils::DoCompare(*current, *parent, compar) < 0){
+    while(this->compar(*current, *parent) < 0){
         Utils::Swap(*current, *parent);
         travel = (travel - 1)/2;
         parent = &this->heap[(travel-1)/2];
@@ -44,25 +43,25 @@ void PriorityQueue<T>::HeapifyUp(int pos){
 
 }
 
-template <typename T>
-void PriorityQueue<T>::HeapifyDown(int pos){
+template <typename T, class Comp>
+void PriorityQueue<T, Comp>::HeapifyDown(int pos){
     if(pos > this->current_length-1) return;
 
     if((2*pos + 1) > current_length-1) return;
 
     int select_path = 2*pos + 1;
     if(2*pos + 2 <= current_length -1){
-        select_path = Utils::DoCompare(this->heap[2*pos + 1], this->heap[2*pos + 2], compar) > 0?(2*pos+2):(2*pos+1);
+        select_path = this->compar(this->heap[2*pos + 1], this->heap[2*pos + 2]) > 0?(2*pos+2):(2*pos+1);
     }
 
-    if(Utils::DoCompare(this->heap[pos], this->heap[select_path], compar) > 0){
+    if(this->compar(this->heap[pos], this->heap[select_path]) > 0){
         Utils::Swap(this->heap[pos], this->heap[select_path]);
         return this->HeapifyDown(select_path);
     }
 }
 
-template <typename T>
-void PriorityQueue<T>::Push(T value){
+template <typename T, class Comp>
+void PriorityQueue<T, Comp>::Push(T value){
     /* FIXME: realloc heap */
     if((current_length + 1) > max_length) return;
 
@@ -71,8 +70,8 @@ void PriorityQueue<T>::Push(T value){
     return this->HeapifyUp(current_length - 1);
 }
 
-template <typename T>
-T PriorityQueue<T>::Pop(){
+template <typename T, class Comp>
+T PriorityQueue<T, Comp>::Pop(){
     T ret = this->heap[0];
 
     Utils::Swap(this->heap[0],this->heap[current_length-1]);
@@ -84,13 +83,13 @@ T PriorityQueue<T>::Pop(){
     return ret;
 }
 
-template <typename T>
-T PriorityQueue<T>::GetTop(){
+template <typename T, class Comp>
+T PriorityQueue<T, Comp>::GetTop(){
     return this->heap[0];
 }
 
-template <typename T>
-T PriorityQueue<T>::Delete(int pos){
+template <typename T, class Comp>
+T PriorityQueue<T, Comp>::Delete(int pos){
     T ret = this->heap[current_length-1];
     current_length--;
 
@@ -106,18 +105,18 @@ T PriorityQueue<T>::Delete(int pos){
     return ret;
 }
 
-template <typename T>
-T PriorityQueue<T>::operator [](int pos){
+template <typename T, class Comp>
+T PriorityQueue<T, Comp>::operator [](int pos){
     return this->heap[pos > (current_length - 1)?(current_length - 1):pos];
 }
 
-template <typename T>
-int PriorityQueue<T>::GetCount(){
+template <typename T, class Comp>
+int PriorityQueue<T, Comp>::GetCount(){
     return current_length;
 }
 
-template <typename T>
-string PriorityQueue<T>::ToString(){
+template <typename T, class Comp>
+string PriorityQueue<T, class Comp>::ToString(){
     string ret_str = "[";
     for(int i = 0; i < current_length; i++){
         ret_str.append(Utils::ToString(this->heap[i]));

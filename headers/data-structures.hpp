@@ -9,8 +9,10 @@
 #define DATA_STRUCTURES_HPP_
 
 #include <string>
-using namespace std;
+#include "../headers/comparator.hpp"
+#include "../headers/hashor.hpp"
 
+using namespace std;
 
 namespace DataStructures{
     template <typename T>
@@ -47,20 +49,16 @@ namespace DataStructures{
     //
     // Single Linked List declare
     //
-    template <typename T>
+    template <typename T, class Node=ForwardNode<T>>
     class SingleLinkedList{
     public:
-        class Node: public ForwardNode<T>{
-        public:
-            Node(T value):ForwardNode<T>(value){}
-        };
-
+        typedef Node NodeCls;
         Node* head;
-
         SingleLinkedList();
         virtual ~SingleLinkedList();
         virtual Node* Push(T value);
         virtual Node* Pop();
+        virtual Node* Find(T value);
         virtual int GetCount();
         virtual string ToString();
     };
@@ -68,14 +66,10 @@ namespace DataStructures{
     //
     // Queue declare
     //
-    template <typename T>
-    class Queue:public SingleLinkedList<T>{
+    template <typename T, class Node=ForwardNode<T>>
+    class Queue:public SingleLinkedList<T, Node>{
     public:
-        class Node: public SingleLinkedList<T>::Node{
-        public:
-            Node(T value):SingleLinkedList<T>::Node(value){}
-        };
-
+        typedef Node NodeCls;
         Queue();
         virtual ~Queue();
         virtual Node* Push(T value);
@@ -85,14 +79,10 @@ namespace DataStructures{
     //
     // Stack declare
     //
-    template <typename T>
-    class Stack:public SingleLinkedList<T>{
+    template <typename T, class Node=ForwardNode<T>>
+    class Stack:public SingleLinkedList<T, Node>{
     public:
-        class Node: public SingleLinkedList<T>::Node{
-        public:
-            Node(T value):SingleLinkedList<T>::Node(value){}
-        };
-
+        typedef Node NodeCls;
         Stack();
         virtual ~Stack();
         virtual Node* Push(T value);
@@ -102,14 +92,16 @@ namespace DataStructures{
     //
     // Doubly linked list
     //
-    template <typename T>
+    template <typename T, class Node=CycleNode<T>>
     class DoublyLinkedList{
     public:
+        /*
         class Node: public CycleNode<T>{
         public:
             Node(T value):CycleNode<T>(value){}
         };
-
+        */
+        typedef Node NodeCls;
         DoublyLinkedList();
         Node* head;
         Node* tail;
@@ -122,6 +114,7 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
+        virtual Node* Find(T value);
         virtual Node* Remove(Node* node);
         virtual Node* RemoveBeginning();
         virtual Node* RemoveEnd();
@@ -132,25 +125,16 @@ namespace DataStructures{
     //
     // Open Doubly Linked List
     //
-    template <typename T>
-    class OpenDoublyLinkedList: public DoublyLinkedList<T>{
+    template <typename T, class Node=CycleNode<T>>
+    class OpenDoublyLinkedList: public DoublyLinkedList<T,Node>{
     public:
-        class Node: public DoublyLinkedList<T>::Node{
-        public:
-            Node(T value):DoublyLinkedList<T>::Node(value){}
-        };
-
+        typedef Node NodeCls;
         OpenDoublyLinkedList();
         virtual ~OpenDoublyLinkedList();
-        virtual Node* InsertAfter(Node* node, Node* new_node);
-        virtual Node* InsertAfter(Node* node, T value);
-        virtual Node* InsertBefore(Node* node, Node* new_node);
-        virtual Node* InsertBefore(Node* node, T value);
         virtual Node* InsertBeginning(Node* new_node);
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual Node* Remove(Node* node);
         virtual Node* RemoveBeginning();
         virtual Node* RemoveEnd();
     };
@@ -158,25 +142,16 @@ namespace DataStructures{
     //
     // Circular Doubly Linked List
     //
-    template <typename T>
-    class CircularDoublyLinkedList: public DoublyLinkedList<T>{
+    template <typename T, class Node=CycleNode<T>>
+    class CircularDoublyLinkedList: public DoublyLinkedList<T,Node>{
     public:
-        class Node: public DoublyLinkedList<T>::Node{
-        public:
-            Node(T value):DoublyLinkedList<T>::Node(value){}
-        };
-
+        typedef Node NodeCls;
         CircularDoublyLinkedList();
         virtual ~CircularDoublyLinkedList();
-        virtual Node* InsertAfter(Node* node, Node* new_node);
-        virtual Node* InsertAfter(Node* node, T value);
-        virtual Node* InsertBefore(Node* node, Node* new_node);
-        virtual Node* InsertBefore(Node* node, T value);
         virtual Node* InsertBeginning(Node* new_node);
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual Node* Remove(Node* node);
         virtual Node* RemoveBeginning();
         virtual Node* RemoveEnd();
     };
@@ -184,10 +159,10 @@ namespace DataStructures{
     //
     // Priority Queue
     //
-    template <typename T>
+    template <typename T, class Comp=Utils::Comparator<T>>
     class PriorityQueue{
     public:
-        PriorityQueue(int max_length, int(*compar)(const T&, const T&) = NULL);
+        PriorityQueue(int max_length);
         ~PriorityQueue();
         T* heap;
         void Push(T value);
@@ -200,24 +175,44 @@ namespace DataStructures{
     private:
         int max_length;
         int current_length;
-        int (*compar)(const T&, const T&);
         void HeapifyUp(int pos);
         void HeapifyDown(int pos);
+        Comp compar;
     };
 
     //
     // Hashmap
     //
-    template <typename K, typename V>
+    template <typename K, typename V, class Hash=Utils::JenkinsHash>
     class Hashmap{
     public:
-        Hashmap(int bucket_length, int(*hash_algr)(K));
+        class HashEntryNode{
+        public:
+            HashEntryNode* next;
+            HashEntryNode* prev;
+            HashEntryNode(int index, V value){
+                this->index = index;
+                this->value = value;
+                this->next = this->prev = NULL;
+            }
+
+            int index;
+            V value;
+
+            bool operator==(const HashEntryNode& A, const HashEntryNode& B){
+                return (A.index == B.index);
+            }
+        };
+        Hashmap(int bucket_length);
         ~Hashmap();
-        SingleLinkedList<V>** map;
+        CircularDoublyLinkedList<int, HashEntryNode>** map;
         void Set(K key, V value);
-        V Get(K key);
+        bool Get(K key, V& ret);
         int GetCount();
         string ToString();
+    private:
+        int bucket_length;
+        Hash hash;
     };
 }
 

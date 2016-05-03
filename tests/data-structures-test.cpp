@@ -53,7 +53,7 @@ void DataStructuresTest::testSingleLinkedListPush(){
 }
 
 void DataStructuresTest::testSingleLinkedListPop(){
-    DataStructures::SingleLinkedList<int>::Node* pop_node = NULL;
+    DataStructures::SingleLinkedList<int>::NodeCls* pop_node = NULL;
     list_1->Push(3);
     list_1->Push(10);
 
@@ -79,7 +79,7 @@ void DataStructuresTest::testQueuePush(){
 }
 
 void DataStructuresTest::testQueuePop(){
-    DataStructures::Queue<int>::Node* pop_node = NULL;
+    DataStructures::Queue<int>::NodeCls* pop_node = NULL;
     queue_1->Push(3);
     queue_1->Push(10);
 
@@ -104,7 +104,7 @@ void DataStructuresTest::testStackPush(){
 }
 
 void DataStructuresTest::testStackPop(){
-    DataStructures::Stack<int>::Node* pop_node = NULL;
+    DataStructures::Stack<int>::NodeCls* pop_node = NULL;
     stack_1->Push(3);
     stack_1->Push(10);
 
@@ -121,12 +121,12 @@ void DataStructuresTest::testStackPop(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertBeginning(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* head = NULL;
-    DataStructures::CircularDoublyLinkedList<int>::Node* tail = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* head = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* tail = NULL;
     c_db_list_0->InsertBeginning(12);
 
-    head = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->head;
-    tail = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->tail;
+    head = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->head;
+    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
 
     CPPUNIT_ASSERT_EQUAL(1, c_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(12, head->value);
@@ -134,7 +134,7 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertBeginning(){
 
     c_db_list_0->InsertBeginning(122);
 
-    tail = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->tail;
+    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
     CPPUNIT_ASSERT_EQUAL(2, c_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(122, tail->value);
     CPPUNIT_ASSERT_MESSAGE("Tail must be head->prev",((int)tail == (int)head->prev));
@@ -142,12 +142,12 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertBeginning(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertEnd(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* head = NULL;
-    DataStructures::CircularDoublyLinkedList<int>::Node* tail = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* head = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* tail = NULL;
     c_db_list_0->InsertBeginning(102);
 
-    head = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->head;
-    tail = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->tail;
+    head = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->head;
+    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
 
     CPPUNIT_ASSERT_EQUAL(1, c_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(102, tail->value);
@@ -156,7 +156,7 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertEnd(){
     c_db_list_0->InsertEnd(122);
     c_db_list_0->InsertEnd(1222);
 
-    tail = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_0->tail;
+    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
     CPPUNIT_ASSERT_EQUAL(3, c_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(1222, tail->value);
     CPPUNIT_ASSERT_MESSAGE("Head must be tail->next",((int)tail->next == (int)head));
@@ -164,10 +164,10 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertEnd(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertAfter(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* node_0, *node_1, *save = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
     node_0 = c_db_list_0->InsertBeginning(1);
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)node_0->next;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)node_0->next;
     node_1 = c_db_list_0->InsertAfter(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_1);
@@ -177,10 +177,10 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertAfter(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertBefore(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* node_0, *node_1, *save = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
     node_0 = c_db_list_0->InsertBeginning(1);
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)node_0->prev;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)node_0->prev;
     node_1 = c_db_list_0->InsertBefore(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->prev, (int)node_1);
@@ -189,7 +189,7 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertBefore(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListRemove(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* node_0, *node_1, *node_2, *remove = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *node_2, *remove = NULL;
 
     node_0 = c_db_list_1->InsertBeginning(1);
     node_1 = c_db_list_1->InsertAfter(node_0, 2);
@@ -203,48 +203,48 @@ void DataStructuresTest::testCircularDoublyLinkedListRemove(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListRemoveEnd(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* save, *remove = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save, *remove = NULL;
 
     c_db_list_1->InsertBeginning(1234);
     c_db_list_1->InsertBeginning(123);
     c_db_list_1->InsertBeginning(12);
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_1->tail;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->tail;
 
     remove = c_db_list_1->RemoveEnd();
 
     CPPUNIT_ASSERT_EQUAL((int)remove, (int)save);
     delete remove;
 
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_1->tail;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->tail;
     CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list_1->head->prev);
     CPPUNIT_ASSERT_EQUAL((int)save->next, (int)c_db_list_1->head);
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListRemoveBeginning(){
-    DataStructures::CircularDoublyLinkedList<int>::Node* save, *remove = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save, *remove = NULL;
 
     c_db_list_1->InsertBeginning(1234);
     c_db_list_1->InsertBeginning(123);
     c_db_list_1->InsertBeginning(12);
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_1->head;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->head;
 
     remove = c_db_list_1->RemoveBeginning();
 
     CPPUNIT_ASSERT_EQUAL((int)remove, (int)save);
     delete remove;
 
-    save = (DataStructures::CircularDoublyLinkedList<int>::Node*)c_db_list_1->head;
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->head;
     CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list_1->tail->next);
     CPPUNIT_ASSERT_EQUAL((int)save->prev, (int)c_db_list_1->tail);
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertBeginning(){
-    DataStructures::OpenDoublyLinkedList<int>::Node* head = NULL;
-    DataStructures::OpenDoublyLinkedList<int>::Node* tail = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* head = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* tail = NULL;
     o_db_list_0->InsertBeginning(12);
 
-    head = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->head;
-    tail = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->tail;
+    head = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->head;
+    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
 
     CPPUNIT_ASSERT_EQUAL(1, o_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(12, head->value);
@@ -252,19 +252,19 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertBeginning(){
 
     o_db_list_0->InsertBeginning(122);
 
-    tail = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->tail;
+    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
     CPPUNIT_ASSERT_EQUAL(2, o_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(122, tail->value);
     CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int)tail->next));
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertEnd(){
-    DataStructures::OpenDoublyLinkedList<int>::Node* head = NULL;
-    DataStructures::OpenDoublyLinkedList<int>::Node* tail = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* head = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* tail = NULL;
     o_db_list_0->InsertEnd(12);
 
-    head = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->head;
-    tail = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->tail;
+    head = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->head;
+    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
 
     CPPUNIT_ASSERT_EQUAL(1, o_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(12, tail->value);
@@ -273,17 +273,17 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertEnd(){
     o_db_list_0->InsertEnd(122);
     o_db_list_0->InsertEnd(123);
 
-    tail = (DataStructures::OpenDoublyLinkedList<int>::Node*)o_db_list_0->tail;
+    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
     CPPUNIT_ASSERT_EQUAL(3, o_db_list_0->GetCount());
     CPPUNIT_ASSERT_EQUAL(123, tail->value);
     CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int)tail->next));
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertAfter(){
-    DataStructures::OpenDoublyLinkedList<int>::Node* node_0, *node_1, *save = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
     node_0 = o_db_list_0->InsertBeginning(1);
-    save = (DataStructures::OpenDoublyLinkedList<int>::Node*)node_0->next;
+    save = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)node_0->next;
     node_1 = o_db_list_0->InsertAfter(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_1);
@@ -293,10 +293,10 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertAfter(){
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertBefore(){
-    DataStructures::OpenDoublyLinkedList<int>::Node* node_0, *node_1, *save = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
     node_0 = o_db_list_0->InsertBeginning(1);
-    save = (DataStructures::OpenDoublyLinkedList<int>::Node*)node_0->prev;
+    save = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)node_0->prev;
     node_1 = o_db_list_0->InsertBefore(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->prev, (int)node_1);
@@ -305,7 +305,7 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertBefore(){
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListRemove(){
-    DataStructures::OpenDoublyLinkedList<int>::Node* node_0, *node_1, *node_2, *remove = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *node_2, *remove = NULL;
 
     node_0 = o_db_list_1->InsertBeginning(1);
     node_1 = o_db_list_1->InsertAfter(node_0, 2);
@@ -319,7 +319,7 @@ void DataStructuresTest::testOpenDoublyLinkedListRemove(){
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListRemoveEnd(){
-    DataStructures::OpenDoublyLinkedList<int>::Node *remove = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* remove = NULL;
 
     o_db_list_1->InsertEnd(1234);
     o_db_list_1->InsertEnd(123);
@@ -334,7 +334,7 @@ void DataStructuresTest::testOpenDoublyLinkedListRemoveEnd(){
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListRemoveBeginning(){
-    DataStructures::OpenDoublyLinkedList<int>::Node *remove = NULL;
+    DataStructures::OpenDoublyLinkedList<int>::NodeCls* remove = NULL;
 
     o_db_list_1->InsertEnd(1234);
     o_db_list_1->InsertEnd(123);

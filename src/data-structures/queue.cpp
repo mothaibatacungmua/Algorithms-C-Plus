@@ -12,24 +12,24 @@
 
 using namespace DataStructures;
 
-template <typename T>
-Queue<T>::Queue():SingleLinkedList<T>(){
+template <typename T, class Node>
+Queue<T, Node>::Queue():SingleLinkedList<T>(){
 
 }
 
-template <typename T>
-Queue<T>::~Queue(){
+template <typename T, class Node>
+Queue<T, Node>::~Queue(){
 
 }
 
-template <typename T>
-typename Queue<T>::Node* Queue<T>::Push(T value){
-    return (Node*)SingleLinkedList<T>::Push(value);
+template <typename T, class Node>
+Node* Queue<T, Node>::Push(T value){
+    return SingleLinkedList<T>::Push(value);
 }
 
-template <typename T>
-typename Queue<T>::Node* Queue<T>::Pop(){
-    return (Node*)SingleLinkedList<T>::Pop();
+template <typename T, class Node>
+Node* Queue<T, Node>::Pop(){
+    return SingleLinkedList<T>::Pop();
 }
 
 

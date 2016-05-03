@@ -14,14 +14,14 @@
 
 using namespace DataStructures;
 
-template <typename T>
-DoublyLinkedList<T>::DoublyLinkedList(){
+template <typename T, class Node>
+DoublyLinkedList<T,Node>::DoublyLinkedList(){
     head = NULL;
     tail = NULL;
 }
 
-template <typename T>
-DoublyLinkedList<T>::~DoublyLinkedList(){
+template <typename T, class Node>
+DoublyLinkedList<T,Node>::~DoublyLinkedList(){
     //travel in list and delete
     if(head == NULL || tail == NULL)
         return;
@@ -43,8 +43,8 @@ DoublyLinkedList<T>::~DoublyLinkedList(){
     tail = NULL;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertAfter(Node* node, Node* new_node){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertAfter(Node* node, Node* new_node){
     if(node == NULL || new_node == NULL)
         return NULL;
 
@@ -62,15 +62,15 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertAfter(Node* node,
 
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertAfter(Node* node, T value){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertAfter(Node* node, T value){
     Node* new_node = new Node(value);
 
     return this->InsertAfter(node, new_node);
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBefore(Node* node, Node* new_node){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertBefore(Node* node, Node* new_node){
     if(node == NULL || new_node == NULL)
         return NULL;
 
@@ -87,44 +87,59 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBefore(Node* node
     return new_node;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBefore(Node* node, T value){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertBefore(Node* node, T value){
     Node* new_node = new Node(value);
 
     return this->InsertBefore(node, new_node);
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBeginning(Node* new_node){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertBeginning(Node* new_node){
     /* NOT IMPLEMENTED */
     return NULL;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertEnd(Node* new_node){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertEnd(Node* new_node){
     /* NOT IMPLEMENTED */
     return NULL;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertBeginning(T value){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertBeginning(T value){
     /* NOT IMPLEMENTED */
     return NULL;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::InsertEnd(T value){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::InsertEnd(T value){
     /* NOT IMPLEMENTED */
     return NULL;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::Remove(Node* node){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::Find(T value){
+    if(head == NULL || tail == NULL)
+        return NULL;
+
+    Node* travel = head;
+
+    while(travel != tail){
+        if(travel->value == value)
+            return travel;
+
+        travel = travel->next;
+    }
+}
+
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::Remove(Node* node){
     if(node == NULL)
         return NULL;
 
-    Node* next = (Node*)node->next;
-    Node* prev = (Node*)node->prev;
+    Node* next = node->next;
+    Node* prev = node->prev;
 
     if(prev){
         prev->next = next;
@@ -137,12 +152,12 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::Remove(Node* node){
     return node;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveBeginning(){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::RemoveBeginning(){
     if(head == NULL)
         return NULL;
 
-    Node* new_head = (Node*)head->next;
+    Node* new_head = head->next;
     Node* remove_head = this->Remove(head);
 
     head = new_head;
@@ -150,8 +165,8 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveBeginning(){
     return remove_head;
 }
 
-template <typename T>
-typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveEnd(){
+template <typename T, class Node>
+Node* DoublyLinkedList<T,Node>::RemoveEnd(){
     if(tail == NULL)
         return NULL;
 
@@ -163,8 +178,8 @@ typename DoublyLinkedList<T>::Node* DoublyLinkedList<T>::RemoveEnd(){
     return remove_tail;
 }
 
-template <typename T>
-int DoublyLinkedList<T>::GetCount(){
+template <typename T, class Node>
+int DoublyLinkedList<T,Node>::GetCount(){
     int count_node = 0;
     Node* travel = head;
 
@@ -173,15 +188,15 @@ int DoublyLinkedList<T>::GetCount(){
 
     //forward traveling to count all nodes
     while(travel != tail && travel != NULL){
-        travel = (Node*)travel->next;
+        travel = travel->next;
         count_node++;
     }
 
     return count_node;
 }
 
-template <typename T>
-string DoublyLinkedList<T>::ToString(){
+template <typename T, class Node>
+string DoublyLinkedList<T,Node>::ToString(){
     string ret_str;
     Node* travel = head;
     char buffer[512];

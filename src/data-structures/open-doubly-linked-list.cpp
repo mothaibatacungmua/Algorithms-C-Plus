@@ -12,46 +12,19 @@
 
 using namespace DataStructures;
 
-template <typename T>
-OpenDoublyLinkedList<T>::OpenDoublyLinkedList(){
+template <typename T, class Node>
+OpenDoublyLinkedList<T, Node>::OpenDoublyLinkedList(){
 
 }
 
-template <typename T>
-OpenDoublyLinkedList<T>::~OpenDoublyLinkedList(){
+template <typename T, class Node>
+OpenDoublyLinkedList<T, Node>::~OpenDoublyLinkedList(){
 
 }
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertAfter(Node* node, Node* new_node){
-    return (Node*)DoublyLinkedList<T>::InsertAfter(
-            (typename DoublyLinkedList<T>::Node*)node,
-            (typename DoublyLinkedList<T>::Node*)new_node);
-}
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertAfter(Node* node, T value){
-    return (Node*)DoublyLinkedList<T>::InsertAfter(
-            (typename DoublyLinkedList<T>::Node*)node,
-            value);
-}
-
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBefore(Node* node, Node* new_node){
-    return (Node*)DoublyLinkedList<T>::InsertBefore(
-            (typename DoublyLinkedList<T>::Node*)node,
-            (typename DoublyLinkedList<T>::Node*)new_node);
-}
-
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBefore(Node* node, T value){
-    return (Node*)DoublyLinkedList<T>::InsertBefore(
-            (typename DoublyLinkedList<T>::Node*)node,
-            value);
-}
-
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning(Node* new_node){
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::InsertBeginning(Node* new_node){
     if(new_node == NULL)
         return NULL;
 
@@ -61,22 +34,22 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning
         return new_node;
     }
 
-    this->InsertAfter((Node*)this->head, new_node);
+    this->InsertAfter(this->head, new_node);
 
     if(this->head == this->tail)
         this->tail = new_node;
 
     return new_node;
 }
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertBeginning(T value){
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::InsertBeginning(T value){
     Node* new_node = new Node(value);
 
     return this->InsertBeginning(new_node);
 }
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node* new_node){
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::InsertEnd(Node* new_node){
     if(new_node == NULL)
         return NULL;
 
@@ -86,29 +59,24 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(Node*
         return new_node;
     }
 
-    this->InsertAfter((Node*)this->tail, new_node);
+    this->InsertAfter(this->tail, new_node);
 
     this->tail = new_node;
 
     return new_node;
 }
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::InsertEnd(T value){
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::InsertEnd(T value){
     Node* new_node = new Node(value);
 
     return this->InsertEnd(new_node);
 }
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::Remove(Node* node){
-    return (Node*)DoublyLinkedList<T>::Remove(
-                (typename DoublyLinkedList<T>::Node*)node);
-}
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveBeginning(){
-    Node* remove = (Node*)this->head;
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::RemoveBeginning(){
+    Node* remove = this->head;
 
     if(remove == NULL) return remove;
 
@@ -120,7 +88,7 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveBeginning
 
     (this->head->next)->prev = NULL;
 
-    this->head = (Node*)this->head->next;
+    this->head = this->head->next;
 
     if(remove == this->tail){
         this->tail = NULL;
@@ -129,9 +97,9 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveBeginning
     return remove;
 }
 
-template <typename T>
-typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveEnd(){
-    Node* remove = (Node*)this->tail;
+template <typename T, class Node>
+Node* OpenDoublyLinkedList<T, Node>::RemoveEnd(){
+    Node* remove = this->tail;
 
     if(remove == NULL) return remove;
 
@@ -143,7 +111,7 @@ typename OpenDoublyLinkedList<T>::Node* OpenDoublyLinkedList<T>::RemoveEnd(){
 
     (this->tail->prev)->next = NULL;
 
-    this->tail = (Node*)this->tail->prev;
+    this->tail = this->tail->prev;
 
     if(remove == this->head){
         this->head = NULL;

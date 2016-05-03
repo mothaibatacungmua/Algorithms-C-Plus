@@ -11,38 +11,38 @@
 
 using namespace DataStructures;
 
-template <typename T>
-Stack<T>::Stack():SingleLinkedList<T>(){
+template <typename T, class Node>
+Stack<T, Node>::Stack():SingleLinkedList<T>(){
 
 }
 
-template <typename T>
-Stack<T>::~Stack(){
+template <typename T, class Node>
+Stack<T, Node>::~Stack(){
 
 }
 
-template <typename T>
-typename Stack<T>::Node* Stack<T>::Push(T value){
-    return (Node*)SingleLinkedList<T>::Push(value);
+template <typename T, class Node>
+Node* Stack<T, Node>::Push(T value){
+    return SingleLinkedList<T>::Push(value);
 }
 
-template <typename T>
-typename Stack<T>::Node* Stack<T>::Pop(){
+template <typename T, class Node>
+Node* Stack<T, Node>::Pop(){
     //pop tail
     if(this->head == NULL) return NULL;
 
-    Node* tail = (Node*)this->head;
+    Node* tail = this->head;
     if(tail->next == NULL){
         this->head = NULL;
         return tail;
     }
 
     Node* prev_tail = tail;
-    tail = (Node*)tail->next;
+    tail = tail->next;
 
     while(tail-> next != NULL){
-        prev_tail = (Node*)prev_tail->next;
-        tail = (Node*)tail->next;
+        prev_tail = prev_tail->next;
+        tail = tail->next;
     }
 
     prev_tail->next = NULL;

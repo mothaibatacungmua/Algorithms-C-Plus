@@ -8,6 +8,8 @@
 #ifndef ALGORITHMS_HPP_
 #define ALGORITHMS_HPP_
 
+#include <stdio.h>
+
 namespace Algorithms{
     namespace Hash{
         unsigned int JenkinsHash(char* key, size_t len);

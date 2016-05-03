@@ -8,11 +8,8 @@
 #include "../../headers/hashor.hpp"
 
 namespace Utils{
-    struct JenkinsHash{
-        int operator() (char* key, size_t length){
-            return Algorithms::Hash::JenkinsHash(key, length);
-        }
-    };
+    int JenkinsHash::operator() (char* key, size_t length){
+        return Algorithms::Hash::JenkinsHash(key, length);
+    }
+
 }
-
-

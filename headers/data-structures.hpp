@@ -49,7 +49,7 @@ namespace DataStructures{
     //
     // Single Linked List declare
     //
-    template <typename T, class Node=ForwardNode<T>>
+    template <typename T, class Node=ForwardNode<T> >
     class SingleLinkedList{
     public:
         typedef Node NodeCls;
@@ -66,7 +66,7 @@ namespace DataStructures{
     //
     // Queue declare
     //
-    template <typename T, class Node=ForwardNode<T>>
+    template <typename T, class Node=ForwardNode<T> >
     class Queue:public SingleLinkedList<T, Node>{
     public:
         typedef Node NodeCls;
@@ -79,7 +79,7 @@ namespace DataStructures{
     //
     // Stack declare
     //
-    template <typename T, class Node=ForwardNode<T>>
+    template <typename T, class Node=ForwardNode<T> >
     class Stack:public SingleLinkedList<T, Node>{
     public:
         typedef Node NodeCls;
@@ -92,7 +92,7 @@ namespace DataStructures{
     //
     // Doubly linked list
     //
-    template <typename T, class Node=CycleNode<T>>
+    template <typename T, class Node=CycleNode<T> >
     class DoublyLinkedList{
     public:
         /*
@@ -125,7 +125,7 @@ namespace DataStructures{
     //
     // Open Doubly Linked List
     //
-    template <typename T, class Node=CycleNode<T>>
+    template <typename T, class Node=CycleNode<T> >
     class OpenDoublyLinkedList: public DoublyLinkedList<T,Node>{
     public:
         typedef Node NodeCls;
@@ -142,7 +142,7 @@ namespace DataStructures{
     //
     // Circular Doubly Linked List
     //
-    template <typename T, class Node=CycleNode<T>>
+    template <typename T, class Node=CycleNode<T> >
     class CircularDoublyLinkedList: public DoublyLinkedList<T,Node>{
     public:
         typedef Node NodeCls;
@@ -159,7 +159,7 @@ namespace DataStructures{
     //
     // Priority Queue
     //
-    template <typename T, class Comp=Utils::Comparator<T>>
+    template <typename T, class Comp=Utils::Comparator<T> >
     class PriorityQueue{
     public:
         PriorityQueue(int max_length);
@@ -199,8 +199,8 @@ namespace DataStructures{
             int index;
             V value;
 
-            bool operator==(const HashEntryNode& A, const HashEntryNode& B){
-                return (A.index == B.index);
+            bool operator==(const HashEntryNode& A){
+                return (this->index == A.index);
             }
         };
         Hashmap(int bucket_length);

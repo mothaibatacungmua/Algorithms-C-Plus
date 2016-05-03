@@ -14,11 +14,11 @@ using namespace DataStructures;
 
 template <typename K, typename V, class Hash>
 Hashmap<K,V,Hash>::Hashmap(int bucket_length){
-    this->map = new typename CircularDoublyLinkedList<int, HashEntryNode>*[bucket_length];
+    this->map = new  CircularDoublyLinkedList<int, HashEntryNode>*[bucket_length];
     this->bucket_length = bucket_length;
 
     for(int i=0;i<this->bucket_length;i++){
-        this->map[i] = new typename CircularDoublyLinkedList<int, HashEntryNode>();
+        this->map[i] = new CircularDoublyLinkedList<int, HashEntryNode>();
     }
 }
 
@@ -56,7 +56,11 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
 
     typename CircularDoublyLinkedList<int, HashEntryNode>::NodeCls* Node = this->map[bucket]->Find(index);
 
-    if(Node == NULL) return;
+    if(Node == NULL){
+        Node = new typename CircularDoublyLinkedList<int, HashEntryNode>::NodeCls(index, value);
+        this->map[bucket]->InsertEnd(Node);
+        return;
+    }
 
     Node->value = value;
 

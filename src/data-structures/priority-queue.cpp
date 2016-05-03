@@ -13,7 +13,7 @@
 using namespace DataStructures;
 
 template <typename T, class Comp>
-PriorityQueue<T, Comp>::PriorityQueue(int max_length){
+PriorityQueue<T,Comp>::PriorityQueue(int max_length){
     if(max_length <= 0) return;
 
     this->heap = new T[max_length];
@@ -22,12 +22,12 @@ PriorityQueue<T, Comp>::PriorityQueue(int max_length){
 }
 
 template <typename T, class Comp>
-PriorityQueue<T, Comp>::~PriorityQueue(){
+PriorityQueue<T,Comp>::~PriorityQueue(){
     delete this->heap;
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T, Comp>::HeapifyUp(int pos){
+void PriorityQueue<T,Comp>::HeapifyUp(int pos){
     if(pos > this->current_length-1) return;
 
     int travel = pos;
@@ -44,7 +44,7 @@ void PriorityQueue<T, Comp>::HeapifyUp(int pos){
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T, Comp>::HeapifyDown(int pos){
+void PriorityQueue<T,Comp>::HeapifyDown(int pos){
     if(pos > this->current_length-1) return;
 
     if((2*pos + 1) > current_length-1) return;
@@ -61,7 +61,7 @@ void PriorityQueue<T, Comp>::HeapifyDown(int pos){
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T, Comp>::Push(T value){
+void PriorityQueue<T,Comp>::Push(T value){
     /* FIXME: realloc heap */
     if((current_length + 1) > max_length) return;
 
@@ -71,7 +71,7 @@ void PriorityQueue<T, Comp>::Push(T value){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T, Comp>::Pop(){
+T PriorityQueue<T,Comp>::Pop(){
     T ret = this->heap[0];
 
     Utils::Swap(this->heap[0],this->heap[current_length-1]);
@@ -84,12 +84,12 @@ T PriorityQueue<T, Comp>::Pop(){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T, Comp>::GetTop(){
+T PriorityQueue<T,Comp>::GetTop(){
     return this->heap[0];
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T, Comp>::Delete(int pos){
+T PriorityQueue<T,Comp>::Delete(int pos){
     T ret = this->heap[current_length-1];
     current_length--;
 
@@ -106,17 +106,17 @@ T PriorityQueue<T, Comp>::Delete(int pos){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T, Comp>::operator [](int pos){
+T PriorityQueue<T,Comp>::operator [](int pos){
     return this->heap[pos > (current_length - 1)?(current_length - 1):pos];
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T, Comp>::GetCount(){
+int PriorityQueue<T,Comp>::GetCount(){
     return current_length;
 }
 
 template <typename T, class Comp>
-string PriorityQueue<T, class Comp>::ToString(){
+string PriorityQueue<T,Comp>::ToString(){
     string ret_str = "[";
     for(int i = 0; i < current_length; i++){
         ret_str.append(Utils::ToString(this->heap[i]));

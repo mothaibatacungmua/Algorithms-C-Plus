@@ -14,21 +14,21 @@ namespace Utils{
     string ToString(T a){
         char buffer[16];
         if(COMPARE_TYPE(T,"int")){
-            sprintf ( buffer, "%d", a );
+            sprintf ( buffer, "%d", (int)a );
             return buffer;
         }
 
         if(COMPARE_TYPE(T,"double")){
-            sprintf( buffer, "%0.2f", a);
+            sprintf( buffer, "%0.2f", (double)a);
             return buffer;
         }
 
         if(COMPARE_TYPE(T,"char*")){
-            return a;
+            return *(reinterpret_cast<char**>(&a));
         }
 
         if(COMPARE_TYPE(T,"string")){
-            return a;
+            return *(reinterpret_cast<string*>(&a));
         }
         return "NOT IMPLEMENTED YET";
     }

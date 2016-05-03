@@ -131,6 +131,8 @@ Node* DoublyLinkedList<T,Node>::Find(T value){
 
         travel = travel->next;
     }
+
+    return NULL;
 }
 
 template <typename T, class Node>

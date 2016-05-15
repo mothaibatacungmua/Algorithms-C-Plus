@@ -98,9 +98,6 @@ string Hashmap<K,V,Hash>::ToString(){
 
 /* build some useful classes */
 
-template class HashEntryNode<string>;
-template class HashEntryNode<int>;
-
 template class Hashmap<string, string>;
 template class Hashmap<int, string>;
 template class Hashmap<char, string>;

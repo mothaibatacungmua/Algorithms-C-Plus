@@ -402,12 +402,52 @@ void DataStructuresTest::testHashMapGet(){
 
 void DataStructuresTest::testInitVector(){
     /* TODO */
-    DataStructures::Vector<int> int_vect(10);
+    int a[] = {1,2,3,4};
+
+    DataStructures::Vector<int> int_vect(a,4);
+
+    CPPUNIT_ASSERT_EQUAL(1, int_vect[0]);
+    CPPUNIT_ASSERT_EQUAL(2, int_vect[1]);
+    CPPUNIT_ASSERT_EQUAL(3, int_vect[2]);
+    CPPUNIT_ASSERT_EQUAL(4, int_vect[3]);
+
+    std::string s[] = {"a", "b", "c", "d"};
+
+    DataStructures::Vector<string> string_vect(s,4);
+    CPPUNIT_ASSERT_MESSAGE("Element 0 must have been 'a'", ("a" == string_vect[0]));
+    CPPUNIT_ASSERT_MESSAGE("Element 1 must have been 'b'", ("b" == string_vect[1]));
+    CPPUNIT_ASSERT_MESSAGE("Element 2 must have been 'c'", ("c" == string_vect[2]));
+    CPPUNIT_ASSERT_MESSAGE("Element 3 must have been 'd'", ("d" == string_vect[3]));
 }
 
 void DataStructuresTest::testInitMatrix(){
     /* TODO */
-    DataStructures::Matrix<int> int_mat(4,4);
+    int c_0[4] = {1,2,3,4};
+    int c_1[4] = {5,6,7,8};
+    int c_2[4] = {9,10,11,12};
+    int c_3[4] = {13,14,15,16};
+
+    DataStructures::Vector<int> m_0[] = {
+            DataStructures::Vector<int>(c_0,4),
+            DataStructures::Vector<int>(c_1,4),
+            DataStructures::Vector<int>(c_2,4),
+            DataStructures::Vector<int>(c_3,4)
+    };
+
+
+    DataStructures::Matrix<int> int_mat_0(m_0, 4);
+    DataStructures::Matrix<int> int_mat_1(m_0, 4, false);
+
+    CPPUNIT_ASSERT_EQUAL(1, int_mat_0[0][0]);
+    CPPUNIT_ASSERT_EQUAL(5, int_mat_0[0][1]);
+    CPPUNIT_ASSERT_EQUAL(11, int_mat_0[2][2]);
+    CPPUNIT_ASSERT_EQUAL(16, int_mat_0[3][3]);
+
+
+    CPPUNIT_ASSERT_EQUAL(1, int_mat_1[0][0]);
+    CPPUNIT_ASSERT_EQUAL(2, int_mat_1[0][1]);
+    CPPUNIT_ASSERT_EQUAL(11, int_mat_1[2][2]);
+    CPPUNIT_ASSERT_EQUAL(16, int_mat_1[3][3]);
 }
 
 void DataStructuresTest::testInitGraph(){

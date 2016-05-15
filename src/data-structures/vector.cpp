@@ -106,3 +106,4 @@ string Vector<V>::ToString(){
 
 template class Vector<int>;
 template class Vector<double>;
+template class Vector<string>;

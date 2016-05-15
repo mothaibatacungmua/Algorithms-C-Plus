@@ -20,6 +20,7 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testQueuePop);
     CPPUNIT_TEST( testStackPush);
     CPPUNIT_TEST( testStackPop);
+
     CPPUNIT_TEST( testCircularDoublyLinkedListInsertBeginning);
     CPPUNIT_TEST( testCircularDoublyLinkedListInsertEnd);
     CPPUNIT_TEST( testCircularDoublyLinkedListInsertAfter);
@@ -27,6 +28,7 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testCircularDoublyLinkedListRemove);
     CPPUNIT_TEST( testCircularDoublyLinkedListRemoveEnd);
     CPPUNIT_TEST( testCircularDoublyLinkedListRemoveBeginning);
+
     CPPUNIT_TEST( testOpenDoublyLinkedListInsertBeginning);
     CPPUNIT_TEST( testOpenDoublyLinkedListInsertEnd);
     CPPUNIT_TEST( testOpenDoublyLinkedListInsertAfter);
@@ -34,8 +36,18 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testOpenDoublyLinkedListRemove);
     CPPUNIT_TEST( testOpenDoublyLinkedListRemoveEnd);
     CPPUNIT_TEST( testOpenDoublyLinkedListRemoveBeginning);
+
     CPPUNIT_TEST( testPriorityQueuePush);
     CPPUNIT_TEST( testPriorityQueuePop);
+
+    CPPUNIT_TEST( testHashMapSet);
+    CPPUNIT_TEST( testHashMapGet);
+
+    CPPUNIT_TEST( testInitVector);
+
+    CPPUNIT_TEST( testInitMatrix);
+
+    CPPUNIT_TEST( testInitGraph);
     CPPUNIT_TEST_SUITE_END();
 private:
     DataStructures::SingleLinkedList<int>* list_0, *list_1;

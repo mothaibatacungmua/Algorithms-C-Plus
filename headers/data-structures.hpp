@@ -251,9 +251,10 @@ namespace DataStructures{
         Vector<V>* Copy();
 
         vector<V>& GetStorage();
-        vector<V>& SetStorage(Vector<V>& x);
+
         string ToString();
     private:
+        vector<V>& SetStorage(Vector<V>& x);
         vector<V> storage;
     };
 
@@ -266,8 +267,17 @@ namespace DataStructures{
         Matrix(int n, int m);
         Matrix(Vector<V>* vectors, int nvec, bool with_col=true, bool check_square=false);
         ~Matrix();
+
+        Vector<V>* GetStorage();
+
+        Matrix<V>& operator=(Matrix<V>& x);
+        Vector<V>& operator[](int index);
+
         string ToString();
+        void Size(int& n, int& m);
     protected:
+        void SetStorage(Matrix<V>& x);
+
         int nrow;
         int ncol;
         Vector<V>* matrix;

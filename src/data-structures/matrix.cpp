@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <iostream>
 
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
@@ -75,9 +76,63 @@ Matrix<V>::~Matrix(){
 }
 
 template <typename V>
-string Matrix<V>::ToString(){
-    return "Test";
+Vector<V>* Matrix<V>::GetStorage(){
+    return this->matrix;
 }
+
+template <typename V>
+void Matrix<V>::SetStorage(Matrix<V>& x){
+    delete [] this->matrix;
+
+    int n = 0;
+    int m = 0;
+
+    x.Size(n, m);
+
+    this->matrix = new Vector<V>[n];
+    Vector<V>* x_storage = x.GetStorage();
+
+    for(int i = 0; i < m; i++){
+        this->matrix[i] = x_storage[i];
+    }
+
+    this->nrow = n;
+    this->ncol = m;
+}
+
+template <typename V>
+void Matrix<V>::Size(int& n, int& m){
+    n = this->nrow;
+    m = this->ncol;
+}
+
+template <typename V>
+Matrix<V>& Matrix<V>::operator =(Matrix<V>& x){
+    this->SetStorage(x);
+
+    return *this;
+}
+
+template <typename V>
+Vector<V>& Matrix<V>::operator[](int index){
+    if(index >= this->nrow) throw ErrorCodes::OUT_OF_INDEX;
+
+    return this->matrix[index];
+}
+
+template <typename V>
+string Matrix<V>::ToString(){
+    string ret;
+    for(int i = 0; i < this->nrow; i++){
+        ret.append(" ");
+        ret.append(this->matrix[i].ToString());
+        ret.append(" \n");
+    }
+
+    return ret;
+}
+
 
 template class Matrix<int>;
 template class Matrix<double>;
+template class Matrix<string>;

@@ -26,20 +26,31 @@ void DataStructuresTest::setUp(){
     o_db_list_1 = new DataStructures::OpenDoublyLinkedList<int>();
 
     pr_queue = new DataStructures::PriorityQueue<int>(100);
+
+    hashmap = new DataStructures::Hashmap<int, int>(10);
+
 }
 
 void DataStructuresTest::tearDown(){
     delete list_0;
     delete list_1;
+
     delete queue_0;
     delete queue_1;
+
     delete stack_0;
     delete stack_1;
+
     delete c_db_list_0;
     delete c_db_list_1;
+
     delete o_db_list_0;
     delete o_db_list_1;
+
     delete pr_queue;
+
+    delete hashmap;
+
 }
 
 void DataStructuresTest::testSingleLinkedListPush(){
@@ -379,4 +390,27 @@ void DataStructuresTest::testPriorityQueuePop(){
     CPPUNIT_ASSERT_EQUAL(4, pop_value);
     CPPUNIT_ASSERT_EQUAL(7, (*pr_queue)[0]);
     CPPUNIT_ASSERT_EQUAL(18, (*pr_queue)[2]);
+}
+
+void DataStructuresTest::testHashMapSet(){
+    /* TODO */
+}
+
+void DataStructuresTest::testHashMapGet(){
+    /* TODO */
+}
+
+void DataStructuresTest::testInitVector(){
+    /* TODO */
+    DataStructures::Vector<int> int_vect(10);
+}
+
+void DataStructuresTest::testInitMatrix(){
+    /* TODO */
+    DataStructures::Matrix<int> int_mat(4,4);
+}
+
+void DataStructuresTest::testInitGraph(){
+    /* TODO */
+    DataStructures::Graph graph(10);
 }

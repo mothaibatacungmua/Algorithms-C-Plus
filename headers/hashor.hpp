@@ -8,12 +8,9 @@
 #include <stdio.h>
 
 namespace Utils{
-    template <typename T, typename R>
-    R DoHash(T obj, R (*hash_func)(char*, size_t));
-
     template <typename T>
     struct JenkinsHash{
-        int operator() (T obj);
+        unsigned int operator() (T obj);
     };
 }
 

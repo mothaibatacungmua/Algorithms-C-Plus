@@ -50,6 +50,9 @@ private:
 
     DataStructures::PriorityQueue<int>* pr_queue;
 
+    DataStructures::Hashmap<int, int>* hashmap;
+
+
 public:
     void setUp();
 
@@ -98,6 +101,17 @@ public:
     void testPriorityQueuePush();
 
     void testPriorityQueuePop();
+
+    void testHashMapSet();
+
+    void testHashMapGet();
+
+    void testInitVector();
+
+    void testInitMatrix();
+
+    void testInitGraph();
+
 
 };
 

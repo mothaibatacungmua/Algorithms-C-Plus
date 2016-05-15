@@ -46,6 +46,10 @@ namespace DataStructures{
         bool operator== (const CycleNode<T>& a){
             return (value == a.value);
         }
+
+        bool operator== (T v){
+            return (value == v);
+        }
     };
     //
     // Single Linked List declare
@@ -184,32 +188,43 @@ namespace DataStructures{
     //
     // Hashmap
     //
-    template <typename K, typename V, class Hash=Utils::JenkinsHash<K>>
+    template <typename V>
+    class HashEntryNode{
+    public:
+        HashEntryNode* next;
+        HashEntryNode* prev;
+        HashEntryNode(int index){
+            this->index = index;
+            this->next = this->prev = NULL;
+        }
+
+        HashEntryNode(int index, V value){
+            this->index = index;
+            this->value = value;
+            this->next = this->prev = NULL;
+        }
+
+        int index;
+        V value;
+
+        bool operator==(HashEntryNode& A){
+            return (this->index == A.index);
+        }
+
+        bool operator==(int index){
+            return (this->index == index);
+        }
+    };
+
+    template <typename K, typename V, class Hash=Utils::JenkinsHash<K> >
     class Hashmap{
     public:
-        class HashEntryNode{
-        public:
-            HashEntryNode* next;
-            HashEntryNode* prev;
-            HashEntryNode(int index, V value){
-                this->index = index;
-                this->value = value;
-                this->next = this->prev = NULL;
-            }
-
-            int index;
-            V value;
-
-            bool operator==(const HashEntryNode& A){
-                return (this->index == A.index);
-            }
-        };
         Hashmap(int bucket_length);
         ~Hashmap();
-        CircularDoublyLinkedList<int, HashEntryNode>** map;
+        CircularDoublyLinkedList<int, HashEntryNode<V> >** map;
         void Set(K key, V value);
         bool Get(K key, V& ret);
-        V operator[](K key) const;
+        V operator[](K key);
         //V& operator[](K key);
         int Size();
         string ToString();
@@ -259,11 +274,10 @@ namespace DataStructures{
     };
 
     // Graph, adjacency matrix
-    template <typename V>
-    class Graph: public Matrix<V>{
+    class Graph: public Matrix<double>{
     public:
         Graph(int n_vertex);
-        Graph(Vector<V>* vectors, int nvec);
+        Graph(Vector<double>* vectors, int nvec);
         ~Graph();
     };
 }

@@ -86,8 +86,23 @@ template <typename V>
 Vector<V>* Vector<V>::Copy(){
     Vector<V>* new_v = new Vector();
 
-    *new_v = this;
+    *new_v = *this;
 
     return new_v;
 }
 
+template <typename V>
+string Vector<V>::ToString(){
+    string ret = "";
+
+    for(int i = 0; i < this->storage.size(); i++){
+        ret.append(" ");
+        ret.append(Utils::ToString(this->storage[i]));
+        ret.append(" ");
+    }
+
+    return ret;
+}
+
+template class Vector<int>;
+template class Vector<double>;

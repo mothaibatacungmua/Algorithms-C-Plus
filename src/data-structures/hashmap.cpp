@@ -15,11 +15,11 @@ using namespace DataStructures;
 
 template <typename K, typename V, class Hash>
 Hashmap<K,V,Hash>::Hashmap(int bucket_length){
-    this->map = new  CircularDoublyLinkedList<int, HashEntryNode>*[bucket_length];
+    this->map = new  CircularDoublyLinkedList<int, HashEntryNode<V> >*[bucket_length];
     this->bucket_length = bucket_length;
 
     for(int i=0;i<this->bucket_length;i++){
-        this->map[i] = new CircularDoublyLinkedList<int, HashEntryNode>();
+        this->map[i] = new CircularDoublyLinkedList<int, HashEntryNode<V> >();
     }
 }
 
@@ -39,7 +39,7 @@ bool Hashmap<K,V,Hash>::Get(K key, V& ret){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
-    typename CircularDoublyLinkedList<int, HashEntryNode>::NodeCls* Node = this->map[bucket]->Find(index);
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* Node = this->map[bucket]->Find(index);
 
     if(Node == NULL) return false;
 
@@ -55,10 +55,10 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
-    typename CircularDoublyLinkedList<int, HashEntryNode>::NodeCls* Node = this->map[bucket]->Find(index);
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* Node = this->map[bucket]->Find(index);
 
     if(Node == NULL){
-        Node = new typename CircularDoublyLinkedList<int, HashEntryNode>::NodeCls(index, value);
+        Node = new typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls(index, value);
         this->map[bucket]->InsertEnd(Node);
         return;
     }
@@ -69,7 +69,7 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
 }
 
 template <typename K, typename V, class Hash>
-V Hashmap<K, V, Hash>::operator[](K key) const{
+V Hashmap<K, V, Hash>::operator[](K key){
     V ret;
 
     if(this->Get(key, ret)){
@@ -85,7 +85,7 @@ int Hashmap<K,V,Hash>::Size(){
     int count = 0;
 
     for (int i=0; i < this->bucket_length;i++){
-        count += this->map[i]->GetCount();
+        count += this->map[i]->Size();
     }
 
     return count;
@@ -95,6 +95,11 @@ template <typename K, typename V, class Hash>
 string Hashmap<K,V,Hash>::ToString(){
     return "NOT IMPLEMENTED YET";
 }
+
+/* build some useful classes */
+
+template class HashEntryNode<string>;
+template class HashEntryNode<int>;
 
 template class Hashmap<string, string>;
 template class Hashmap<int, string>;

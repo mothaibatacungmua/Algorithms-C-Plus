@@ -13,13 +13,15 @@
 
 using namespace DataStructures;
 
-template <typename V>
-Graph<V>::Graph(int n_vertex):Matrix<V>(n_vertex, n_vertex){
+Graph::Graph(int n_vertex):Matrix<double>(n_vertex, n_vertex){
 
 }
 
-template <typename V>
-Graph<V>::Graph(Vector<V>* vectors, int nvec):Matrix<V>(vectors, nvec, false){
+
+Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, false){
 
 }
 
+Graph::~Graph(){
+
+}

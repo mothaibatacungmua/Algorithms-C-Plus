@@ -22,8 +22,12 @@ struct TypeParseTraits;
 
 #define COMPARE_TYPE(A,B) (strcmp(TypeParseTraits<A>::name, B) == 0)
 
+
 namespace Utils{
     template<typename T>
     std::string ToString(T a);
+
+    template <typename T>
+    unsigned int DoHash(T obj, unsigned int (*hash_func)(char*, size_t));
 }
 #endif /* TYPE_PARSE_HPP_ */

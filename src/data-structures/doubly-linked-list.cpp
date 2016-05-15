@@ -126,7 +126,7 @@ Node* DoublyLinkedList<T,Node>::Find(T value){
     Node* travel = this->head;
 
     while(travel != this->tail){
-        if(travel->value == value)
+        if(*travel == value)
             return travel;
 
         travel = travel->next;
@@ -227,3 +227,6 @@ string DoublyLinkedList<T,Node>::ToString(){
 
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<double>;
+
+template class DoublyLinkedList<int, HashEntryNode<string> >;
+template class DoublyLinkedList<int, HashEntryNode<int> >;

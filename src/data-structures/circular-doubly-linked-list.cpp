@@ -92,7 +92,7 @@ Node* CircularDoublyLinkedList<T,Node>::RemoveBeginning(){
         return remove;
     }
 
-    remove = DoublyLinkedList<T>::Remove(remove);
+    remove = DoublyLinkedList<T, Node>::Remove(remove);
 
     this->head = this->tail->next;
     if(this->tail->next == this->tail){
@@ -114,7 +114,7 @@ Node* CircularDoublyLinkedList<T,Node>::RemoveEnd(){
         return remove;
     }
 
-    remove = DoublyLinkedList<T>::Remove(remove);
+    remove = DoublyLinkedList<T, Node>::Remove(remove);
 
     this->tail = this->head->prev;
     if(this->head->next == this->head){
@@ -125,3 +125,6 @@ Node* CircularDoublyLinkedList<T,Node>::RemoveEnd(){
 
 template class CircularDoublyLinkedList<int>;
 template class CircularDoublyLinkedList<double>;
+
+template class CircularDoublyLinkedList<int, HashEntryNode<string> >;
+template class CircularDoublyLinkedList<int, HashEntryNode<int> >;

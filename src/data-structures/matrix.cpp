@@ -15,12 +15,16 @@ using namespace DataStructures;
 
 template <typename V>
 Matrix<V>::Matrix(int n, int m){
-    this->matrix = new Vector<V>[n](m);
+    this->matrix = new Vector<V>[n];
 
     if(this->matrix == NULL) throw ErrorCodes::ALLOC_MEM_ERROR;
 
     this->nrow = n;
     this->ncol = m;
+
+    for(int i = 0; i < this->nrow; i++){
+        this->matrix[i].Resize(this->ncol);
+    }
 }
 
 template <typename V>
@@ -69,3 +73,11 @@ template <typename V>
 Matrix<V>::~Matrix(){
     delete [] this->matrix;
 }
+
+template <typename V>
+string Matrix<V>::ToString(){
+    return "Test";
+}
+
+template class Matrix<int>;
+template class Matrix<double>;

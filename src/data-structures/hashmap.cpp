@@ -35,7 +35,7 @@ Hashmap<K,V,Hash>::~Hashmap(){
 
 template <typename K, typename V, class Hash>
 bool Hashmap<K,V,Hash>::Get(K key, V& ret){
-    unsigned int hash = this->hash(reinterpret_cast<char*>(&key), sizeof(K));
+    unsigned int hash = this->hash(key);
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
@@ -51,7 +51,7 @@ bool Hashmap<K,V,Hash>::Get(K key, V& ret){
 
 template <typename K, typename V, class Hash>
 void Hashmap<K,V,Hash>::Set(K key, V value){
-    unsigned int hash = this->hash(reinterpret_cast<char*>(&key), sizeof(K));
+    unsigned int hash = this->hash(key);
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
@@ -72,7 +72,7 @@ template <typename K, typename V, class Hash>
 V Hashmap<K, V, Hash>::operator[](K key) const{
     V ret;
 
-    if(this->Get(K, ret)){
+    if(this->Get(key, ret)){
         return ret;
     }
 
@@ -96,4 +96,8 @@ string Hashmap<K,V,Hash>::ToString(){
     return "NOT IMPLEMENTED YET";
 }
 
-
+template class Hashmap<string, string>;
+template class Hashmap<int, string>;
+template class Hashmap<char, string>;
+template class Hashmap<int, int>;
+template class Hashmap<string, int>;

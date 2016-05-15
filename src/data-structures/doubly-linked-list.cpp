@@ -208,7 +208,7 @@ string DoublyLinkedList<T,Node>::ToString(){
         return ret_str;
     }
 
-    sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)head, (int)head->prev, Utils::ToString(head->value).c_str(), (int)head->next);
+    sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)this->head, (int)this->head->prev, Utils::ToString(this->head->value).c_str(), (int)this->head->next);
     ret_str.append(buffer);
 
     if((int)this->head == (int)this->tail){

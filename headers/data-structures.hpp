@@ -184,7 +184,7 @@ namespace DataStructures{
     //
     // Hashmap
     //
-    template <typename K, typename V, class Hash=Utils::JenkinsHash>
+    template <typename K, typename V, class Hash=Utils::JenkinsHash<K>>
     class Hashmap{
     public:
         class HashEntryNode{
@@ -237,6 +237,7 @@ namespace DataStructures{
 
         vector<V>& GetStorage();
         vector<V>& SetStorage(Vector<V>& x);
+        string ToString();
     private:
         vector<V> storage;
     };
@@ -250,6 +251,7 @@ namespace DataStructures{
         Matrix(int n, int m);
         Matrix(Vector<V>* vectors, int nvec, bool with_col=true, bool check_square=false);
         ~Matrix();
+        string ToString();
     protected:
         int nrow;
         int ncol;

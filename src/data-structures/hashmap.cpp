@@ -6,9 +6,10 @@
  */
 #include <iostream>
 #include <string>
+
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
-
+#include "../../headers/error-codes.hpp"
 
 using namespace DataStructures;
 
@@ -68,7 +69,19 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
 }
 
 template <typename K, typename V, class Hash>
-int Hashmap<K,V,Hash>::GetCount(){
+V Hashmap<K, V, Hash>::operator[](K key) const{
+    V ret;
+
+    if(this->Get(K, ret)){
+        return ret;
+    }
+
+    throw ErrorCodes::KEY_NOT_SET;
+}
+
+
+template <typename K, typename V, class Hash>
+int Hashmap<K,V,Hash>::Size(){
     int count = 0;
 
     for (int i=0; i < this->bucket_length;i++){

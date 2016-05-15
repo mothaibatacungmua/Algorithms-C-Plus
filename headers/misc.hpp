@@ -8,6 +8,8 @@
 #ifndef MISC_HPP_
 #define MISC_HPP_
 
+#define MAX(a, b) ((a >= b)? a: b)
+#define MIN(a, b) ((a <= b)? a: b)
 namespace Utils{
     template <typename T>
     void Swap(T& A, T& B);

@@ -82,7 +82,7 @@ Node* SingleLinkedList<T,Node>::Pop(){
 }
 
 template <typename T, class Node>
-int SingleLinkedList<T,Node>::GetCount(){
+int SingleLinkedList<T,Node>::Size(){
     int number_nodes = 0;
     Node* travel = head;
 

@@ -16,14 +16,14 @@ template <typename T, class Comp>
 PriorityQueue<T,Comp>::PriorityQueue(int max_length){
     if(max_length <= 0) return;
 
-    this->heap = new T[max_length];
+    this->heap.resize(max_length);
     this->max_length = max_length;
     this->current_length = 0;
 }
 
 template <typename T, class Comp>
 PriorityQueue<T,Comp>::~PriorityQueue(){
-    delete this->heap;
+    this->heap.clear();
 }
 
 template <typename T, class Comp>
@@ -111,7 +111,7 @@ T PriorityQueue<T,Comp>::operator [](int pos){
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::GetCount(){
+int PriorityQueue<T,Comp>::Size(){
     return current_length;
 }
 

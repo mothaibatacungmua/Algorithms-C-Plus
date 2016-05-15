@@ -16,22 +16,22 @@ using namespace DataStructures;
 
 template <typename T, class Node>
 DoublyLinkedList<T,Node>::DoublyLinkedList(){
-    head = NULL;
-    tail = NULL;
+    this->head = NULL;
+    this->tail = NULL;
 }
 
 template <typename T, class Node>
 DoublyLinkedList<T,Node>::~DoublyLinkedList(){
     //travel in list and delete
-    if(head == NULL || tail == NULL)
+    if(this->head == NULL || this->tail == NULL)
         return;
 
-    Node* travel = head;
+    Node* travel = this->head;
     Node* save = travel;
 
     //forward traveling to delete all node
     try{
-        while(travel != tail){
+        while(travel != this->tail){
             travel = (Node*)travel->next;
             delete save;
             save = travel;
@@ -120,12 +120,12 @@ Node* DoublyLinkedList<T,Node>::InsertEnd(T value){
 
 template <typename T, class Node>
 Node* DoublyLinkedList<T,Node>::Find(T value){
-    if(head == NULL || tail == NULL)
+    if(this->head == NULL || this->tail == NULL)
         return NULL;
 
-    Node* travel = head;
+    Node* travel = this->head;
 
-    while(travel != tail){
+    while(travel != this->tail){
         if(travel->value == value)
             return travel;
 
@@ -156,40 +156,40 @@ Node* DoublyLinkedList<T,Node>::Remove(Node* node){
 
 template <typename T, class Node>
 Node* DoublyLinkedList<T,Node>::RemoveBeginning(){
-    if(head == NULL)
+    if(this->head == NULL)
         return NULL;
 
-    Node* new_head = head->next;
-    Node* remove_head = this->Remove(head);
+    Node* new_head = this->head->next;
+    Node* remove_head = this->Remove(this->head);
 
-    head = new_head;
+    this->head = new_head;
 
     return remove_head;
 }
 
 template <typename T, class Node>
 Node* DoublyLinkedList<T,Node>::RemoveEnd(){
-    if(tail == NULL)
+    if(this->tail == NULL)
         return NULL;
 
-    Node* new_tail = (Node*)tail->next;
-    Node* remove_tail = this->Remove(tail);
+    Node* new_tail = (Node*)this->tail->next;
+    Node* remove_tail = this->Remove(this->tail);
 
-    tail = new_tail;
+    this->tail = new_tail;
 
     return remove_tail;
 }
 
 template <typename T, class Node>
-int DoublyLinkedList<T,Node>::GetCount(){
+int DoublyLinkedList<T,Node>::Size(){
     int count_node = 0;
-    Node* travel = head;
+    Node* travel = this->head;
 
-    if(head != NULL)
+    if(this->head != NULL)
         count_node = 1;
 
     //forward traveling to count all nodes
-    while(travel != tail && travel != NULL){
+    while(travel != this->tail && travel != NULL){
         travel = travel->next;
         count_node++;
     }
@@ -200,10 +200,10 @@ int DoublyLinkedList<T,Node>::GetCount(){
 template <typename T, class Node>
 string DoublyLinkedList<T,Node>::ToString(){
     string ret_str;
-    Node* travel = head;
+    Node* travel = this->head;
     char buffer[512];
 
-    if(head == NULL){
+    if(this->head == NULL){
         ret_str = "[]\n";
         return ret_str;
     }
@@ -211,12 +211,12 @@ string DoublyLinkedList<T,Node>::ToString(){
     sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)head, (int)head->prev, Utils::ToString(head->value).c_str(), (int)head->next);
     ret_str.append(buffer);
 
-    if((int)head == (int)tail){
+    if((int)this->head == (int)this->tail){
         return ret_str;
     }
 
 
-    while(travel != tail){
+    while(travel != this->tail){
        travel = (Node*)travel->next;
        sprintf(buffer, "\n0x%X:[prev=0x%X, value=%s, next=0x%X]\n", (int)travel, (int)travel->prev, Utils::ToString(travel->value).c_str(), (int)travel->next);
        ret_str.append(buffer);

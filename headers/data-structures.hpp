@@ -9,6 +9,7 @@
 #define DATA_STRUCTURES_HPP_
 
 #include <string>
+#include <vector>
 #include "../headers/comparator.hpp"
 #include "../headers/hashor.hpp"
 
@@ -59,7 +60,7 @@ namespace DataStructures{
         virtual Node* Push(T value);
         virtual Node* Pop();
         virtual Node* Find(T value);
-        virtual int GetCount();
+        virtual int Size();
         virtual string ToString();
     };
 
@@ -118,7 +119,7 @@ namespace DataStructures{
         virtual Node* Remove(Node* node);
         virtual Node* RemoveBeginning();
         virtual Node* RemoveEnd();
-        virtual int GetCount();
+        virtual int Size();
         virtual string ToString();
     };
 
@@ -164,12 +165,12 @@ namespace DataStructures{
     public:
         PriorityQueue(int max_length);
         ~PriorityQueue();
-        T* heap;
+        vector<T> heap;
         void Push(T value);
         T GetTop();
         T Pop();
         string ToString();
-        int GetCount();
+        int Size();
         T operator[](int pos);
         T Delete(int pos);
     private:
@@ -208,11 +209,60 @@ namespace DataStructures{
         CircularDoublyLinkedList<int, HashEntryNode>** map;
         void Set(K key, V value);
         bool Get(K key, V& ret);
-        int GetCount();
+        V operator[](K key) const;
+        //V& operator[](K key);
+        int Size();
         string ToString();
     private:
         int bucket_length;
         Hash hash;
+    };
+
+    //Vector
+    template <typename V>
+    class Vector{
+    public:
+        Vector();
+        Vector(int length);
+        Vector(V* values, int length);
+        ~Vector();
+
+        int Size();
+        int Resize(int length);
+
+        Vector<V>& operator=(Vector<V>& x);
+        V operator[](int index) const;
+        V& operator[](int index);
+        Vector<V>* Copy();
+
+        vector<V>& GetStorage();
+        vector<V>& SetStorage(Vector<V>& x);
+    private:
+        vector<V> storage;
+    };
+
+    //
+    // Matrix
+    //
+    template <typename V>
+    class Matrix{
+    public:
+        Matrix(int n, int m);
+        Matrix(Vector<V>* vectors, int nvec, bool with_col=true, bool check_square=false);
+        ~Matrix();
+    protected:
+        int nrow;
+        int ncol;
+        Vector<V>* matrix;
+    };
+
+    // Graph, adjacency matrix
+    template <typename V>
+    class Graph: public Matrix<V>{
+    public:
+        Graph(int n_vertex);
+        Graph(Vector<V>* vectors, int nvec);
+        ~Graph();
     };
 }
 

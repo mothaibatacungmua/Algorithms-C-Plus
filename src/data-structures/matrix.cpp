@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+#include <set>
 
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
@@ -122,21 +123,92 @@ Vector<V>& Matrix<V>::operator[](int index){
 
 template <typename V>
 bool Matrix<V>::DeleteColumn(int col){
+    if(col > (this->ncol - 1)) return false;
+
+    for(int i=0; i < this->nrow; i++){
+        this->matrix[i].Delete(col);
+    }
+
+    this->ncol--;
+
     return true;
 }
 
 template <typename V>
-bool Matrix<V>::DeleteColumn(const Vector<int> col){
+bool Matrix<V>::DeleteColumn(Vector<int> col){
+    if(col.Size() == 0) return false;
+
+    set<int> filter;
+    set<int>::iterator it;
+    //filter valid columns
+    for(int i = 0; i < col.Size(); i++){
+        if(col[i] <= (this->ncol - 1)) filter.insert(col[i]);
+    }
+
+    int prev = *filter.begin();
+    int delta = 0;
+
+    for(it = filter.begin(); it != filter.end(); it++){
+        delta = (*it <= prev)? 0 : -1;
+        this->DeleteColumn(*it+delta);
+        prev = *it;
+    }
+
+    this->ncol -= filter.size();
+
     return true;
 }
 
 template <typename V>
 bool Matrix<V>::DeleteRow(int row){
+    if(row > (this->nrow - 1)) return false;
+
+    Vector<V>* new_mat = new Vector<V>[this->nrow-1];
+
+    if(new_mat == NULL){
+        delete [] new_mat;
+        return false;
+    }
+
+    int k = 0;
+    for(int i = 0; i < this->nrow; i++){
+        if(i == row) continue;
+
+        new_mat[k++] = this->matrix[i];
+    }
+
+    delete [] this->matrix;
+    this->matrix = new_mat;
+
+    this->nrow--;
+
     return true;
 }
 
 template <typename V>
 bool Matrix<V>::DeleteRow(Vector<int> row){
+    set<int> filter;
+
+    //filter valid rows
+    for(int i = 0; i < row.Size(); i++){
+        if(row[i] <= this->nrow - 1) filter.insert(row[i]);
+    }
+
+    if(filter.size() == 0) return false;
+
+    Vector<V>* new_mat = new Vector<V>[this->nrow - filter.size()];
+
+    int k = 0;
+    for(int i = 0; i < this->nrow; i++){
+        if(filter.find(i) != filter.end()) continue;
+
+        new_mat[k++] = this->matrix[i];
+    }
+
+    delete [] this->matrix;
+    this->matrix = new_mat;
+
+    this->nrow -= filter.size();
     return true;
 }
 

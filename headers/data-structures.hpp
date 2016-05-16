@@ -244,6 +244,7 @@ namespace DataStructures{
 
         int Size();
         int Resize(int length);
+        void Insert(const V& value);
         void Delete(int position);
         void Delete(int first, int last);
         Vector<V>& operator=(Vector<V>& x);
@@ -272,7 +273,7 @@ namespace DataStructures{
         Vector<V>* GetStorage();
 
         bool DeleteColumn(int col);
-        bool DeleteColumn(const Vector<int> col);
+        bool DeleteColumn(Vector<int> col);
         bool DeleteRow(int row);
         bool DeleteRow(const Vector<int> row);
         Matrix<V>& operator=(Matrix<V>& x);
@@ -311,10 +312,10 @@ namespace DataStructures{
         ~Graph();
         bool IsConnected();
         bool IsTree();
-        bool DeleteEdge(const Edge edge);
-        bool DeleteEdge(const Vector<Edge> edge);
+        bool DeleteEdge(Edge edge, bool undirected=true);
+        bool DeleteEdge(Vector<Edge> edge, bool undirected=true);
         bool DeleteVertex(int vertex);
-        bool DeleteVertex(const Vector<int> vertex);
+        bool DeleteVertex(Vector<int> vertex);
         int nver;
     };
 }

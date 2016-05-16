@@ -57,6 +57,11 @@ int Vector<V>::Size(){
 }
 
 template <typename V>
+void Vector<V>::Insert(const V& value){
+    this->storage.insert(value);
+}
+
+template <typename V>
 int Vector<V>::Resize(int length){
     int old_len = this->Size();
 

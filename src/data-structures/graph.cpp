@@ -80,18 +80,36 @@ bool Graph::IsTree(){
     return true;
 }
 
-bool Graph::DeleteEdge(const Graph::Edge edge){
+bool Graph::DeleteEdge(Graph::Edge edge, bool undirected){
+    if(edge.head >= this->nver || edge.tail >= this->nver)
+        return false;
+
+    this->matrix[edge.head][edge.tail] = 0;
+    if(undirected){
+        this->matrix[edge.tail][edge.head] = 0;
+    }
     return true;
 }
 
-bool Graph::DeleteEdge(const Vector<Edge> edge){
+bool Graph::DeleteEdge(Vector<Graph::Edge> edge, bool undirected){
+    if(edge.Size() == 0) return false;
+
+    for(int i = 0; i < edge.Size(); i++){
+        this->DeleteEdge(edge[i], undirected);
+    }
+
     return true;
 }
 
 bool Graph::DeleteVertex(int vertex){
+
+    if(!this->DeleteColumn(vertex) || !this->DeleteColumn(vertex))
+        return false;
+
+    this->nver--;
     return true;
 }
 
-bool Graph::DeleteVertex(const Vector<int> vertex){
+bool Graph::DeleteVertex(Vector<int> vertex){
     return true;
 }

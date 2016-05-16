@@ -244,7 +244,8 @@ namespace DataStructures{
 
         int Size();
         int Resize(int length);
-
+        void Delete(int position);
+        void Delete(int first, int last);
         Vector<V>& operator=(Vector<V>& x);
         V operator[](int index) const;
         V& operator[](int index);
@@ -270,6 +271,10 @@ namespace DataStructures{
 
         Vector<V>* GetStorage();
 
+        bool DeleteColumn(int col);
+        bool DeleteColumn(const Vector<int> col);
+        bool DeleteRow(int row);
+        bool DeleteRow(const Vector<int> row);
         Matrix<V>& operator=(Matrix<V>& x);
         Vector<V>& operator[](int index);
 
@@ -286,9 +291,31 @@ namespace DataStructures{
     // Graph, adjacency matrix
     class Graph: public Matrix<double>{
     public:
+        class Edge{
+        public:
+            Edge(){
+                this->head = this->tail = 0;
+            }
+
+            Edge(int head, int tail){
+                this->head = head;
+                this->tail = tail;
+            }
+
+            int head;
+            int tail;
+        };
+
         Graph(int n_vertex);
         Graph(Vector<double>* vectors, int nvec);
         ~Graph();
+        bool IsConnected();
+        bool IsTree();
+        bool DeleteEdge(const Edge edge);
+        bool DeleteEdge(const Vector<Edge> edge);
+        bool DeleteVertex(int vertex);
+        bool DeleteVertex(const Vector<int> vertex);
+        int nver;
     };
 }
 

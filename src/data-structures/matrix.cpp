@@ -121,6 +121,26 @@ Vector<V>& Matrix<V>::operator[](int index){
 }
 
 template <typename V>
+bool Matrix<V>::DeleteColumn(int col){
+    return true;
+}
+
+template <typename V>
+bool Matrix<V>::DeleteColumn(const Vector<int> col){
+    return true;
+}
+
+template <typename V>
+bool Matrix<V>::DeleteRow(int row){
+    return true;
+}
+
+template <typename V>
+bool Matrix<V>::DeleteRow(Vector<int> row){
+    return true;
+}
+
+template <typename V>
 string Matrix<V>::ToString(){
     string ret;
     for(int i = 0; i < this->nrow; i++){
@@ -131,6 +151,8 @@ string Matrix<V>::ToString(){
 
     return ret;
 }
+
+
 
 
 template class Matrix<int>;

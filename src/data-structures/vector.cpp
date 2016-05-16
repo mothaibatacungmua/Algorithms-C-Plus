@@ -104,6 +104,17 @@ string Vector<V>::ToString(){
     return ret;
 }
 
+template <typename V>
+void Vector<V>::Delete(int position){
+    this->storage.earse(this->storage.begin()+position);
+}
+
+template <typename V>
+void Vector<V>::Delete(int first, int last){
+    this->storage.earse(this->storage.begin()+first, this->storage.begin()+last);
+}
+
 template class Vector<int>;
 template class Vector<double>;
 template class Vector<string>;
+template class Vector<Graph::Edge>;

@@ -12,6 +12,7 @@
 #include "data-structures.hpp"
 
 using namespace std;
+using namespace DataStructures;
 
 namespace Algorithms{
     namespace Hash{
@@ -23,16 +24,16 @@ namespace Algorithms{
         bool TopologicalOrdering(Graph& DAG);
 
         /* Dijkstra */
-        vector<int>& Dijkstra(Graph& DAG, int start, int goal);
+        Vector<int>& Dijkstra(Graph& DAG, int start, int goal);
 
         /**
          * Minimum spanning tree algorithms
          */
-        vector<int>& Prim(Graph& graph);
+        Graph& Prim(Graph& graph);
 
-        vector<int>& Kruskal(Graph& graph);
+        Graph& Kruskal(Graph& graph);
 
-        vector<int>& ReverseDelete(Graph& graph);
+        Graph& ReverseDelete(Graph& graph);
     }
 
 }

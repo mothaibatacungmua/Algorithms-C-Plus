@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#include "../../headers/algorithms.hpp"
+#include "../../../headers/algorithms.hpp"
 
 namespace Algorithms{
     namespace Hash{

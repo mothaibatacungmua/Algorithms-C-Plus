@@ -555,6 +555,8 @@ void DataStructuresTest::testDeleteOneVertexGraph(){
      *           {0, 0, 1, 0, 0, 0, 0, 1}
      *           {0, 0, 1, 0, 0, 0, 1, 0}
      */
+
+    graph->DeleteVertex(2);
 }
 
 void DataStructuresTest::testDeleteMutipleVertexGraph(){

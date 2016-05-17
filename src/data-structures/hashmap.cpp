@@ -39,11 +39,11 @@ bool Hashmap<K,V,Hash>::Get(K key, V& ret){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
-    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* Node = this->map[bucket]->Find(index);
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
 
-    if(Node == NULL) return false;
+    if(node == NULL) return false;
 
-    ret = Node->real;
+    ret = node->real;
 
     return true;
 
@@ -55,30 +55,49 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
-    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* Node = this->map[bucket]->Find(index);
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
 
-    if(Node == NULL){
-        Node = new typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls(index, value);
-        this->map[bucket]->InsertEnd(Node);
+    if(node == NULL){
+        node = new typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls(index, value);
+        this->map[bucket]->InsertEnd(node);
         return;
     }
 
-    Node->real = value;
+    node->real = value;
 
     return;
 }
 
 template <typename K, typename V, class Hash>
-V Hashmap<K, V, Hash>::operator[](K key){
-    V ret;
+bool Hashmap<K,V,Hash>::Remove(K key){
+    unsigned int hash = this->hash(key);
+    unsigned int bucket = hash % this->bucket_length;
+    unsigned int index = hash - bucket*this->bucket_length;
 
-    if(this->Get(key, ret)){
-        return ret;
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
+
+    if(node == NULL){
+        return false;
     }
 
-    throw ErrorCodes::KEY_NOT_SET;
+    this->map[bucket]->Remove(node);
+
+    return true;
 }
 
+template <typename K, typename V, class Hash>
+V& Hashmap<K, V, Hash>::operator[](K key){
+    unsigned int hash = this->hash(key);
+    unsigned int bucket = hash % this->bucket_length;
+    unsigned int index = hash - bucket*this->bucket_length;
+
+    typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
+
+    if(node == NULL) throw ErrorCodes::KEY_NOT_SET;
+
+    return node->real;
+
+}
 
 template <typename K, typename V, class Hash>
 int Hashmap<K,V,Hash>::Size(){
@@ -103,3 +122,4 @@ template class Hashmap<int, string>;
 template class Hashmap<char, string>;
 template class Hashmap<int, int>;
 template class Hashmap<string, int>;
+template class Hashmap<int, Vector<double> >;

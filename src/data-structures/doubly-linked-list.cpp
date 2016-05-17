@@ -242,3 +242,6 @@ template class DoublyLinkedList<double>;
 
 template class DoublyLinkedList<int, HashEntryNode<string> >;
 template class DoublyLinkedList<int, HashEntryNode<int> >;
+template class DoublyLinkedList<int, HashEntryNode<double> >;
+
+template class DoublyLinkedList<int, HashEntryNode<Vector<double> > >;

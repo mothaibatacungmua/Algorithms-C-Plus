@@ -230,7 +230,8 @@ namespace DataStructures{
         CircularDoublyLinkedList<int, HashEntryNode<V> >** map;
         void Set(K key, V value);
         bool Get(K key, V& ret);
-        V operator[](K key);
+        bool Remove(K key);
+        V& operator[](K key);
         //V& operator[](K key);
         int Size();
         string ToString();
@@ -296,7 +297,7 @@ namespace DataStructures{
     };
 
     // Graph, adjacency matrix
-    class Graph: public Matrix<double>{
+    class Graph{
     public:
         class Edge{
         public:
@@ -323,7 +324,10 @@ namespace DataStructures{
         bool DeleteEdge(Vector<Edge> edge, bool undirected=true);
         bool DeleteVertex(int vertex);
         bool DeleteVertex(Vector<int> vertex);
+        Vector<double>& operator[](int index);
         int nver;
+    private:
+        Hashmap<int, Vector<double> >* adjac;
     };
 }
 

@@ -17,17 +17,24 @@
 
 using namespace DataStructures;
 
-Graph::Graph(int n_vertex):Matrix<double>(n_vertex, n_vertex){
+Graph::Graph(int n_vertex){
     this->nver = n_vertex;
+    /* 100 vertex */
+    this->adjac = new Hashmap<int, Vector<double> >(n_vertex+1);
 }
 
 
-Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, false, true){
+Graph::Graph(Vector<double>* vectors, int nvec){
     this->nver = nvec;
+    this->adjac = new Hashmap<int, Vector<double> >(nvec+1);
+
+    for(int i=0; i < nvec; i++){
+        this->adjac->Set(i, vectors[i]);
+    }
 }
 
 Graph::~Graph(){
-
+    delete this->adjac;
 }
 
 bool Graph::IsConnected(){
@@ -42,7 +49,7 @@ bool Graph::IsConnected(){
         closed.insert(current_vertex);
 
         for(int i=0; i < this->nver; i++){
-            if(this->matrix[current_vertex][i] != 0 &&
+            if((*this->adjac)[current_vertex][i] != 0 &&
                closed.find(i) == closed.end()){
                 travel_vertex.Push(i);
             }
@@ -68,11 +75,11 @@ bool Graph::IsTree(){
         closed.insert(current_vertex);
 
         for(int i=0; i < this->nver; i++){
-            if(this->matrix[current_vertex][i] != 0 &&
+            if((*this->adjac)[current_vertex][i] != 0 &&
                closed.find(i) == closed.end()){
 
                 for(it=closed.begin(); it != closed.end(); ++it){
-                    if(this->matrix[i][*it] != 0) return false;
+                    if((*this->adjac)[i][*it] != 0) return false;
                 }
                 travel_vertex.Push(i);
             }
@@ -82,13 +89,19 @@ bool Graph::IsTree(){
     return true;
 }
 
+Vector<double>& Graph::operator[](int index){
+    if(index >= this->nver) throw ErrorCodes::OUT_OF_INDEX;
+
+    return (*this->adjac)[index];
+}
+
 bool Graph::DeleteEdge(Graph::Edge edge, bool undirected){
     if(edge.head >= this->nver || edge.tail >= this->nver)
         return false;
 
-    this->matrix[edge.head][edge.tail] = 0;
+    (*this->adjac)[edge.head][edge.tail] = 0;
     if(undirected){
-        this->matrix[edge.tail][edge.head] = 0;
+        (*this->adjac)[edge.tail][edge.head] = 0;
     }
     return true;
 }
@@ -104,9 +117,6 @@ bool Graph::DeleteEdge(Vector<Graph::Edge> edge, bool undirected){
 }
 
 bool Graph::DeleteVertex(int vertex){
-
-    if(!this->DeleteColumn(vertex) || !this->DeleteColumn(vertex))
-        return false;
 
     this->nver--;
     return true;

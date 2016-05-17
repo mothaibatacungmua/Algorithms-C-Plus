@@ -128,3 +128,6 @@ template class CircularDoublyLinkedList<double>;
 
 template class CircularDoublyLinkedList<int, HashEntryNode<string> >;
 template class CircularDoublyLinkedList<int, HashEntryNode<int> >;
+template class CircularDoublyLinkedList<int, HashEntryNode<double> >;
+
+template class CircularDoublyLinkedList<int, HashEntryNode<Vector<double> > >;

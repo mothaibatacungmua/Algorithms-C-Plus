@@ -47,23 +47,24 @@ void DataStructuresTest::setUp(){
      *                  |
      *                  6
      */
-    int v_0[8] = {0, 1, 1, 0, 0, 0, 0, 0};
-    int v_1[8] = {1, 0, 1, 1, 1, 0, 0, 0};
-    int v_2[8] = {1, 1, 0, 0, 1, 0, 1, 1};
-    int v_3[8] = {0, 1, 0, 0, 1, 0, 0, 0};
-    int v_4[8] = {0, 1, 1, 1, 0, 1, 0, 0};
-    int v_5[8] = {0, 0, 0, 0, 1, 0, 0, 0};
-    int v_6[8] = {0, 0, 1, 0, 0, 0, 0, 1};
-    int v_7[8] = {0, 0, 1, 0, 0, 0, 1, 0};
+    double v_0[8] = {0, 1, 1, 0, 0, 0, 0, 0};
+    double v_1[8] = {1, 0, 1, 1, 1, 0, 0, 0};
+    double v_2[8] = {1, 1, 0, 0, 1, 0, 1, 1};
+    double v_3[8] = {0, 1, 0, 0, 1, 0, 0, 0};
+    double v_4[8] = {0, 1, 1, 1, 0, 1, 0, 0};
+    double v_5[8] = {0, 0, 0, 0, 1, 0, 0, 0};
+    double v_6[8] = {0, 0, 1, 0, 0, 0, 0, 1};
+    double v_7[8] = {0, 0, 1, 0, 0, 0, 1, 0};
 
-    DataStructures::Vector<int> m_1[] = {
-            DataStructures::Vector<int>(v_0,8),
-            DataStructures::Vector<int>(v_1,8),
-            DataStructures::Vector<int>(v_2,8),
-            DataStructures::Vector<int>(v_3,8),
-            DataStructures::Vector<int>(v_4,8),
-            DataStructures::Vector<int>(v_6,8),
-            DataStructures::Vector<int>(v_7,8)
+    DataStructures::Vector<double> m_1[] = {
+            DataStructures::Vector<double>(v_0,8),
+            DataStructures::Vector<double>(v_1,8),
+            DataStructures::Vector<double>(v_2,8),
+            DataStructures::Vector<double>(v_3,8),
+            DataStructures::Vector<double>(v_4,8),
+            DataStructures::Vector<double>(v_5,8),
+            DataStructures::Vector<double>(v_6,8),
+            DataStructures::Vector<double>(v_7,8)
     };
 
     graph = new DataStructures::Graph(m_1, 8);
@@ -452,28 +453,108 @@ void DataStructuresTest::testInitMatrix(){
 }
 
 void DataStructuresTest::testDeleteOneColumnMatrix(){
+    /**
+     * mat =
+     *      1    5   9   13
+     *      2    6   10  14
+     *      3    7   11  15
+     *      4    8   12  16
+     */
 
+    mat->DeleteColumn(1);
+
+
+    CPPUNIT_ASSERT_EQUAL(9, (*mat)[0][1]);
+    CPPUNIT_ASSERT_EQUAL(10, (*mat)[1][1]);
+    CPPUNIT_ASSERT_EQUAL(11, (*mat)[2][1]);
+    CPPUNIT_ASSERT_EQUAL(12, (*mat)[3][1]);
+
+    mat->DeleteColumn(0);
+
+    CPPUNIT_ASSERT_EQUAL(9, (*mat)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(10, (*mat)[1][0]);
+    CPPUNIT_ASSERT_EQUAL(11, (*mat)[2][0]);
+    CPPUNIT_ASSERT_EQUAL(12, (*mat)[3][0]);
 }
 
 void DataStructuresTest::testDeleteMultipleColumnMatrix(){
+    int cols[] = {0,3};
+    DataStructures::Vector<int> del(cols, 2);
 
+    mat->DeleteColumn(del);
+
+    CPPUNIT_ASSERT_EQUAL(5, (*mat)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(6, (*mat)[1][0]);
+    CPPUNIT_ASSERT_EQUAL(7, (*mat)[2][0]);
+    CPPUNIT_ASSERT_EQUAL(8, (*mat)[3][0]);
+
+    CPPUNIT_ASSERT_EQUAL(9, (*mat)[0][1]);
+    CPPUNIT_ASSERT_EQUAL(10, (*mat)[1][1]);
+    CPPUNIT_ASSERT_EQUAL(11, (*mat)[2][1]);
+    CPPUNIT_ASSERT_EQUAL(12, (*mat)[3][1]);
 }
 
 void DataStructuresTest::testDeleteOneRowMatrix(){
+    mat->DeleteRow(0);
+    CPPUNIT_ASSERT_EQUAL(2, (*mat)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(6, (*mat)[0][1]);
+    CPPUNIT_ASSERT_EQUAL(10, (*mat)[0][2]);
+    CPPUNIT_ASSERT_EQUAL(14, (*mat)[0][3]);
 
+    mat->DeleteRow(1);
+    CPPUNIT_ASSERT_EQUAL(4, (*mat)[1][0]);
+    CPPUNIT_ASSERT_EQUAL(8, (*mat)[1][1]);
+    CPPUNIT_ASSERT_EQUAL(12, (*mat)[1][2]);
+    CPPUNIT_ASSERT_EQUAL(16, (*mat)[1][3]);
 }
 
 void DataStructuresTest::testDeleteMultipleRowMatrix(){
+    int rows[] = {0,2};
+
+    DataStructures::Vector<int> del(rows, 2);
+
+    mat->DeleteRow(del);
+
+    CPPUNIT_ASSERT_EQUAL(2, (*mat)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(6, (*mat)[0][1]);
+    CPPUNIT_ASSERT_EQUAL(10, (*mat)[0][2]);
+    CPPUNIT_ASSERT_EQUAL(14, (*mat)[0][3]);
+
+    CPPUNIT_ASSERT_EQUAL(4, (*mat)[1][0]);
+    CPPUNIT_ASSERT_EQUAL(8, (*mat)[1][1]);
+    CPPUNIT_ASSERT_EQUAL(12, (*mat)[1][2]);
+    CPPUNIT_ASSERT_EQUAL(16, (*mat)[1][3]);
 
 }
 
 void DataStructuresTest::testInitGraph(){
     /* TODO */
-    DataStructures::Graph graph(10);
+    CPPUNIT_ASSERT_EQUAL(0, (int)(*this->graph)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int)(*this->graph)[1][2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int)(*this->graph)[7][7]);
+    CPPUNIT_ASSERT_EQUAL(1, (int)(*this->graph)[5][4]);
+
 }
 
 void DataStructuresTest::testDeleteOneVertexGraph(){
-
+    /**
+     * graph =
+     *                  1   7
+     *                 / \ /|
+     *                2 - 3 |
+     *               / \ / \|
+     *              4 - 5   8
+     *                  |
+     *                  6
+     *           {0, 1, 1, 0, 0, 0, 0, 0}
+     *           {1, 0, 1, 1, 1, 0, 0, 0}
+     *           {1, 1, 0, 0, 1, 0, 1, 1}
+     *           {0, 1, 0, 0, 1, 0, 0, 0}
+     *           {0, 1, 1, 1, 0, 1, 0, 0}
+     *           {0, 0, 0, 0, 1, 0, 0, 0}
+     *           {0, 0, 1, 0, 0, 0, 0, 1}
+     *           {0, 0, 1, 0, 0, 0, 1, 0}
+     */
 }
 
 void DataStructuresTest::testDeleteMutipleVertexGraph(){

@@ -39,7 +39,7 @@ Node* Stack<T, Node>::Push(T value){
     }
 
     new_node->next = this->head;
-    this->head = new_node->next;
+    this->head = new_node;
 
     return new_node;
 }
@@ -51,6 +51,7 @@ void Stack<T, Node>::Pop(){
     if(this->head->next == NULL){
         delete this->head;
         this->head = NULL;
+        return;
     }
 
     Node* old_head = this->head;

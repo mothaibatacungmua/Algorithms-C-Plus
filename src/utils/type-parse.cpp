@@ -5,8 +5,10 @@
  *      Author: asm
  */
 #include "../../headers/type-parse.hpp"
+#include "../../headers/data-structures.hpp"
 #include <stdio.h>
 
+using namespace DataStructures;
 using namespace std;
 
 REGISTER_PARSE_TYPE(int);
@@ -14,6 +16,7 @@ REGISTER_PARSE_TYPE(double);
 REGISTER_PARSE_TYPE(char*);
 REGISTER_PARSE_TYPE(string);
 REGISTER_PARSE_TYPE(char);
+REGISTER_PARSE_TYPE(Graph::Edge);
 
 namespace Utils{
     template<typename T>
@@ -74,6 +77,7 @@ template string Utils::ToString<int>(int);
 template string Utils::ToString<double>(double);
 template string Utils::ToString<string>(string);
 template string Utils::ToString<char>(char);
+template string Utils::ToString<Graph::Edge>(Graph::Edge);
 
 template unsigned int Utils::DoHash<int>(int, unsigned int (*hash_func)(char*, size_t));
 template unsigned int Utils::DoHash<string>(string, unsigned int (*hash_func)(char*, size_t));

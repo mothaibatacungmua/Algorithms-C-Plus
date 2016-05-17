@@ -8,18 +8,19 @@
 #include <string>
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
+#include "../../headers/error-codes.hpp"
 
 using namespace DataStructures;
 
 template <typename T, class Node>
 SingleLinkedList<T,Node>::SingleLinkedList(){
-    head = 0;
+    this->head = NULL;
 }
 
 template <typename T, class Node>
 SingleLinkedList<T,Node>::~SingleLinkedList(){
     //free all node in the list
-    Node* travel = head;
+    Node* travel = this->head;
     Node* next = NULL;
 
     try{
@@ -38,10 +39,10 @@ template <typename T, class Node>
 Node* SingleLinkedList<T,Node>::Push(T value){
     Node* new_node = (new Node(value));
 
-    Node* tail = head;
+    Node* tail = this->head;
 
     if(tail == NULL){
-        head = new_node;
+        this->head = new_node;
         return new_node;
     }
 
@@ -56,7 +57,7 @@ Node* SingleLinkedList<T,Node>::Push(T value){
 
 template <typename T, class Node>
 Node* SingleLinkedList<T,Node>::Find(T value){
-    Node* travel = head;
+    Node* travel = this->head;
 
     if(travel == NULL) return NULL;
 
@@ -72,21 +73,28 @@ Node* SingleLinkedList<T,Node>::Find(T value){
 }
 
 template <typename T, class Node>
-Node* SingleLinkedList<T,Node>::Pop(){
-    Node* ret = head;
-    if(head != NULL){
-        head = head->next;
+void SingleLinkedList<T,Node>::Pop(){
+    Node* ret = this->head;
+    if(this->head != NULL){
+        this->head = this->head->next;
     }
 
-    return ret;
+    delete ret;
+}
+
+template <typename T, class Node>
+T SingleLinkedList<T,Node>::Head(){
+    if(this->head == NULL) throw ErrorCodes::OUT_OF_INDEX;
+
+    return this->head->value;
 }
 
 template <typename T, class Node>
 int SingleLinkedList<T,Node>::Size(){
     int number_nodes = 0;
-    Node* travel = head;
+    Node* travel = this->head;
 
-    if(head == NULL) return number_nodes;
+    if(this->head == NULL) return number_nodes;
 
     while(travel != NULL){
         travel = (Node*)travel->next;
@@ -99,7 +107,7 @@ int SingleLinkedList<T,Node>::Size(){
 template <typename T, class Node>
 string SingleLinkedList<T,Node>::ToString(){
     string ret_str;
-    Node* travel = head;
+    Node* travel = this->head;
 
     ret_str.append("[");
     while(travel != NULL){

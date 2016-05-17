@@ -10,20 +10,15 @@
 CPPUNIT_TEST_SUITE_REGISTRATION( DataStructuresTest);
 
 void DataStructuresTest::setUp(){
-    list_0 = new DataStructures::SingleLinkedList<int>();
-    list_1 = new DataStructures::SingleLinkedList<int>();
+    list = new DataStructures::SingleLinkedList<int>();
 
-    queue_0 = new DataStructures::Queue<int>();
-    queue_1 = new DataStructures::Queue<int>();
+    queue = new DataStructures::Queue<int>();
 
-    stack_0 = new DataStructures::Stack<int>();
-    stack_1 = new DataStructures::Stack<int>();
+    stack = new DataStructures::Stack<int>();
 
-    c_db_list_0 = new DataStructures::CircularDoublyLinkedList<int>();
-    c_db_list_1 = new DataStructures::CircularDoublyLinkedList<int>();
+    c_db_list = new DataStructures::CircularDoublyLinkedList<int>();
 
-    o_db_list_0 = new DataStructures::OpenDoublyLinkedList<int>();
-    o_db_list_1 = new DataStructures::OpenDoublyLinkedList<int>();
+    o_db_list = new DataStructures::OpenDoublyLinkedList<int>();
 
     pr_queue = new DataStructures::PriorityQueue<int>(100);
 
@@ -32,20 +27,15 @@ void DataStructuresTest::setUp(){
 }
 
 void DataStructuresTest::tearDown(){
-    delete list_0;
-    delete list_1;
+    delete list;
 
-    delete queue_0;
-    delete queue_1;
+    delete queue;
 
-    delete stack_0;
-    delete stack_1;
+    delete stack;
 
-    delete c_db_list_0;
-    delete c_db_list_1;
+    delete c_db_list;
 
-    delete o_db_list_0;
-    delete o_db_list_1;
+    delete o_db_list;
 
     delete pr_queue;
 
@@ -55,131 +45,117 @@ void DataStructuresTest::tearDown(){
 
 void DataStructuresTest::testSingleLinkedListPush(){
 
-    list_0->Push(3);
+    list->Push(3);
 
     //check
-    CPPUNIT_ASSERT_EQUAL(1, list_0->Size());
+    CPPUNIT_ASSERT_EQUAL(1, list->Size());
 
 
 }
 
 void DataStructuresTest::testSingleLinkedListPop(){
-    DataStructures::SingleLinkedList<int>::NodeCls* pop_node = NULL;
-    list_1->Push(3);
-    list_1->Push(10);
+    list->Push(3);
+    list->Push(10);
 
-    pop_node = list_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(3, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    int head = list->Head();
+    CPPUNIT_ASSERT_EQUAL(3, head);
+    list->Pop();
 
-    pop_node = list_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(10, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    head = list->Head();
+    CPPUNIT_ASSERT_EQUAL(10, head);
+    list->Pop();
 
-    pop_node = list_1->Pop();
-    CPPUNIT_ASSERT_MESSAGE("List must be empty",(pop_node == NULL));
+
+    list->Pop();
+    CPPUNIT_ASSERT_MESSAGE("List must be empty",(list->Size() == 0));
 
 }
 
 void DataStructuresTest::testQueuePush(){
-    queue_0->Push(3);
-    CPPUNIT_ASSERT_EQUAL(1, queue_0->Size());
+    queue->Push(3);
+    CPPUNIT_ASSERT_EQUAL(1, queue->Size());
 
-    queue_0->Push(4);
-    CPPUNIT_ASSERT_EQUAL(2, queue_0->Size());
+    queue->Push(4);
+    CPPUNIT_ASSERT_EQUAL(2, queue->Size());
 }
 
 void DataStructuresTest::testQueuePop(){
-    DataStructures::Queue<int>::NodeCls* pop_node = NULL;
-    queue_1->Push(3);
-    queue_1->Push(10);
+    queue->Push(3);
+    queue->Push(10);
 
-    pop_node = queue_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(3, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    int head = queue->Head();
+    CPPUNIT_ASSERT_EQUAL(3, head);
+    queue->Pop();
 
-    pop_node = queue_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(10, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    head = queue->Head();
+    CPPUNIT_ASSERT_EQUAL(10, head);
+    queue->Pop();
 
-    pop_node = queue_1->Pop();
-    CPPUNIT_ASSERT_MESSAGE("Queue must be empty",(pop_node == NULL));
+    queue->Pop();
+    CPPUNIT_ASSERT_MESSAGE("Queue must be empty",(queue->Size() == 0));
 }
 
 void DataStructuresTest::testStackPush(){
-    stack_0->Push(3);
-    CPPUNIT_ASSERT_EQUAL(1, stack_0->Size());
+    stack->Push(3);
+    CPPUNIT_ASSERT_EQUAL(1, stack->Size());
 
-    stack_0->Push(4);
-    CPPUNIT_ASSERT_EQUAL(2, stack_0->Size());
+    stack->Push(4);
+    CPPUNIT_ASSERT_EQUAL(2, stack->Size());
 }
 
 void DataStructuresTest::testStackPop(){
-    DataStructures::Stack<int>::NodeCls* pop_node = NULL;
-    stack_1->Push(3);
-    stack_1->Push(10);
+    stack->Push(3);
+    stack->Push(10);
 
-    pop_node = stack_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(10, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    int head = stack->Head();
+    CPPUNIT_ASSERT_EQUAL(10, head);
+    stack->Pop();
 
-    pop_node = stack_1->Pop();
-    CPPUNIT_ASSERT_EQUAL(3, pop_node->value);
-    delete pop_node;    //always remember this after popping
+    head = stack->Head();
+    stack->Pop();
+    CPPUNIT_ASSERT_EQUAL(3, head);
 
-    pop_node = stack_1->Pop();
-    CPPUNIT_ASSERT_MESSAGE("Queue must be empty",(pop_node == NULL));
+    stack->Pop();
+    CPPUNIT_ASSERT_MESSAGE("Queue must be empty",(stack->Size() == 0));
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertBeginning(){
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* head = NULL;
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* tail = NULL;
-    c_db_list_0->InsertBeginning(12);
+    c_db_list->InsertBeginning(12);
 
-    head = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->head;
-    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
+    CPPUNIT_ASSERT_EQUAL(1, c_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(12, c_db_list->Head());
+    CPPUNIT_ASSERT_MESSAGE("Tail must be equal head when size of list = 1",(c_db_list->Head() == c_db_list->Tail()));
 
-    CPPUNIT_ASSERT_EQUAL(1, c_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(12, head->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail must be equal head when size of list = 1",(tail == head));
+    c_db_list->InsertBeginning(122);
 
-    c_db_list_0->InsertBeginning(122);
-
-    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
-    CPPUNIT_ASSERT_EQUAL(2, c_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(122, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail must be head->prev",((int)tail == (int)head->prev));
-    CPPUNIT_ASSERT_MESSAGE("Tail must be different from head when size of list > 1",(tail != head));
+    CPPUNIT_ASSERT_EQUAL(2, c_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(122, c_db_list->Tail());
+    CPPUNIT_ASSERT_MESSAGE("Tail must be head->prev",((int)c_db_list->tail == (int)c_db_list->head->prev));
+    CPPUNIT_ASSERT_MESSAGE("Tail must be different from head when size of list > 1",(c_db_list->tail != c_db_list->head));
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertEnd(){
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* head = NULL;
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* tail = NULL;
-    c_db_list_0->InsertBeginning(102);
+    c_db_list->InsertBeginning(102);
 
-    head = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->head;
-    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
+    CPPUNIT_ASSERT_EQUAL(1, c_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(102, c_db_list->Tail());
+    CPPUNIT_ASSERT_MESSAGE("Tail must be equal head when size of list = 1",(c_db_list->tail == c_db_list->head));
 
-    CPPUNIT_ASSERT_EQUAL(1, c_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(102, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail must be equal head when size of list = 1",(tail == head));
+    c_db_list->InsertEnd(122);
+    c_db_list->InsertEnd(1222);
 
-    c_db_list_0->InsertEnd(122);
-    c_db_list_0->InsertEnd(1222);
-
-    tail = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_0->tail;
-    CPPUNIT_ASSERT_EQUAL(3, c_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(1222, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Head must be tail->next",((int)tail->next == (int)head));
-    CPPUNIT_ASSERT_MESSAGE("Tail must be different from head when size of list > 1",(tail != head));
+    CPPUNIT_ASSERT_EQUAL(3, c_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(1222, c_db_list->Tail());
+    CPPUNIT_ASSERT_MESSAGE("Head must be tail->next",((int)c_db_list->tail->next == (int)c_db_list->head));
+    CPPUNIT_ASSERT_MESSAGE("Tail must be different from head when size of list > 1",(c_db_list->tail != c_db_list->head));
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListInsertAfter(){
     DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
-    node_0 = c_db_list_0->InsertBeginning(1);
+    node_0 = c_db_list->InsertBeginning(1);
     save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)node_0->next;
-    node_1 = c_db_list_0->InsertAfter(node_0, 2);
+    node_1 = c_db_list->InsertAfter(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_1->prev, (int)node_0);
@@ -190,9 +166,9 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertAfter(){
 void DataStructuresTest::testCircularDoublyLinkedListInsertBefore(){
     DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
-    node_0 = c_db_list_0->InsertBeginning(1);
+    node_0 = c_db_list->InsertBeginning(1);
     save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)node_0->prev;
-    node_1 = c_db_list_0->InsertBefore(node_0, 2);
+    node_1 = c_db_list->InsertBefore(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->prev, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_1->next, (int)node_0);
@@ -202,11 +178,11 @@ void DataStructuresTest::testCircularDoublyLinkedListInsertBefore(){
 void DataStructuresTest::testCircularDoublyLinkedListRemove(){
     DataStructures::CircularDoublyLinkedList<int>::NodeCls* node_0, *node_1, *node_2, *remove = NULL;
 
-    node_0 = c_db_list_1->InsertBeginning(1);
-    node_1 = c_db_list_1->InsertAfter(node_0, 2);
-    node_2 = c_db_list_1->InsertAfter(node_1, 2);
+    node_0 = c_db_list->InsertBeginning(1);
+    node_1 = c_db_list->InsertAfter(node_0, 2);
+    node_2 = c_db_list->InsertAfter(node_1, 2);
 
-    remove = c_db_list_1->Remove(node_1);
+    remove = c_db_list->Remove(node_1);
 
     CPPUNIT_ASSERT_EQUAL((int)remove, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_2);
@@ -214,88 +190,70 @@ void DataStructuresTest::testCircularDoublyLinkedListRemove(){
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListRemoveEnd(){
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save, *remove = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save = NULL;
 
-    c_db_list_1->InsertBeginning(1234);
-    c_db_list_1->InsertBeginning(123);
-    c_db_list_1->InsertBeginning(12);
-    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->tail;
+    c_db_list->InsertBeginning(1234);
+    c_db_list->InsertBeginning(123);
+    c_db_list->InsertBeginning(12);
 
-    remove = c_db_list_1->RemoveEnd();
+    c_db_list->RemoveEnd();
 
-    CPPUNIT_ASSERT_EQUAL((int)remove, (int)save);
-    delete remove;
-
-    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->tail;
-    CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list_1->head->prev);
-    CPPUNIT_ASSERT_EQUAL((int)save->next, (int)c_db_list_1->head);
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list->tail;
+    CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list->head->prev);
+    CPPUNIT_ASSERT_EQUAL((int)save->next, (int)c_db_list->head);
 }
 
 void DataStructuresTest::testCircularDoublyLinkedListRemoveBeginning(){
-    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save, *remove = NULL;
+    DataStructures::CircularDoublyLinkedList<int>::NodeCls* save = NULL;
 
-    c_db_list_1->InsertBeginning(1234);
-    c_db_list_1->InsertBeginning(123);
-    c_db_list_1->InsertBeginning(12);
-    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->head;
+    c_db_list->InsertBeginning(1234);
+    c_db_list->InsertBeginning(123);
+    c_db_list->InsertBeginning(12);
 
-    remove = c_db_list_1->RemoveBeginning();
+    c_db_list->RemoveBeginning();
 
-    CPPUNIT_ASSERT_EQUAL((int)remove, (int)save);
-    delete remove;
 
-    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list_1->head;
-    CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list_1->tail->next);
-    CPPUNIT_ASSERT_EQUAL((int)save->prev, (int)c_db_list_1->tail);
+    save = (DataStructures::CircularDoublyLinkedList<int>::NodeCls*)c_db_list->head;
+    CPPUNIT_ASSERT_EQUAL((int)save, (int)c_db_list->tail->next);
+    CPPUNIT_ASSERT_EQUAL((int)save->prev, (int)c_db_list->tail);
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertBeginning(){
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* head = NULL;
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* tail = NULL;
-    o_db_list_0->InsertBeginning(12);
+    o_db_list->InsertBeginning(12);
 
-    head = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->head;
-    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
 
-    CPPUNIT_ASSERT_EQUAL(1, o_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(12, head->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail must be head",((int)head == (int)tail));
+    CPPUNIT_ASSERT_EQUAL(1, o_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(12, o_db_list->Head());
+    CPPUNIT_ASSERT_MESSAGE("Tail must be head",((int)o_db_list->head == (int)o_db_list->tail));
 
-    o_db_list_0->InsertBeginning(122);
+    o_db_list->InsertBeginning(122);
 
-    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
-    CPPUNIT_ASSERT_EQUAL(2, o_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(122, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int)tail->next));
+    CPPUNIT_ASSERT_EQUAL(2, o_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(122, o_db_list->tail->value);
+    CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int)o_db_list->tail->next));
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertEnd(){
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* head = NULL;
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* tail = NULL;
-    o_db_list_0->InsertEnd(12);
+    o_db_list->InsertEnd(12);
 
-    head = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->head;
-    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
+    CPPUNIT_ASSERT_EQUAL(1, o_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(12,  o_db_list->tail->value);
+    CPPUNIT_ASSERT_MESSAGE("Tail must be head",((int) o_db_list->head == (int) o_db_list->tail));
 
-    CPPUNIT_ASSERT_EQUAL(1, o_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(12, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail must be head",((int)head == (int)tail));
+    o_db_list->InsertEnd(122);
+    o_db_list->InsertEnd(123);
 
-    o_db_list_0->InsertEnd(122);
-    o_db_list_0->InsertEnd(123);
-
-    tail = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)o_db_list_0->tail;
-    CPPUNIT_ASSERT_EQUAL(3, o_db_list_0->Size());
-    CPPUNIT_ASSERT_EQUAL(123, tail->value);
-    CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int)tail->next));
+    CPPUNIT_ASSERT_EQUAL(3, o_db_list->Size());
+    CPPUNIT_ASSERT_EQUAL(123,  o_db_list->tail->value);
+    CPPUNIT_ASSERT_MESSAGE("Tail->next must be null",((int)NULL == (int) o_db_list->tail->next));
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListInsertAfter(){
     DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
-    node_0 = o_db_list_0->InsertBeginning(1);
+    node_0 = o_db_list->InsertBeginning(1);
     save = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)node_0->next;
-    node_1 = o_db_list_0->InsertAfter(node_0, 2);
+    node_1 = o_db_list->InsertAfter(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_1->prev, (int)node_0);
@@ -306,9 +264,9 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertAfter(){
 void DataStructuresTest::testOpenDoublyLinkedListInsertBefore(){
     DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *save = NULL;
 
-    node_0 = o_db_list_0->InsertBeginning(1);
+    node_0 = o_db_list->InsertBeginning(1);
     save = (DataStructures::OpenDoublyLinkedList<int>::NodeCls*)node_0->prev;
-    node_1 = o_db_list_0->InsertBefore(node_0, 2);
+    node_1 = o_db_list->InsertBefore(node_0, 2);
 
     CPPUNIT_ASSERT_EQUAL((int)node_0->prev, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_1->next, (int)node_0);
@@ -318,11 +276,11 @@ void DataStructuresTest::testOpenDoublyLinkedListInsertBefore(){
 void DataStructuresTest::testOpenDoublyLinkedListRemove(){
     DataStructures::OpenDoublyLinkedList<int>::NodeCls* node_0, *node_1, *node_2, *remove = NULL;
 
-    node_0 = o_db_list_1->InsertBeginning(1);
-    node_1 = o_db_list_1->InsertAfter(node_0, 2);
-    node_2 = o_db_list_1->InsertAfter(node_1, 2);
+    node_0 = o_db_list->InsertBeginning(1);
+    node_1 = o_db_list->InsertAfter(node_0, 2);
+    node_2 = o_db_list->InsertAfter(node_1, 2);
 
-    remove = o_db_list_1->Remove(node_1);
+    remove = o_db_list->Remove(node_1);
 
     CPPUNIT_ASSERT_EQUAL((int)remove, (int)node_1);
     CPPUNIT_ASSERT_EQUAL((int)node_0->next, (int)node_2);
@@ -330,33 +288,29 @@ void DataStructuresTest::testOpenDoublyLinkedListRemove(){
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListRemoveEnd(){
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* remove = NULL;
+    o_db_list->InsertEnd(1234);
+    o_db_list->InsertEnd(123);
+    o_db_list->InsertEnd(12);
 
-    o_db_list_1->InsertEnd(1234);
-    o_db_list_1->InsertEnd(123);
-    o_db_list_1->InsertEnd(12);
+    int tail = o_db_list->Tail();
+    o_db_list->RemoveEnd();
 
-    remove = o_db_list_1->RemoveEnd();
+    CPPUNIT_ASSERT_EQUAL((int)tail, 12);
 
-    CPPUNIT_ASSERT_EQUAL((int)remove->value, 12);
-    delete remove;
-
-    CPPUNIT_ASSERT_EQUAL(2, o_db_list_1->Size());
+    CPPUNIT_ASSERT_EQUAL(2, o_db_list->Size());
 }
 
 void DataStructuresTest::testOpenDoublyLinkedListRemoveBeginning(){
-    DataStructures::OpenDoublyLinkedList<int>::NodeCls* remove = NULL;
+    o_db_list->InsertEnd(1234);
+    o_db_list->InsertEnd(123);
+    o_db_list->InsertEnd(12);
 
-    o_db_list_1->InsertEnd(1234);
-    o_db_list_1->InsertEnd(123);
-    o_db_list_1->InsertEnd(12);
+    int head = o_db_list->Head();
+    o_db_list->RemoveBeginning();
 
-    remove = o_db_list_1->RemoveBeginning();
+    CPPUNIT_ASSERT_EQUAL((int)head, 1234);
 
-    CPPUNIT_ASSERT_EQUAL((int)remove->value, 1234);
-    delete remove;
-
-    CPPUNIT_ASSERT_EQUAL(2, o_db_list_1->Size());
+    CPPUNIT_ASSERT_EQUAL(2, o_db_list->Size());
 }
 
 void DataStructuresTest::testPriorityQueuePush(){
@@ -385,7 +339,8 @@ void DataStructuresTest::testPriorityQueuePop(){
     pr_queue->Push(15);
     pr_queue->Push(18);
 
-    int pop_value = pr_queue->Pop();
+    int pop_value = pr_queue->Head();
+    pr_queue->Pop();
     CPPUNIT_ASSERT_EQUAL(5, pr_queue->Size());
     CPPUNIT_ASSERT_EQUAL(4, pop_value);
     CPPUNIT_ASSERT_EQUAL(7, (*pr_queue)[0]);

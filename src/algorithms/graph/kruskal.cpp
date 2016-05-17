@@ -13,14 +13,13 @@ using namespace std;
 using namespace DataStructures;
 
 namespace Algorithms{
-    namespace Graph{
-        Graph& Kruskal(Graph& graph){
+    namespace GraphF{
+        bool Kruskal(Graph& graph, Graph& result){
             /**
              * TODO
              */
-            Graph span(1,1);
 
-            return span;
+            return true;
         }
     }
 }

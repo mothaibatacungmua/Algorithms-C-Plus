@@ -75,15 +75,15 @@ Node* OpenDoublyLinkedList<T, Node>::InsertEnd(T value){
 
 
 template <typename T, class Node>
-Node* OpenDoublyLinkedList<T, Node>::RemoveBeginning(){
+void OpenDoublyLinkedList<T, Node>::RemoveBeginning(){
     Node* remove = this->head;
 
-    if(remove == NULL) return remove;
+    if(remove == NULL) return;
 
     if(remove->next == NULL){
         this->head = NULL;
         this->tail = NULL;
-        return remove;
+        delete remove;
     }
 
     (this->head->next)->prev = NULL;
@@ -94,19 +94,19 @@ Node* OpenDoublyLinkedList<T, Node>::RemoveBeginning(){
         this->tail = NULL;
     }
 
-    return remove;
+    delete remove;
 }
 
 template <typename T, class Node>
-Node* OpenDoublyLinkedList<T, Node>::RemoveEnd(){
+void OpenDoublyLinkedList<T, Node>::RemoveEnd(){
     Node* remove = this->tail;
 
-    if(remove == NULL) return remove;
+    if(remove == NULL) return;
 
     if(remove->prev == NULL){
         this->head = NULL;
         this->tail = NULL;
-        return remove;
+        delete remove;
     }
 
     (this->tail->prev)->next = NULL;
@@ -117,7 +117,7 @@ Node* OpenDoublyLinkedList<T, Node>::RemoveEnd(){
         this->head = NULL;
     }
 
-    return remove;
+    delete remove;
 }
 
 template class OpenDoublyLinkedList<int>;

@@ -5,8 +5,8 @@
  *      Author: asm
  */
 #include "../../headers/algorithms.hpp"
-#include "../../headers/hashor.hpp"
 #include "../../headers/type-parse.hpp"
+#include "../../headers/hashor.hpp"
 
 using namespace std;
 

@@ -24,12 +24,17 @@ Queue<T, Node>::~Queue(){
 
 template <typename T, class Node>
 Node* Queue<T, Node>::Push(T value){
-    return SingleLinkedList<T>::Push(value);
+    return SingleLinkedList<T, Node>::Push(value);
 }
 
 template <typename T, class Node>
-Node* Queue<T, Node>::Pop(){
-    return SingleLinkedList<T>::Pop();
+T Queue<T, Node>::Head(){
+    return SingleLinkedList<T, Node>::Head();
+}
+
+template <typename T, class Node>
+void Queue<T, Node>::Pop(){
+    return SingleLinkedList<T, Node>::Pop();
 }
 
 

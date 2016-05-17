@@ -50,15 +50,15 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testInitGraph);
     CPPUNIT_TEST_SUITE_END();
 private:
-    DataStructures::SingleLinkedList<int>* list_0, *list_1;
+    DataStructures::SingleLinkedList<int>* list;
 
-    DataStructures::Queue<int>* queue_0, *queue_1;
+    DataStructures::Queue<int>* queue;
 
-    DataStructures::Stack<int>* stack_0, *stack_1;
+    DataStructures::Stack<int>* stack;
 
-    DataStructures::CircularDoublyLinkedList<int>* c_db_list_0, *c_db_list_1;
+    DataStructures::CircularDoublyLinkedList<int>* c_db_list;
 
-    DataStructures::OpenDoublyLinkedList<int>* o_db_list_0, *o_db_list_1;
+    DataStructures::OpenDoublyLinkedList<int>* o_db_list;
 
     DataStructures::PriorityQueue<int>* pr_queue;
 

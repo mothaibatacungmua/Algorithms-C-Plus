@@ -10,7 +10,7 @@
 
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
-
+#include "../../headers/error-codes.hpp"
 
 using namespace DataStructures;
 
@@ -155,29 +155,41 @@ Node* DoublyLinkedList<T,Node>::Remove(Node* node){
 }
 
 template <typename T, class Node>
-Node* DoublyLinkedList<T,Node>::RemoveBeginning(){
-    if(this->head == NULL)
-        return NULL;
+void DoublyLinkedList<T,Node>::RemoveBeginning(){
+    if(this->head == NULL) return;
 
     Node* new_head = this->head->next;
     Node* remove_head = this->Remove(this->head);
 
     this->head = new_head;
 
-    return remove_head;
+    delete remove_head;
 }
 
 template <typename T, class Node>
-Node* DoublyLinkedList<T,Node>::RemoveEnd(){
-    if(this->tail == NULL)
-        return NULL;
+void DoublyLinkedList<T,Node>::RemoveEnd(){
+    if(this->tail == NULL) return;
 
     Node* new_tail = (Node*)this->tail->next;
     Node* remove_tail = this->Remove(this->tail);
 
     this->tail = new_tail;
 
-    return remove_tail;
+    delete remove_tail;
+}
+
+template <typename T, class Node>
+T DoublyLinkedList<T,Node>::Head(){
+    if(this->head == NULL) throw ErrorCodes::OUT_OF_INDEX;
+
+    return this->head->value;
+}
+
+template <typename T, class Node>
+T DoublyLinkedList<T,Node>::Tail(){
+    if(this->tail == NULL) throw ErrorCodes::OUT_OF_INDEX;
+
+    return this->tail->value;
 }
 
 template <typename T, class Node>

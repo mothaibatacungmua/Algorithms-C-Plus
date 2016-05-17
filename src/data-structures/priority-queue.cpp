@@ -9,6 +9,7 @@
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
 #include "../../headers/misc.hpp"
+#include "../../headers/error-codes.hpp"
 
 using namespace DataStructures;
 
@@ -71,25 +72,27 @@ void PriorityQueue<T,Comp>::Push(T value){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T,Comp>::Pop(){
-    T ret = this->heap[0];
+void PriorityQueue<T,Comp>::Pop(){
+    if(current_length <= 0) return;
 
     Utils::Swap(this->heap[0],this->heap[current_length-1]);
 
     current_length--;
 
     this->HeapifyDown(0);
-
-    return ret;
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T,Comp>::GetTop(){
+T PriorityQueue<T,Comp>::Head(){
+    if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
+
     return this->heap[0];
 }
 
 template <typename T, class Comp>
 T PriorityQueue<T,Comp>::Delete(int pos){
+    if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
+
     T ret = this->heap[current_length-1];
     current_length--;
 
@@ -107,6 +110,8 @@ T PriorityQueue<T,Comp>::Delete(int pos){
 
 template <typename T, class Comp>
 T PriorityQueue<T,Comp>::operator [](int pos){
+    if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
+
     return this->heap[pos > (current_length - 1)?(current_length - 1):pos];
 }
 

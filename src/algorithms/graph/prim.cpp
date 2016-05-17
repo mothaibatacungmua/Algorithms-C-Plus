@@ -13,14 +13,13 @@ using namespace std;
 using namespace DataStructures;
 
 namespace Algorithms{
-    namespace Graph{
-        Graph& Prim(Graph& graph){
+    namespace GraphF{
+        bool Prim(Graph& graph, Graph& result){
             /**
              * TODO
              */
-            Graph span(1,1);
 
-            return span;
+            return true;
         }
     }
 }

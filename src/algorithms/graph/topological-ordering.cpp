@@ -8,7 +8,7 @@ int FindNoIncomingVertex(Graph DAG){
 
     for(i = 0; i < DAG.nver; i++){
         for(int j = 0; j < DAG.nver; j++){
-            if(Graph[j][i] != 0) break;
+            if(DAG[j][i] != 0) break;
         }
     }
 
@@ -18,9 +18,9 @@ int FindNoIncomingVertex(Graph DAG){
 }
 
 namespace Algorithms{
-    namespace Graph{
+    namespace GraphF{
         /* Topological ordering */
-        bool TopologicalOrdering(Graph& DAG){
+        bool TopologicalOrdering(Graph& DAG, Vector<int>& result){
             return true;
         }
     }

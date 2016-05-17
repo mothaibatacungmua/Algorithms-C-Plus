@@ -43,7 +43,7 @@ bool Hashmap<K,V,Hash>::Get(K key, V& ret){
 
     if(Node == NULL) return false;
 
-    ret = Node->value;
+    ret = Node->real;
 
     return true;
 
@@ -63,7 +63,7 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
         return;
     }
 
-    Node->value = value;
+    Node->real = value;
 
     return;
 }

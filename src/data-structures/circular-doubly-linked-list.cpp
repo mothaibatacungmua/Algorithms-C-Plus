@@ -81,15 +81,15 @@ Node* CircularDoublyLinkedList<T,Node>::InsertEnd(T value){
 }
 
 template <typename T, class Node>
-Node* CircularDoublyLinkedList<T,Node>::RemoveBeginning(){
+void CircularDoublyLinkedList<T,Node>::RemoveBeginning(){
     Node* remove = this->head;
 
-    if(remove == NULL) return remove;
+    if(remove == NULL) return;
 
     if(remove->next == this->head){
         this->head = NULL;
         this->tail = NULL;
-        return remove;
+        delete remove;
     }
 
     remove = DoublyLinkedList<T, Node>::Remove(remove);
@@ -99,19 +99,19 @@ Node* CircularDoublyLinkedList<T,Node>::RemoveBeginning(){
         this->head = this->tail;
     }
 
-    return remove;
+    delete remove;
 }
 
 template <typename T, class Node>
-Node* CircularDoublyLinkedList<T,Node>::RemoveEnd(){
+void CircularDoublyLinkedList<T,Node>::RemoveEnd(){
     Node* remove = this->tail;
 
-    if(remove == NULL) return remove;
+    if(remove == NULL) return;
 
     if(remove->next == this->tail){
         this->head = NULL;
         this->tail = NULL;
-        return remove;
+        delete remove;
     }
 
     remove = DoublyLinkedList<T, Node>::Remove(remove);
@@ -120,7 +120,7 @@ Node* CircularDoublyLinkedList<T,Node>::RemoveEnd(){
     if(this->head->next == this->head){
         this->tail = this->head;
     }
-    return remove;
+    delete remove;
 }
 
 template class CircularDoublyLinkedList<int>;

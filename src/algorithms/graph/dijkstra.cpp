@@ -13,15 +13,13 @@ using namespace std;
 using namespace DataStructures;
 
 namespace Algorithms{
-    namespace Graph{
-        Vector<int>& Dijkstra(Graph& DAG, int start, int goal){
+    namespace GraphF{
+        bool Dijkstra(Graph& DAG, int start, int goal, Vector<int>& path){
             /**
              * TODO
              */
-            Vector<int> path;
-            path.Insert(0);
 
-            return path;
+            return true;
         }
     }
 }

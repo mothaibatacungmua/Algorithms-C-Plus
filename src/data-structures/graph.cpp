@@ -37,7 +37,8 @@ bool Graph::IsConnected(){
     travel_vertex.Push(0);
 
     while(travel_vertex.Size() != 0){
-        current_vertex = travel_vertex.Pop();
+        current_vertex = travel_vertex.Head();
+        travel_vertex.Pop();
         closed.insert(current_vertex);
 
         for(int i=0; i < this->nver; i++){
@@ -48,7 +49,7 @@ bool Graph::IsConnected(){
         }
     }
 
-    if(closed.size() == this->nver) return true;
+    if(closed.size() == (size_t)this->nver) return true;
 
     return false;
 }
@@ -62,14 +63,15 @@ bool Graph::IsTree(){
     travel_vertex.Push(0);
 
     while(travel_vertex.Size() != 0){
-        current_vertex = travel_vertex.Pop();
+        current_vertex = travel_vertex.Head();
+        travel_vertex.Pop();
         closed.insert(current_vertex);
 
         for(int i=0; i < this->nver; i++){
             if(this->matrix[current_vertex][i] != 0 &&
                closed.find(i) == closed.end()){
 
-                for(it=closed.begin; it != closed.end(); ++it){
+                for(it=closed.begin(); it != closed.end(); ++it){
                     if(this->matrix[i][*it] != 0) return false;
                 }
                 travel_vertex.Push(i);

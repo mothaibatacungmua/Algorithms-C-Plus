@@ -58,11 +58,13 @@ namespace DataStructures{
     class SingleLinkedList{
     public:
         typedef Node NodeCls;
+
         Node* head;
         SingleLinkedList();
         virtual ~SingleLinkedList();
         virtual Node* Push(T value);
-        virtual Node* Pop();
+        virtual T Head();
+        virtual void Pop();
         virtual Node* Find(T value);
         virtual int Size();
         virtual string ToString();
@@ -78,7 +80,8 @@ namespace DataStructures{
         Queue();
         virtual ~Queue();
         virtual Node* Push(T value);
-        virtual Node* Pop();
+        virtual T Head();
+        virtual void Pop();
     };
 
     //
@@ -91,7 +94,8 @@ namespace DataStructures{
         Stack();
         virtual ~Stack();
         virtual Node* Push(T value);
-        virtual Node* Pop();
+        virtual T Head();
+        virtual void Pop();
     };
 
     //
@@ -121,8 +125,10 @@ namespace DataStructures{
         virtual Node* InsertEnd(T value);
         virtual Node* Find(T value);
         virtual Node* Remove(Node* node);
-        virtual Node* RemoveBeginning();
-        virtual Node* RemoveEnd();
+        virtual void RemoveBeginning();
+        virtual void RemoveEnd();
+        virtual T Head();
+        virtual T Tail();
         virtual int Size();
         virtual string ToString();
     };
@@ -140,8 +146,8 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual Node* RemoveBeginning();
-        virtual Node* RemoveEnd();
+        virtual void RemoveBeginning();
+        virtual void RemoveEnd();
     };
 
     //
@@ -157,8 +163,8 @@ namespace DataStructures{
         virtual Node* InsertBeginning(T value);
         virtual Node* InsertEnd(Node* new_node);
         virtual Node* InsertEnd(T value);
-        virtual Node* RemoveBeginning();
-        virtual Node* RemoveEnd();
+        virtual void RemoveBeginning();
+        virtual void RemoveEnd();
     };
 
     //
@@ -171,8 +177,8 @@ namespace DataStructures{
         ~PriorityQueue();
         vector<T> heap;
         void Push(T value);
-        T GetTop();
-        T Pop();
+        T Head();
+        void Pop();
         string ToString();
         int Size();
         T operator[](int pos);
@@ -194,25 +200,25 @@ namespace DataStructures{
         HashEntryNode* next;
         HashEntryNode* prev;
         HashEntryNode(int index){
-            this->index = index;
+            this->value = index;
             this->next = this->prev = NULL;
         }
 
-        HashEntryNode(int index, V value){
-            this->index = index;
-            this->value = value;
+        HashEntryNode(int index, V real){
+            this->value = index;
+            this->real = real;
             this->next = this->prev = NULL;
         }
 
-        int index;
-        V value;
+        int value;
+        V real;
 
         bool operator==(HashEntryNode& A){
-            return (this->index == A.index);
+            return (this->value == A.value);
         }
 
         bool operator==(int index){
-            return (this->index == index);
+            return (this->value == value);
         }
     };
 
@@ -295,7 +301,8 @@ namespace DataStructures{
         class Edge{
         public:
             Edge(){
-                this->head = this->tail = 0;
+                this->head = 0;
+                this->tail = 0;
             }
 
             Edge(int head, int tail){

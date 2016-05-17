@@ -8,6 +8,7 @@
 #include <string>
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
+#include "../../headers/error-codes.hpp"
 
 using namespace DataStructures;
 
@@ -22,32 +23,41 @@ Stack<T, Node>::~Stack(){
 }
 
 template <typename T, class Node>
-Node* Stack<T, Node>::Push(T value){
-    return SingleLinkedList<T>::Push(value);
+T Stack<T,Node>::Head(){
+    if(this->head == NULL) throw ErrorCodes::OUT_OF_INDEX;
+
+    return this->head->value;
 }
 
 template <typename T, class Node>
-Node* Stack<T, Node>::Pop(){
-    //pop tail
-    if(this->head == NULL) return NULL;
+Node* Stack<T, Node>::Push(T value){
+    Node* new_node = new Node(value);
 
-    Node* tail = this->head;
-    if(tail->next == NULL){
+    if(this->head == NULL){
+        this->head = new_node;
+        return new_node;
+    }
+
+    new_node->next = this->head;
+    this->head = new_node->next;
+
+    return new_node;
+}
+
+template <typename T, class Node>
+void Stack<T, Node>::Pop(){
+    if(this->head == NULL) return;
+
+    if(this->head->next == NULL){
+        delete this->head;
         this->head = NULL;
-        return tail;
     }
 
-    Node* prev_tail = tail;
-    tail = tail->next;
+    Node* old_head = this->head;
 
-    while(tail-> next != NULL){
-        prev_tail = prev_tail->next;
-        tail = tail->next;
-    }
+    this->head = this->head->next;
+    delete old_head;
 
-    prev_tail->next = NULL;
-
-    return tail;
 }
 
 template class Stack<int>;

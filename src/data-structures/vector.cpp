@@ -12,6 +12,7 @@
 #include "../../headers/error-codes.hpp"
 #include "../../headers/misc.hpp"
 
+
 using namespace DataStructures;
 
 template <typename V>
@@ -58,7 +59,9 @@ int Vector<V>::Size(){
 
 template <typename V>
 void Vector<V>::Insert(const V& value){
-    this->storage.insert(value);
+    typename std::vector<V>::iterator it;
+    it = this->storage.end();
+    this->storage.insert(it, value);
 }
 
 template <typename V>
@@ -111,12 +114,12 @@ string Vector<V>::ToString(){
 
 template <typename V>
 void Vector<V>::Delete(int position){
-    this->storage.earse(this->storage.begin()+position);
+    this->storage.erase(this->storage.begin()+position);
 }
 
 template <typename V>
 void Vector<V>::Delete(int first, int last){
-    this->storage.earse(this->storage.begin()+first, this->storage.begin()+last);
+    this->storage.erase(this->storage.begin()+first, this->storage.begin()+last);
 }
 
 template class Vector<int>;

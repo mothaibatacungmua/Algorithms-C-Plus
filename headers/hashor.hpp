@@ -1,9 +1,12 @@
 /*
- * hashor.hpp
+ * hashor_.hpp
  *
- *  Created on: May 3, 2016
+ *  Created on: May 17, 2016
  *      Author: asm
  */
+
+#ifndef HASHOR_HPP_
+#define HASHOR_HPP_
 
 #include <stdio.h>
 
@@ -15,3 +18,5 @@ namespace Utils{
 }
 
 
+
+#endif /* HASHOR_HPP_ */

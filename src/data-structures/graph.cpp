@@ -17,24 +17,21 @@
 
 using namespace DataStructures;
 
-Graph::Graph(int n_vertex){
-    this->nver = n_vertex;
-    /* 100 vertex */
-    this->adjac = new Hashmap<int, Vector<double> >(n_vertex+1);
+Graph::Graph(int n_vertex):Matrix<double>(n_vertex, n_vertex){
+    for(int i=0; i< n_vertex; i++){
+        vertices.Insert(i);
+    }
 }
 
 
-Graph::Graph(Vector<double>* vectors, int nvec){
-    this->nver = nvec;
-    this->adjac = new Hashmap<int, Vector<double> >(nvec+1);
-
-    for(int i=0; i < nvec; i++){
-        this->adjac->Set(i, vectors[i]);
+Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, false, true){
+    for(int i=0; i< nvec; i++){
+        vertices.Insert(i);
     }
 }
 
 Graph::~Graph(){
-    delete this->adjac;
+
 }
 
 bool Graph::IsConnected(){
@@ -48,15 +45,15 @@ bool Graph::IsConnected(){
         travel_vertex.Pop();
         closed.insert(current_vertex);
 
-        for(int i=0; i < this->nver; i++){
-            if((*this->adjac)[current_vertex][i] != 0 &&
+        for(int i=0; i < this->vertices.Size(); i++){
+            if(this->matrix[current_vertex][i] != 0 &&
                closed.find(i) == closed.end()){
                 travel_vertex.Push(i);
             }
         }
     }
 
-    if(closed.size() == (size_t)this->nver) return true;
+    if(closed.size() == (size_t)this->vertices.Size()) return true;
 
     return false;
 }
@@ -74,12 +71,12 @@ bool Graph::IsTree(){
         travel_vertex.Pop();
         closed.insert(current_vertex);
 
-        for(int i=0; i < this->nver; i++){
-            if((*this->adjac)[current_vertex][i] != 0 &&
+        for(int i=0; i < this->vertices.Size(); i++){
+            if(this->matrix[current_vertex][i] != 0 &&
                closed.find(i) == closed.end()){
 
                 for(it=closed.begin(); it != closed.end(); ++it){
-                    if((*this->adjac)[i][*it] != 0) return false;
+                    if(this->matrix[i][*it] != 0) return false;
                 }
                 travel_vertex.Push(i);
             }
@@ -89,19 +86,13 @@ bool Graph::IsTree(){
     return true;
 }
 
-Vector<double>& Graph::operator[](int index){
-    if(index >= this->nver) throw ErrorCodes::OUT_OF_INDEX;
-
-    return (*this->adjac)[index];
-}
-
 bool Graph::DeleteEdge(Graph::Edge edge, bool undirected){
-    if(edge.head >= this->nver || edge.tail >= this->nver)
+    if(edge.head >= this->vertices.Size() || edge.tail >= this->vertices.Size())
         return false;
 
-    (*this->adjac)[edge.head][edge.tail] = 0;
+    this->matrix[edge.head][edge.tail] = 0;
     if(undirected){
-        (*this->adjac)[edge.tail][edge.head] = 0;
+        this->matrix[edge.tail][edge.head] = 0;
     }
     return true;
 }
@@ -116,12 +107,38 @@ bool Graph::DeleteEdge(Vector<Graph::Edge> edge, bool undirected){
     return true;
 }
 
-bool Graph::DeleteVertex(int vertex){
+int Graph::HasVertex(int vertex){
+    return this->vertices.FindOnce(vertex);
+}
 
-    this->nver--;
+bool Graph::DeleteVertex(int vertex){
+    int index = this->HasVertex(vertex);
+
+    if(index == -1) return false;
+
+    if(!this->DeleteColumn(index) || !this->DeleteColumn(index))
+        return false;
+
+    this->vertices.RemoveOnce(vertex);
     return true;
 }
 
 bool Graph::DeleteVertex(Vector<int> vertex){
+    Vector<int> index;
+    int t = 0;
+
+    for(int i = 0; i < vertex.Size(); i++){
+        t = this->HasVertex(vertex[i]);
+
+        if(t != -1) index.Insert(t);
+    }
+
+    if(!this->DeleteColumn(index) || !this->DeleteColumn(index))
+        return false;
+
+    for(int i = 0; i < vertex.Size(); i++){
+        this->vertices.RemoveOnce(vertex[i]);
+    }
+
     return true;
 }

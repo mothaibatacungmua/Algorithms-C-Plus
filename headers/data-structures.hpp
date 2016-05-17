@@ -251,9 +251,12 @@ namespace DataStructures{
 
         int Size();
         int Resize(int length);
+        int FindOnce(const V& value);
         void Insert(const V& value);
         void Delete(int position);
         void Delete(int first, int last);
+        void RemoveOnce(const V& value);
+        void RemoveAll(const V& value);
         Vector<V>& operator=(Vector<V>& x);
         V operator[](int index) const;
         V& operator[](int index);
@@ -297,7 +300,7 @@ namespace DataStructures{
     };
 
     // Graph, adjacency matrix
-    class Graph{
+    class Graph:Matrix<double>{
     public:
         class Edge{
         public:
@@ -324,10 +327,8 @@ namespace DataStructures{
         bool DeleteEdge(Vector<Edge> edge, bool undirected=true);
         bool DeleteVertex(int vertex);
         bool DeleteVertex(Vector<int> vertex);
-        Vector<double>& operator[](int index);
-        int nver;
-    private:
-        Hashmap<int, Vector<double> >* adjac;
+        int HasVertex(int vertex);
+        Vector<int> vertices;
     };
 }
 

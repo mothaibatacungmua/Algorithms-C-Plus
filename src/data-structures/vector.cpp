@@ -122,6 +122,35 @@ void Vector<V>::Delete(int first, int last){
     this->storage.erase(this->storage.begin()+first, this->storage.begin()+last);
 }
 
+template <typename V>
+int Vector<V>::FindOnce(const V& value){
+    for(int i = 0; i < this->storage.size(); i++){
+        if(this->storage[i] == value) return i;
+    }
+
+    return -1;
+}
+
+template <typename V>
+void Vector<V>::RemoveOnce(const V& value){
+    vector<V>::iterator it;
+    it = this->storage.begin();
+
+    for(;it != this->storage.end(); ++it){
+        if(*it == V) break;
+    }
+
+    if(it == this->storage.end()) return;
+
+    this->storage.erase(it);
+
+}
+
+template <typename V>
+void Vector<V>::RemoveAll(const V& value){
+    /* TODO */
+}
+
 template class Vector<int>;
 template class Vector<double>;
 template class Vector<string>;

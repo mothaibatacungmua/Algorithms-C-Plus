@@ -24,6 +24,49 @@ void DataStructuresTest::setUp(){
 
     hashmap = new DataStructures::Hashmap<int, int>(10);
 
+    int c_0[4] = {1,2,3,4};
+    int c_1[4] = {5,6,7,8};
+    int c_2[4] = {9,10,11,12};
+    int c_3[4] = {13,14,15,16};
+
+    DataStructures::Vector<int> m_0[] = {
+            DataStructures::Vector<int>(c_0,4),
+            DataStructures::Vector<int>(c_1,4),
+            DataStructures::Vector<int>(c_2,4),
+            DataStructures::Vector<int>(c_3,4)
+    };
+
+    mat = new DataStructures::Matrix<int>(m_0, 4);
+
+    /**
+     *                  1   7
+     *                 / \ /|
+     *                2 - 3 |
+     *               / \ / \|
+     *              4 - 5   8
+     *                  |
+     *                  6
+     */
+    int v_0[8] = {0, 1, 1, 0, 0, 0, 0, 0};
+    int v_1[8] = {1, 0, 1, 1, 1, 0, 0, 0};
+    int v_2[8] = {1, 1, 0, 0, 1, 0, 1, 1};
+    int v_3[8] = {0, 1, 0, 0, 1, 0, 0, 0};
+    int v_4[8] = {0, 1, 1, 1, 0, 1, 0, 0};
+    int v_5[8] = {0, 0, 0, 0, 1, 0, 0, 0};
+    int v_6[8] = {0, 0, 1, 0, 0, 0, 0, 1};
+    int v_7[8] = {0, 0, 1, 0, 0, 0, 1, 0};
+
+    DataStructures::Vector<int> m_1[] = {
+            DataStructures::Vector<int>(v_0,8),
+            DataStructures::Vector<int>(v_1,8),
+            DataStructures::Vector<int>(v_2,8),
+            DataStructures::Vector<int>(v_3,8),
+            DataStructures::Vector<int>(v_4,8),
+            DataStructures::Vector<int>(v_6,8),
+            DataStructures::Vector<int>(v_7,8)
+    };
+
+    graph = new DataStructures::Graph(m_1, 8);
 }
 
 void DataStructuresTest::tearDown(){
@@ -41,6 +84,9 @@ void DataStructuresTest::tearDown(){
 
     delete hashmap;
 
+    delete mat;
+
+    delete graph;
 }
 
 void DataStructuresTest::testSingleLinkedListPush(){
@@ -405,7 +451,39 @@ void DataStructuresTest::testInitMatrix(){
     CPPUNIT_ASSERT_EQUAL(16, int_mat_1[3][3]);
 }
 
+void DataStructuresTest::testDeleteOneColumnMatrix(){
+
+}
+
+void DataStructuresTest::testDeleteMultipleColumnMatrix(){
+
+}
+
+void DataStructuresTest::testDeleteOneRowMatrix(){
+
+}
+
+void DataStructuresTest::testDeleteMultipleRowMatrix(){
+
+}
+
 void DataStructuresTest::testInitGraph(){
     /* TODO */
     DataStructures::Graph graph(10);
+}
+
+void DataStructuresTest::testDeleteOneVertexGraph(){
+
+}
+
+void DataStructuresTest::testDeleteMutipleVertexGraph(){
+
+}
+
+void DataStructuresTest::testDeleteOneEdgeGraph(){
+
+}
+
+void DataStructuresTest::testDeleteMutipleEdgeGraph(){
+
 }

@@ -46,8 +46,18 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testInitVector);
 
     CPPUNIT_TEST( testInitMatrix);
+    CPPUNIT_TEST( testDeleteOneColumnMatrix);
+    CPPUNIT_TEST( testDeleteMultipleColumnMatrix);
+    CPPUNIT_TEST( testDeleteOneRowMatrix);
+    CPPUNIT_TEST( testDeleteMultipleRowMatrix);
+
 
     CPPUNIT_TEST( testInitGraph);
+    CPPUNIT_TEST( testDeleteOneVertexGraph);
+    CPPUNIT_TEST( testDeleteMutipleVertexGraph);
+    CPPUNIT_TEST( testDeleteOneEdgeGraph);
+    CPPUNIT_TEST( testDeleteMutipleEdgeGraph);
+
     CPPUNIT_TEST_SUITE_END();
 private:
     DataStructures::SingleLinkedList<int>* list;
@@ -63,6 +73,10 @@ private:
     DataStructures::PriorityQueue<int>* pr_queue;
 
     DataStructures::Hashmap<int, int>* hashmap;
+
+    DataStructures::Matrix<int>* mat;
+
+    DataStructures::Graph* graph;
 
 
 public:
@@ -122,8 +136,23 @@ public:
 
     void testInitMatrix();
 
+    void testDeleteOneColumnMatrix();
+
+    void testDeleteMultipleColumnMatrix();
+
+    void testDeleteOneRowMatrix();
+
+    void testDeleteMultipleRowMatrix();
+
     void testInitGraph();
 
+    void testDeleteOneVertexGraph();
+
+    void testDeleteMutipleVertexGraph();
+
+    void testDeleteOneEdgeGraph();
+
+    void testDeleteMutipleEdgeGraph();
 
 };
 

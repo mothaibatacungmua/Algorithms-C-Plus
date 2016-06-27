@@ -3,24 +3,28 @@
 
 using namespace DataStructures;
 
-int FindNoIncomingVertex(Graph DAG){
-    int i = 0;
 
-    for(i = 0; i < DAG.nver; i++){
-        for(int j = 0; j < DAG.nver; j++){
-            if(DAG[j][i] != 0) break;
-        }
-    }
-
-    if(i == DAG.nver) return -1;
-
-    return i;
-}
 
 namespace Algorithms{
     namespace GraphF{
         /* Topological ordering */
         bool TopologicalOrdering(Graph& DAG, Vector<int>& result){
+            Graph A = DAG;
+            int num_ver = A.GetNumVertices();
+            result.Resize(num_ver);
+
+            while(A.GetNumVertices() != 0){
+                int i = A.FindNoIncomingVertex();
+
+                if(i == -1){
+                    return false;
+                }
+
+                result.Insert(i);
+
+                A.DeleteVertex(i);
+            }
+
             return true;
         }
     }

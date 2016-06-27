@@ -328,6 +328,9 @@ namespace DataStructures{
         bool DeleteVertex(int vertex);
         bool DeleteVertex(Vector<int> vertex);
         int HasVertex(int vertex);
+        int GetNumVertices();
+        int FindNoIncomingVertex();
+        Graph& operator= (Graph& G);
         Vector<int> vertices;
     };
 }

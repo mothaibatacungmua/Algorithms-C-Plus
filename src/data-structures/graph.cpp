@@ -142,3 +142,30 @@ bool Graph::DeleteVertex(Vector<int> vertex){
 
     return true;
 }
+
+int Graph::GetNumVertices(){
+    return this->vertices.Size();
+}
+
+Graph& Graph::operator=(Graph& x){
+    this->SetStorage(x);
+
+    this->vertices = x.vertices;
+
+    return *this;
+}
+
+int Graph::FindNoIncomingVertex(){
+    int i = 0;
+    int num_ver = this->GetNumVertices();
+
+    for(i = 0; i < num_ver; i++){
+        for(int j = 0; j < num_ver; j++){
+            if(*this[j][i] != 0) break;
+        }
+    }
+
+    if(i == num_ver) return -1;
+
+    return i;
+}

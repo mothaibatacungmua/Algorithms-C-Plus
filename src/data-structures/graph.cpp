@@ -14,13 +14,22 @@
 #include "../../headers/type-parse.hpp"
 #include "../../headers/data-structures.hpp"
 #include "../../headers/error-codes.hpp"
+#include <limits>
 
 using namespace DataStructures;
 
-Graph::Graph(int n_vertex):Matrix<double>(n_vertex, n_vertex){
+Graph::Graph(int n_vertex, bool undirected):Matrix<double>(n_vertex, n_vertex){
     for(int i=0; i< n_vertex; i++){
         vertices.Insert(i);
     }
+
+    for(int i = 0; i < n_vertex; i++){
+        for(int j = 0; j < n_vertex; j++){
+            *this[i][j] = std::numeric_limits<double>::max();
+        }
+    }
+
+    this->undirected = undirected;
 }
 
 
@@ -28,6 +37,8 @@ Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, fa
     for(int i=0; i< nvec; i++){
         vertices.Insert(i);
     }
+
+    this->undirected = false;
 }
 
 Graph::~Graph(){
@@ -167,5 +178,84 @@ int Graph::FindNoIncomingVertex(){
 
     if(i == num_ver) return -1;
 
-    return i;
+    return this->vertices[i];
+}
+
+Graph::Edge Graph::FindSmallestEdge(){
+    double min_v = *this[0][0];
+    Edge ret_e(0, 0);
+    int num_ver = this->GetNumVertices();
+
+    for(int i = 0; i < num_ver; i++){
+        for(int j = 0; j < num_ver; j++){
+            if(*this[i][j] < min_v){
+                min_v = *this[i][j];
+                ret_e.head = i;
+                ret_e.tail = j;
+                ret_e.weight = min_v;
+            }
+        }
+    }
+
+    return ret_e;
+}
+
+Graph::Edge Graph::FindBiggestEdge(){
+    double max_v = std::numeric_limits<double>::min();
+    Edge ret_e(0, 0);
+    int num_ver = this->GetNumVertices();
+
+    for(int i = 0; i < num_ver; i++){
+        for(int j = 0; j < num_ver; j++){
+            if(*this[i][j] > max_v && *this[i][j] != std::numeric_limits<double>::max()){
+                max_v = *this[i][j];
+                ret_e.head = i;
+                ret_e.tail = j;
+                ret_e.weight = max_v;
+            }
+        }
+    }
+
+    return ret_e;
+}
+
+bool Graph::AddEdge(Graph::Edge edge){
+    if(!this->AddVertex(edge.head)){
+        return false;
+    }
+
+    if(!this->AddVertex(edge.tail)){
+        return false;
+    }
+
+    int index_head = this->HasVertex(edge.head);
+    int index_tail = this->HasVertex(edge.tail);
+
+    *this[index_head][index_tail] = edge.weight;
+
+    if(this->undirected){
+        *this[index_tail][index_head] = edge.weight;
+    }
+
+    return true;
+}
+
+bool Graph::AddVertex(int vertex){
+    Vector<double> append_c(std::numeric_limits<double>::max(), this->ncol);
+    Vector<double> append_r(std::numeric_limits<double>::max(), this->ncol+1);
+
+    if(!this->HasVertex(vertex)){
+        if(!this->BindColumns(&append_c, 1)){
+            return false;
+        }
+
+        if(!this->BindRows(&append_r, 1)){
+            this->DeleteColumn(this->ncol - 1);
+            return false;
+        }
+
+        this->vertices.Insert(vertex);
+    }
+
+    return true;
 }

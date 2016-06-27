@@ -26,6 +26,14 @@ Vector<V>::Vector(int length){
 }
 
 template <typename V>
+Vector<V>::Vector(V init_value, int length){
+    this->storage.resize(length);
+    for(int i = 0; i < length; i++){
+        this->storage[i] = init_value;
+    }
+}
+
+template <typename V>
 Vector<V>::Vector(V* values, int length){
     this->storage.resize(length);
 

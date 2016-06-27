@@ -19,6 +19,12 @@ namespace Algorithms{
              * TODO
              */
 
+            if(result.GetNumVertices() != graph.GetNumVertices()){
+                return false;
+            }
+
+            PriorityQueue<Graph::Edge> adjacencies;
+
             return true;
         }
     }

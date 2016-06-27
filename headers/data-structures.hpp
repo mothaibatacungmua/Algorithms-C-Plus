@@ -247,6 +247,7 @@ namespace DataStructures{
         Vector();
         Vector(int length);
         Vector(V* values, int length);
+        Vector(V init_value, int length);
         ~Vector();
 
         int Size();
@@ -286,6 +287,10 @@ namespace DataStructures{
         bool DeleteColumn(Vector<int> col);
         bool DeleteRow(int row);
         bool DeleteRow(const Vector<int> row);
+        bool BindColumns(Vector<V>* columns, int numcol);
+        bool BindColumns(Matrix<V>& m);
+        bool BindRows(Vector<V>* rows, int numrow);
+        bool BindRows(Matrix<V>& m);
         Matrix<V>& operator=(Matrix<V>& x);
         Vector<V>& operator[](int index);
 
@@ -307,18 +312,29 @@ namespace DataStructures{
             Edge(){
                 this->head = 0;
                 this->tail = 0;
+                this->weight = 0.0;
             }
 
-            Edge(int head, int tail){
+            Edge(int head, int tail, double weight = 0.0){
                 this->head = head;
                 this->tail = tail;
+                this->weight = weight;
             }
 
+            bool operator >(Edge& e){
+                return (this->weight > e.weight);
+            }
+
+            bool operator == (Edge& e){
+                return (this->weight == e.weight);
+            }
+
+            double weight;
             int head;
             int tail;
         };
 
-        Graph(int n_vertex);
+        Graph(int n_vertex, bool undirected);
         Graph(Vector<double>* vectors, int nvec);
         ~Graph();
         bool IsConnected();
@@ -330,6 +346,13 @@ namespace DataStructures{
         int HasVertex(int vertex);
         int GetNumVertices();
         int FindNoIncomingVertex();
+        Edge FindSmallestEdge();
+        Edge FindBiggestEdge();
+
+        bool AddEdge(Edge edge);
+        bool AddVertex(int vertex);
+
+        bool undirected;
         Graph& operator= (Graph& G);
         Vector<int> vertices;
     };

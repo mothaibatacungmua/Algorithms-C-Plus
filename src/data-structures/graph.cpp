@@ -259,3 +259,27 @@ bool Graph::AddVertex(int vertex){
 
     return true;
 }
+
+double Graph::GetEdgeW(int head, int tail){
+    int i_h = this->HasVertex(head);
+    int i_t = this->HasVertex(tail);
+
+    if(i_h == -1 || i_t == -1){
+        return std::numeric_limits<double>::max();
+    }
+
+    return *this[i_h][i_t];
+}
+
+void Graph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
+    int index_v = this->HasVertex(vertex);
+    if(index_v == -1) return;
+
+    for(int i = 0; i < this->GetNumVertices(); i++){
+        if(this[index_v][i] == std::numeric_limits<double>::max()){
+            continue;
+        }
+
+        ret.Insert(this->vertices[i]);
+    }
+}

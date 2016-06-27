@@ -352,7 +352,10 @@ namespace DataStructures{
         bool AddEdge(Edge edge);
         bool AddVertex(int vertex);
 
+        void FindAdjacencyVertices(int vertex, Vector<int>& ret);
+
         bool undirected;
+        double GetEdgeW(int head, int tail);
         Graph& operator= (Graph& G);
         Vector<int> vertices;
     };

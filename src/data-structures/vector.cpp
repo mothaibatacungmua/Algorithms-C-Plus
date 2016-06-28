@@ -162,4 +162,4 @@ void Vector<V>::RemoveAll(const V& value){
 template class Vector<int>;
 template class Vector<double>;
 template class Vector<string>;
-template class Vector<Graph::Edge>;
+template class Vector<MGraph::Edge>;

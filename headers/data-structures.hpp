@@ -304,8 +304,9 @@ namespace DataStructures{
         Vector<V>* matrix;
     };
 
+    class SGraph;
     // Graph, adjacency matrix
-    class Graph:Matrix<double>{
+    class MGraph:Matrix<double>{
     public:
         class Edge{
         public:
@@ -334,9 +335,9 @@ namespace DataStructures{
             int tail;
         };
 
-        Graph(int n_vertex, bool undirected);
-        Graph(Vector<double>* vectors, int nvec);
-        ~Graph();
+        MGraph(int n_vertex, bool undirected);
+        MGraph(Vector<double>* vectors, int nvec);
+        ~MGraph();
         bool IsConnected();
         bool IsTree();
         bool DeleteEdge(Edge edge, bool undirected=true);
@@ -356,8 +357,48 @@ namespace DataStructures{
 
         bool undirected;
         double GetEdgeW(int head, int tail);
-        Graph& operator= (Graph& G);
+        MGraph& operator= (MGraph& G);
         Vector<int> vertices;
+
+        void ConvertToSGraph(SGraph& x);
+    };
+
+    class SGraph{
+    public:
+        typedef MGraph::Edge Edge;
+        struct EdgeComparator{
+            bool operator() (const Edge& x, const Edge& y){
+                return (x.head == y.head) && (x.tail == y.tail);
+            }
+        };
+        typedef set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
+        typedef set<int> SetVertex;
+
+        SGraph(bool undirected, SetEdge& edges, SetVertex& vertices);
+        SGraph(bool undirected);
+        ~SGraph();
+
+        bool IsConnected();
+        bool IsTree();
+        bool DeleteEdge(Edge edge);
+        bool DeleteEdge(Vector<Edge> edge);
+        bool DeleteVertex(int vertex);
+        bool DeleteVertex(Vector<int> vertices);
+        int FindNoIncomingVertex();
+        bool AddEdge(Edge edge);
+        bool AddVertex(int vertex);
+
+        void FindAdjacencyVertices(int vertex, Vector<int>& ret);
+
+        double GetEdgeW(int head_v, int tail_v);
+
+        string ToString();
+
+        void ConvertToMGraph(MGraph& x);
+        bool undirected;
+    private:
+        SetEdge edges;
+        SetVertex vertices;
     };
 }
 

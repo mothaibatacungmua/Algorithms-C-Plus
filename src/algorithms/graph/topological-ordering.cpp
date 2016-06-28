@@ -8,8 +8,8 @@ using namespace DataStructures;
 namespace Algorithms{
     namespace GraphF{
         /* Topological ordering */
-        bool TopologicalOrdering(Graph& DAG, Vector<int>& result){
-            Graph A = DAG;
+        bool TopologicalOrdering(MGraph& DAG, Vector<int>& result){
+            MGraph A = DAG;
             int num_ver = A.GetNumVertices();
             result.Resize(num_ver);
 

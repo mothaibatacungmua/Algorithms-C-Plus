@@ -18,7 +18,7 @@
 
 using namespace DataStructures;
 
-Graph::Graph(int n_vertex, bool undirected):Matrix<double>(n_vertex, n_vertex){
+MGraph::MGraph(int n_vertex, bool undirected):Matrix<double>(n_vertex, n_vertex){
     for(int i=0; i< n_vertex; i++){
         vertices.Insert(i);
     }
@@ -33,7 +33,7 @@ Graph::Graph(int n_vertex, bool undirected):Matrix<double>(n_vertex, n_vertex){
 }
 
 
-Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, false, true){
+MGraph::MGraph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, false, true){
     for(int i=0; i< nvec; i++){
         vertices.Insert(i);
     }
@@ -41,11 +41,11 @@ Graph::Graph(Vector<double>* vectors, int nvec):Matrix<double>(vectors, nvec, fa
     this->undirected = false;
 }
 
-Graph::~Graph(){
+MGraph::~MGraph(){
 
 }
 
-bool Graph::IsConnected(){
+bool MGraph::IsConnected(){
     Stack<int> travel_vertex;
     set<int> closed;
     int current_vertex = 0;
@@ -70,7 +70,7 @@ bool Graph::IsConnected(){
 }
 
 
-bool Graph::IsTree(){
+bool MGraph::IsTree(){
     Stack<int> travel_vertex;
     set<int> closed;
     set<int>::iterator it;
@@ -97,7 +97,7 @@ bool Graph::IsTree(){
     return true;
 }
 
-bool Graph::DeleteEdge(Graph::Edge edge, bool undirected){
+bool MGraph::DeleteEdge(MGraph::Edge edge, bool undirected){
     if(edge.head >= this->vertices.Size() || edge.tail >= this->vertices.Size())
         return false;
 
@@ -108,7 +108,7 @@ bool Graph::DeleteEdge(Graph::Edge edge, bool undirected){
     return true;
 }
 
-bool Graph::DeleteEdge(Vector<Graph::Edge> edge, bool undirected){
+bool MGraph::DeleteEdge(Vector<MGraph::Edge> edge, bool undirected){
     if(edge.Size() == 0) return false;
 
     for(int i = 0; i < edge.Size(); i++){
@@ -118,11 +118,11 @@ bool Graph::DeleteEdge(Vector<Graph::Edge> edge, bool undirected){
     return true;
 }
 
-int Graph::HasVertex(int vertex){
+int MGraph::HasVertex(int vertex){
     return this->vertices.FindOnce(vertex);
 }
 
-bool Graph::DeleteVertex(int vertex){
+bool MGraph::DeleteVertex(int vertex){
     int index = this->HasVertex(vertex);
 
     if(index == -1) return false;
@@ -134,7 +134,7 @@ bool Graph::DeleteVertex(int vertex){
     return true;
 }
 
-bool Graph::DeleteVertex(Vector<int> vertex){
+bool MGraph::DeleteVertex(Vector<int> vertex){
     Vector<int> index;
     int t = 0;
 
@@ -154,11 +154,11 @@ bool Graph::DeleteVertex(Vector<int> vertex){
     return true;
 }
 
-int Graph::GetNumVertices(){
+int MGraph::GetNumVertices(){
     return this->vertices.Size();
 }
 
-Graph& Graph::operator=(Graph& x){
+MGraph& MGraph::operator=(MGraph& x){
     this->SetStorage(x);
 
     this->vertices = x.vertices;
@@ -166,7 +166,7 @@ Graph& Graph::operator=(Graph& x){
     return *this;
 }
 
-int Graph::FindNoIncomingVertex(){
+int MGraph::FindNoIncomingVertex(){
     int i = 0;
     int num_ver = this->GetNumVertices();
 
@@ -181,7 +181,7 @@ int Graph::FindNoIncomingVertex(){
     return this->vertices[i];
 }
 
-Graph::Edge Graph::FindSmallestEdge(){
+MGraph::Edge MGraph::FindSmallestEdge(){
     double min_v = *this[0][0];
     Edge ret_e(0, 0);
     int num_ver = this->GetNumVertices();
@@ -200,7 +200,7 @@ Graph::Edge Graph::FindSmallestEdge(){
     return ret_e;
 }
 
-Graph::Edge Graph::FindBiggestEdge(){
+MGraph::Edge MGraph::FindBiggestEdge(){
     double max_v = std::numeric_limits<double>::min();
     Edge ret_e(0, 0);
     int num_ver = this->GetNumVertices();
@@ -219,7 +219,7 @@ Graph::Edge Graph::FindBiggestEdge(){
     return ret_e;
 }
 
-bool Graph::AddEdge(Graph::Edge edge){
+bool MGraph::AddEdge(MGraph::Edge edge){
     if(!this->AddVertex(edge.head)){
         return false;
     }
@@ -240,7 +240,7 @@ bool Graph::AddEdge(Graph::Edge edge){
     return true;
 }
 
-bool Graph::AddVertex(int vertex){
+bool MGraph::AddVertex(int vertex){
     Vector<double> append_c(std::numeric_limits<double>::max(), this->ncol);
     Vector<double> append_r(std::numeric_limits<double>::max(), this->ncol+1);
 
@@ -260,7 +260,7 @@ bool Graph::AddVertex(int vertex){
     return true;
 }
 
-double Graph::GetEdgeW(int head, int tail){
+double MGraph::GetEdgeW(int head, int tail){
     int i_h = this->HasVertex(head);
     int i_t = this->HasVertex(tail);
 
@@ -271,7 +271,7 @@ double Graph::GetEdgeW(int head, int tail){
     return *this[i_h][i_t];
 }
 
-void Graph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
+void MGraph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
     int index_v = this->HasVertex(vertex);
     if(index_v == -1) return;
 

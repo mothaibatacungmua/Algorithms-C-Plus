@@ -37,9 +37,11 @@ namespace Algorithms{
 
             Hashmap<int, UnionFind> map(100);
             UnionFind* u = NULL;
+            Vector<unsigned int>save_pointer;
 
             for(it = vertices.begin(); it != vertices.end(); ++it){
                 u = new UnionFind(*it);
+                save_pointer.Insert((unsigned int)u);
                 map.Set(*it, *u);
             }
 
@@ -60,8 +62,13 @@ namespace Algorithms{
                 u_head->Union(*u_tail);
             }
 
+            for(i = 0; i < save_pointer.Size(); i++){
+                delete save_pointer[i];
+            }
+
             return true;
         }
+
     }
 }
 

@@ -4,11 +4,10 @@
 using namespace DataStructures;
 
 
-
 namespace Algorithms{
     namespace GraphF{
         /* Topological ordering */
-        bool TopologicalOrdering(MGraph& DAG, Vector<int>& result){
+        bool TopologicalOrdering(SGraph& DAG, Vector<int>& result){
             MGraph A = DAG;
             int num_ver = A.GetNumVertices();
             result.Resize(num_ver);

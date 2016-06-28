@@ -19,21 +19,26 @@ namespace Algorithms{
         unsigned int JenkinsHash(char* key, size_t len);
     }
 
+    namespace Sorting{
+        template <typename V>
+        void HeapSort(Vector<V>& input, Vector<V>& output);
+    }
+
     namespace GraphF{
         /* Topological ordering */
-        bool TopologicalOrdering(Graph& DAG, Vector<int>& result);
+        bool TopologicalOrdering(SGraph& DAG, Vector<int>& result);
 
         /* Dijkstra */
-        bool Dijkstra(Graph& DAG, int start, int goal, Vector<int>& path);
+        bool Dijkstra(SGraph& DAG, int start, int goal, Vector<int>& path);
 
         /**
          * Minimum spanning tree algorithms
          */
-        bool Prim(Graph & graph, Graph& result);
+        bool Prim(SGraph & graph, SGraph& result);
 
-        bool Kruskal(Graph& graph, Graph& result);
+        bool Kruskal(SGraph& graph, SGraph& result);
 
-        bool ReverseDelete(Graph& graph, Graph& result);
+        bool ReverseDelete(SGraph& graph, SGraph& result);
     }
 
 }

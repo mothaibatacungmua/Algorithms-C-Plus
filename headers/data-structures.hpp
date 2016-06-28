@@ -387,13 +387,21 @@ namespace DataStructures{
         int FindNoIncomingVertex();
         bool AddEdge(Edge edge);
         bool AddVertex(int vertex);
-
+        bool HasVertex(int vertex);
+        bool HasEdge(Edge edge);
+        int GetNumVertices();
+        int GetNumEdges();
         void FindAdjacencyVertices(int vertex, Vector<int>& ret);
 
         double GetEdgeW(int head_v, int tail_v);
-
+        void UnrollEdges(Vector<Edge>& ret);
+        void Clear();
         string ToString();
 
+        void GetEdges(SetEdge& ret);
+        void GetVertices(SetVertex& ret);
+
+        SGraph& operator= (SGraph& x);
         void ConvertToMGraph(MGraph& x);
         bool undirected;
     private:
@@ -405,6 +413,12 @@ namespace DataStructures{
     public:
         UnionFind();
         ~UnionFind();
+        UnionFind* pointer;
+        int size;
+        int key;
+        void Union(UnionFind& x);
+        UnionFind* Find();
+
     };
 }
 

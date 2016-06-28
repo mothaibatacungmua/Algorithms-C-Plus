@@ -220,3 +220,50 @@ string SGraph::ToString(){
     return "NOT YET IMPLEMENTED";
 }
 
+int SGraph::GetNumVertices(){
+    return this->vertices.size();
+}
+
+int SGraph::GetNumEdges(){
+    return this->edges.size();
+}
+
+void SGraph::UnrollEdges(Vector<Edge>& ret){
+    SetEdge::iterator it;
+    ret.Resize(0);
+
+    for(it = this->edges.begin(); it != this->edges.end(); ++it){
+        ret.Insert(*it);
+    }
+
+    return ;
+}
+
+void SGraph::Clear(){
+    this->edges.clear();
+    this->vertices.clear();
+}
+
+void SGraph::GetEdges(SGraph::SetEdge& ret){
+    ret = this->edges;
+}
+
+void SGraph::GetVertices(SGraph::SetVertex& ret){
+    ret = this->vertices;
+}
+
+SGraph& SGraph::operator= (SGraph& x){
+    this->Clear();
+    x.GetEdges(this->edges);
+    x.GetVertices(this->vertices);
+
+    return *this;
+}
+
+bool SGraph::HasVertex(int vertex){
+    return (this->vertices.find(vertex) != this->vertices.end());
+}
+
+bool SGraph::HasEdge(SGraph::Edge edge){
+    return (this->edges.find(edge) != this->edges.end());
+}

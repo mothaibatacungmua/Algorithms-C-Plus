@@ -256,7 +256,7 @@ SGraph& SGraph::operator= (SGraph& x){
     this->Clear();
     x.GetEdges(this->edges);
     x.GetVertices(this->vertices);
-
+    this->undirected = x.undirected;
     return *this;
 }
 

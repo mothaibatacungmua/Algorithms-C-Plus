@@ -54,8 +54,8 @@ namespace Algorithms{
                 t_g.FindAdjacencyVertices(e.tail, v_adjac);
                 for(int i = 0; i < v_adjac.Size(); i++){
                     if(!result.HasVertex(v_adjac[i])) continue;
-                    t.head = e.tail;
-                    t.tail = v_adjac[i];
+                    t.head = v_adjac[i];
+                    t.tail = e.tail;
                     t.weight = t_g.GetEdgeW(t.head, t.tail);
                     adjacencies.Push(t);
                 }

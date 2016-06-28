@@ -15,3 +15,37 @@
 using namespace DataStructures;
 
 
+UnionFind::UnionFind(int key){
+    this->key = key;
+    this->size = 1;
+    this->parent = this;
+}
+
+UnionFind::~UnionFind(){
+
+}
+
+UnionFind& UnionFind::Union(UnionFind& x){
+    if(this->size > x.size){
+        x.parent = this;
+        this->size += x.size;
+        return *this;
+    }
+
+    this->parent = &x;
+    x.size += this->size;
+
+    return x;
+}
+
+UnionFind* UnionFind::Find(){
+    UnionFind* travel = this;
+    UnionFind* parent = this->parent;
+
+    while(parent != travel){
+        travel = parent;
+        parent = travel->parent;
+    }
+
+    return parent;
+}

@@ -411,12 +411,12 @@ namespace DataStructures{
 
     class UnionFind{
     public:
-        UnionFind();
+        UnionFind(int key);
         ~UnionFind();
-        UnionFind* pointer;
+        UnionFind* parent;
         int size;
         int key;
-        void Union(UnionFind& x);
+        UnionFind& Union(UnionFind& x);
         UnionFind* Find();
 
     };

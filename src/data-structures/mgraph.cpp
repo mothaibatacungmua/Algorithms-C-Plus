@@ -169,16 +169,20 @@ MGraph& MGraph::operator=(MGraph& x){
 int MGraph::FindNoIncomingVertex(){
     int i = 0;
     int num_ver = this->GetNumVertices();
+    bool is_noincoming = true;
 
     for(i = 0; i < num_ver; i++){
         for(int j = 0; j < num_ver; j++){
-            if(*this[j][i] != 0) break;
+            if(*this[j][i] != 0) {
+                is_noincoming = false;
+                break;
+            }
         }
+
+        if(is_noincoming == true) return this->vertices[i];
     }
 
-    if(i == num_ver) return -1;
-
-    return this->vertices[i];
+    return -1;
 }
 
 MGraph::Edge MGraph::FindSmallestEdge(){

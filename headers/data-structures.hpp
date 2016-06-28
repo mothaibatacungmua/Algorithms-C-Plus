@@ -381,9 +381,9 @@ namespace DataStructures{
         bool IsConnected();
         bool IsTree();
         bool DeleteEdge(Edge edge);
-        bool DeleteEdge(Vector<Edge> edge);
+        void DeleteEdge(Vector<Edge> edges);
         bool DeleteVertex(int vertex);
-        bool DeleteVertex(Vector<int> vertices);
+        void DeleteVertex(Vector<int> vertices);
         int FindNoIncomingVertex();
         bool AddEdge(Edge edge);
         bool AddVertex(int vertex);
@@ -399,6 +399,12 @@ namespace DataStructures{
     private:
         SetEdge edges;
         SetVertex vertices;
+    };
+
+    class UnionFind{
+    public:
+        UnionFind();
+        ~UnionFind();
     };
 }
 

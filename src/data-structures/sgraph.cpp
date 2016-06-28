@@ -54,38 +54,142 @@ double SGraph::GetEdgeW(int head_v, int tail_v){
 }
 
 bool SGraph::IsConnected(){
+    std::set<int> closed;
+    Stack<int> travel_vertex;
+    SetVertex::iterator it = this->vertices.begin();
+
+    if(it == this->vertices.end()){
+        return false;
+    }
+
+    int current_vertex = *it;
+    Vector<int> adjac_vertices;
+    travel_vertex.Push(current_vertex);
+
+    while(travel_vertex.Size() != 0){
+        current_vertex = travel_vertex.Head();
+        travel_vertex.Pop();
+
+        closed.insert(current_vertex);
+
+        this->FindAdjacencyVertices(current_vertex, adjac_vertices);
+
+        for(int i = 0; i < adjac_vertices.Size(); i++){
+            if(this->GetEdgeW(current_vertex, adjac_vertices[i]) != std::numeric_limits<double>::max()){
+                travel_vertex.Push(adjac_vertices[i]);
+            }
+        }
+
+    }
+
+    if(closed.size() != this->vertices.size()) return false;
+
     return true;
 }
 
 bool SGraph::IsTree(){
+    Stack<int> travel_vertex;
+    set<int> closed;
+    set<int>::iterator c_it;
+    SetVertex::iterator it = this->vertices.begin();
+    int current_vertex = *it;
+    travel_vertex.Push(current_vertex);
+    Vector<int> adjac_vertices;
+
+    while(travel_vertex.Size() != 0){
+        current_vertex = travel_vertex.Head();
+        travel_vertex.Pop();
+        closed.insert(current_vertex);
+
+        this->FindAdjacencyVertices(current_vertex, adjac_vertices);
+
+        for(int i = 0; i < adjac_vertices.Size(); i++){
+            for(c_it = closed.begin(); c_it != closed.end(); ++c_it){
+                if(this->GetEdgeW(adjac_vertices[i], *c_it) != std::numeric_limits<double>::max()){
+                    return false;
+                }
+            }
+        }
+    }
+
     return true;
 }
 
 bool SGraph::DeleteEdge(Edge edge){
+    SetEdge::iterator it = this->edges.find(edge);
+
+    if(it == this->edges.end()){
+        return false;
+    }
+
+    this->edges.erase(it);
+
     return true;
 }
 
-bool SGraph::DeleteEdge(Vector<Edge> edge){
-    return true;
+void SGraph::DeleteEdge(Vector<Edge> edges){
+    SetEdge::iterator it;
+
+    for(int i = 0; i < edges.Size(); i++){
+        this->DeleteEdge(edges[i]);
+    }
+
+    return;
 }
 
 bool SGraph::DeleteVertex(int vertex){
+    SetVertex::iterator v_it;
+    Vector<int> adjac_vertices;
+
+    this->FindAdjacencyVertices(vertex, adjac_vertices);
+
+    Edge e(0,0);
+    e.head = vertex;
+
+    for(int i = 0; i < adjac_vertices.Size(); i++){
+        e.tail = adjac_vertices[i];
+        this->DeleteEdge(e);
+    }
+
+    v_it = this->vertices.find(vertex);
+    this->vertices.erase(v_it);
+
     return true;
 }
 
-bool SGraph::DeleteVertex(Vector<int> vertices){
-    return true;
+void SGraph::DeleteVertex(Vector<int> vertices){
+    for(int i = 0; i < vertices.Size(); i++){
+        this->DeleteVertex(vertices[i]);
+    }
+
+    return;
 }
 
 bool SGraph::AddEdge(Edge edge){
+    this->AddVertex(edge.head);
+    this->AddVertex(edge.tail);
+    this->AddEdge(edge);
+
     return true;
 }
 
 bool SGraph::AddVertex(int vertex){
+
+    this->vertices.insert(vertex);
+
     return true;
 }
 
 void SGraph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
+    ret.Resize(0);
+    SetVertex::iterator it;
+
+    for(it = this->vertices.begin(); it != this->vertices.end(); ++it){
+        if(this->GetEdgeW(vertex, *it) != std::numeric_limits<double>::max()){
+            ret.Insert(*it);
+        }
+    }
+
     return;
 }
 
@@ -94,7 +198,22 @@ void SGraph::ConvertToMGraph(MGraph& x){
 }
 
 int SGraph::FindNoIncomingVertex(){
-    return 0;
+    int i = 0;
+    SetVertex::iterator it_0;
+    SetVertex::iterator it_1;
+    bool is_noincoming = true;
+
+    for(it_0 = this->vertices.begin(); it_0 != this->vertices.end(); ++it_0){
+        for(it_1 = this->vertices.begin(); it_1 != this->vertices.end(); ++it_1){
+            if(this->GetEdgeW(*it_1, *it_0) != std::numeric_limits<double>::max()){
+                is_noincoming = false;
+            }
+        }
+
+        if(is_noincoming) return *it_0;
+    }
+
+    return -1;
 }
 
 string SGraph::ToString(){

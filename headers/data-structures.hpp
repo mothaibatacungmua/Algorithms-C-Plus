@@ -374,6 +374,32 @@ namespace DataStructures{
         typedef set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
         typedef set<int> SetVertex;
 
+        struct WeightedVertex{
+            int vertex;
+            double weight;
+
+            bool operator> (const WeightedVertex& x, const WeightedVertex& y){
+                return (x.weight > y.weight);
+            }
+
+            bool operator== (const WeightedVertex& x, const WeightedVertex& y){
+                return (x.weight == y.weight);
+            }
+        };
+
+        struct Path{
+            Vector<int>vertices;
+            double total_weight;
+
+            bool operator> (const WeightedVertex& x, const WeightedVertex& y){
+                return (x.weight > y.weight);
+            }
+
+            bool operator== (const WeightedVertex& x, const WeightedVertex& y){
+                return (x.weight == y.weight);
+            }
+        };
+
         SGraph(bool undirected, SetEdge& edges, SetVertex& vertices);
         SGraph(bool undirected);
         ~SGraph();

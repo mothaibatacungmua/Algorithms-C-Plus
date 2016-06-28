@@ -48,7 +48,7 @@ namespace Algorithms{
             UnionFind* u_head = NULL;
             UnionFind* u_tail = NULL;
 
-            while(result.GetNumEdges() != (num_v - 1)){
+            while(result.GetNumEdges() < (num_v - 1)){
                 result.AddEdge(e);
                 while(u_head == u_tail){
                     i += 1;

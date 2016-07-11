@@ -67,7 +67,7 @@ void DataStructuresTest::setUp(){
             DataStructures::Vector<double>(v_7,8)
     };
 
-    graph = new DataStructures::Graph(m_1, 8);
+    graph = new DataStructures::MGraph(m_1, 8);
 }
 
 void DataStructuresTest::tearDown(){
@@ -415,7 +415,7 @@ void DataStructuresTest::testInitVector(){
 
     std::string s[] = {"a", "b", "c", "d"};
 
-    DataStructures::Vector<string> string_vect(s,4);
+    DataStructures::Vector<std::string> string_vect(s,4);
     CPPUNIT_ASSERT_MESSAGE("Element 0 must have been 'a'", ("a" == string_vect[0]));
     CPPUNIT_ASSERT_MESSAGE("Element 1 must have been 'b'", ("b" == string_vect[1]));
     CPPUNIT_ASSERT_MESSAGE("Element 2 must have been 'c'", ("c" == string_vect[2]));
@@ -527,16 +527,16 @@ void DataStructuresTest::testDeleteMultipleRowMatrix(){
 
 }
 
-void DataStructuresTest::testInitGraph(){
+void DataStructuresTest::testInitMGraph(){
     /* TODO */
-    CPPUNIT_ASSERT_EQUAL(0, (int)(*this->graph)[0][0]);
-    CPPUNIT_ASSERT_EQUAL(1, (int)(*this->graph)[1][2]);
-    CPPUNIT_ASSERT_EQUAL(0, (int)(*this->graph)[7][7]);
-    CPPUNIT_ASSERT_EQUAL(1, (int)(*this->graph)[5][4]);
+    CPPUNIT_ASSERT_EQUAL(0, (int)(*graph)[0][0]);
+    CPPUNIT_ASSERT_EQUAL(1, (int)(*graph)[1][2]);
+    CPPUNIT_ASSERT_EQUAL(0, (int)(*graph)[7][7]);
+    CPPUNIT_ASSERT_EQUAL(1, (int)(*graph)[5][4]);
 
 }
 
-void DataStructuresTest::testDeleteOneVertexGraph(){
+void DataStructuresTest::testDeleteOneVertexMGraph(){
     /**
      * graph =
      *                  1   7
@@ -559,14 +559,14 @@ void DataStructuresTest::testDeleteOneVertexGraph(){
     graph->DeleteVertex(2);
 }
 
-void DataStructuresTest::testDeleteMutipleVertexGraph(){
+void DataStructuresTest::testDeleteMutipleVertexMGraph(){
 
 }
 
-void DataStructuresTest::testDeleteOneEdgeGraph(){
+void DataStructuresTest::testDeleteOneEdgeMGraph(){
 
 }
 
-void DataStructuresTest::testDeleteMutipleEdgeGraph(){
+void DataStructuresTest::testDeleteMutipleEdgeMGraph(){
 
 }

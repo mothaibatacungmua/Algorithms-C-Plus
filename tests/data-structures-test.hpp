@@ -52,11 +52,11 @@ class DataStructuresTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testDeleteMultipleRowMatrix);
 
 
-    CPPUNIT_TEST( testInitGraph);
-    CPPUNIT_TEST( testDeleteOneVertexGraph);
-    CPPUNIT_TEST( testDeleteMutipleVertexGraph);
-    CPPUNIT_TEST( testDeleteOneEdgeGraph);
-    CPPUNIT_TEST( testDeleteMutipleEdgeGraph);
+    CPPUNIT_TEST( testInitMGraph);
+    CPPUNIT_TEST( testDeleteOneVertexMGraph);
+    CPPUNIT_TEST( testDeleteMutipleVertexMGraph);
+    CPPUNIT_TEST( testDeleteOneEdgeMGraph);
+    CPPUNIT_TEST( testDeleteMutipleEdgeMGraph);
 
     CPPUNIT_TEST_SUITE_END();
 private:
@@ -76,7 +76,7 @@ private:
 
     DataStructures::Matrix<int>* mat;
 
-    DataStructures::Graph* graph;
+    DataStructures::MGraph* graph;
 
 
 public:
@@ -144,15 +144,15 @@ public:
 
     void testDeleteMultipleRowMatrix();
 
-    void testInitGraph();
+    void testInitMGraph();
 
-    void testDeleteOneVertexGraph();
+    void testDeleteOneVertexMGraph();
 
-    void testDeleteMutipleVertexGraph();
+    void testDeleteMutipleVertexMGraph();
 
-    void testDeleteOneEdgeGraph();
+    void testDeleteOneEdgeMGraph();
 
-    void testDeleteMutipleEdgeGraph();
+    void testDeleteMutipleEdgeMGraph();
 
 };
 

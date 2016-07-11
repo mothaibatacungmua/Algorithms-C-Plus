@@ -25,7 +25,7 @@ MGraph::MGraph(int n_vertex, bool undirected):Matrix<double>(n_vertex, n_vertex)
 
     for(int i = 0; i < n_vertex; i++){
         for(int j = 0; j < n_vertex; j++){
-            *this[i][j] = std::numeric_limits<double>::max();
+            (*this)[i][j] = std::numeric_limits<double>::max();
         }
     }
 
@@ -47,7 +47,7 @@ MGraph::~MGraph(){
 
 bool MGraph::IsConnected(){
     Stack<int> travel_vertex;
-    set<int> closed;
+    std::set<int> closed;
     int current_vertex = 0;
     travel_vertex.Push(0);
 
@@ -72,8 +72,8 @@ bool MGraph::IsConnected(){
 
 bool MGraph::IsTree(){
     Stack<int> travel_vertex;
-    set<int> closed;
-    set<int>::iterator it;
+    std::set<int> closed;
+    std::set<int>::iterator it;
     int current_vertex = 0;
     travel_vertex.Push(0);
 
@@ -173,7 +173,7 @@ int MGraph::FindNoIncomingVertex(){
 
     for(i = 0; i < num_ver; i++){
         for(int j = 0; j < num_ver; j++){
-            if(*this[j][i] != 0) {
+            if((*this)[j][i] != 0) {
                 is_noincoming = false;
                 break;
             }
@@ -186,14 +186,14 @@ int MGraph::FindNoIncomingVertex(){
 }
 
 MGraph::Edge MGraph::FindSmallestEdge(){
-    double min_v = *this[0][0];
+    double min_v = (*this)[0][0];
     Edge ret_e(0, 0);
     int num_ver = this->GetNumVertices();
 
     for(int i = 0; i < num_ver; i++){
         for(int j = 0; j < num_ver; j++){
-            if(*this[i][j] < min_v){
-                min_v = *this[i][j];
+            if((*this)[i][j] < min_v){
+                min_v = (*this)[i][j];
                 ret_e.head = i;
                 ret_e.tail = j;
                 ret_e.weight = min_v;
@@ -211,8 +211,8 @@ MGraph::Edge MGraph::FindBiggestEdge(){
 
     for(int i = 0; i < num_ver; i++){
         for(int j = 0; j < num_ver; j++){
-            if(*this[i][j] > max_v && *this[i][j] != std::numeric_limits<double>::max()){
-                max_v = *this[i][j];
+            if((*this)[i][j] > max_v && (*this)[i][j] != std::numeric_limits<double>::max()){
+                max_v = (*this)[i][j];
                 ret_e.head = i;
                 ret_e.tail = j;
                 ret_e.weight = max_v;
@@ -235,10 +235,10 @@ bool MGraph::AddEdge(MGraph::Edge edge){
     int index_head = this->HasVertex(edge.head);
     int index_tail = this->HasVertex(edge.tail);
 
-    *this[index_head][index_tail] = edge.weight;
+    (*this)[index_head][index_tail] = edge.weight;
 
     if(this->undirected){
-        *this[index_tail][index_head] = edge.weight;
+        (*this)[index_tail][index_head] = edge.weight;
     }
 
     return true;
@@ -272,7 +272,7 @@ double MGraph::GetEdgeW(int head, int tail){
         return std::numeric_limits<double>::max();
     }
 
-    return *this[i_h][i_t];
+    return (*this)[i_h][i_t];
 }
 
 void MGraph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
@@ -280,7 +280,7 @@ void MGraph::FindAdjacencyVertices(int vertex, Vector<int>& ret){
     if(index_v == -1) return;
 
     for(int i = 0; i < this->GetNumVertices(); i++){
-        if(this[index_v][i] == std::numeric_limits<double>::max()){
+        if((*this)[index_v][i] == std::numeric_limits<double>::max()){
             continue;
         }
 

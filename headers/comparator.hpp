@@ -11,7 +11,7 @@
 namespace Utils{
     template <typename T>
     struct Comparator{
-        int operator()(const T&, const T&);
+        int operator()(T&, T&);
     };
 }
 

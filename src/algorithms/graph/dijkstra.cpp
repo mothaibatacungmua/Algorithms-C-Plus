@@ -44,7 +44,7 @@ namespace Algorithms{
                 queue.Pop();
 
                 if(travel_path.vertices[travel_path.vertices.Size() - 1] == goal){
-                    path = travel_path;
+                    path = travel_path.vertices;
                     return true;
                 }
 
@@ -53,7 +53,7 @@ namespace Algorithms{
                     SGraph::Path new_path = travel_path;
                     new_path.vertices.Insert(adjac_v[i]);
                     new_path.total_weight += graph.GetEdgeW(travel_path.vertices[travel_path.vertices.Size() - 1], adjac_v[i]);
-                    queue.Push(new_path)
+                    queue.Push(new_path);
                 }
             }
 

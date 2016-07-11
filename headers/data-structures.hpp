@@ -10,10 +10,10 @@
 
 #include <string>
 #include <vector>
+#include<set>
 #include "../headers/comparator.hpp"
 #include "../headers/hashor.hpp"
 
-using namespace std;
 
 namespace DataStructures{
     template <typename T>
@@ -67,7 +67,7 @@ namespace DataStructures{
         virtual void Pop();
         virtual Node* Find(T value);
         virtual int Size();
-        virtual string ToString();
+        virtual std::string ToString();
     };
 
     //
@@ -130,7 +130,7 @@ namespace DataStructures{
         virtual T Head();
         virtual T Tail();
         virtual int Size();
-        virtual string ToString();
+        virtual std::string ToString();
     };
 
     //
@@ -173,13 +173,13 @@ namespace DataStructures{
     template <typename T, class Comp=Utils::Comparator<T> >
     class PriorityQueue{
     public:
-        PriorityQueue(int max_length);
+        PriorityQueue(int max_length=100);
         ~PriorityQueue();
-        vector<T> heap;
+        std::vector<T> heap;
         void Push(T value);
         T Head();
         void Pop();
-        string ToString();
+        std::string ToString();
         int Size();
         T operator[](int pos);
         T Delete(int pos);
@@ -234,7 +234,7 @@ namespace DataStructures{
         V& operator[](K key);
         //V& operator[](K key);
         int Size();
-        string ToString();
+        std::string ToString();
     private:
         int bucket_length;
         Hash hash;
@@ -258,17 +258,17 @@ namespace DataStructures{
         void Delete(int first, int last);
         void RemoveOnce(const V& value);
         void RemoveAll(const V& value);
-        Vector<V>& operator=(Vector<V>& x);
+        Vector<V>& operator=(const Vector<V>& x);
         V operator[](int index) const;
         V& operator[](int index);
         Vector<V>* Copy();
 
-        vector<V>& GetStorage();
+        std::vector<V>& GetStorage();
 
-        string ToString();
+        std::string ToString();
     private:
-        vector<V>& SetStorage(Vector<V>& x);
-        vector<V> storage;
+        std::vector<V>& SetStorage(Vector<V>& x);
+        std::vector<V> storage;
     };
 
     //
@@ -294,7 +294,7 @@ namespace DataStructures{
         Matrix<V>& operator=(Matrix<V>& x);
         Vector<V>& operator[](int index);
 
-        string ToString();
+        std::string ToString();
         void Size(int& n, int& m);
     protected:
         void SetStorage(Matrix<V>& x);
@@ -306,7 +306,7 @@ namespace DataStructures{
 
     class SGraph;
     // Graph, adjacency matrix
-    class MGraph:Matrix<double>{
+    class MGraph:public Matrix<double>{
     public:
         class Edge{
         public:
@@ -322,11 +322,11 @@ namespace DataStructures{
                 this->weight = weight;
             }
 
-            bool operator >(Edge& e){
+            bool operator >(const Edge& e){
                 return (this->weight > e.weight);
             }
 
-            bool operator == (Edge& e){
+            bool operator == (const Edge& e){
                 return (this->weight == e.weight);
             }
 
@@ -371,19 +371,19 @@ namespace DataStructures{
                 return (x.head == y.head) && (x.tail == y.tail);
             }
         };
-        typedef set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
-        typedef set<int> SetVertex;
+        typedef std::set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
+        typedef std::set<int> SetVertex;
 
         struct WeightedVertex{
             int vertex;
             double weight;
 
-            bool operator> (const WeightedVertex& x, const WeightedVertex& y){
-                return (x.weight > y.weight);
+            bool operator> (const WeightedVertex& x){
+                return (this->weight > x.weight);
             }
 
-            bool operator== (const WeightedVertex& x, const WeightedVertex& y){
-                return (x.weight == y.weight);
+            bool operator== (const WeightedVertex& x){
+                return (this->weight == x.weight);
             }
         };
 
@@ -391,12 +391,19 @@ namespace DataStructures{
             Vector<int>vertices;
             double total_weight;
 
-            bool operator> (const WeightedVertex& x, const WeightedVertex& y){
-                return (x.weight > y.weight);
+            bool operator> (const Path& x){
+                return (this->total_weight > x.total_weight);
             }
 
-            bool operator== (const WeightedVertex& x, const WeightedVertex& y){
-                return (x.weight == y.weight);
+            bool operator== (const Path& x){
+                return (this->total_weight == x.total_weight);
+            }
+
+            Path& operator= (const Path& x){
+                this->vertices = x.vertices;
+                this->total_weight = x.total_weight;
+
+                return *this;
             }
         };
 
@@ -422,7 +429,7 @@ namespace DataStructures{
         double GetEdgeW(int head_v, int tail_v);
         void UnrollEdges(Vector<Edge>& ret);
         void Clear();
-        string ToString();
+        std::string ToString();
 
         void GetEdges(SetEdge& ret);
         void GetVertices(SetVertex& ret);

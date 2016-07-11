@@ -6,10 +6,11 @@
  */
 
 #include "../../headers/comparator.hpp"
+#include "../../headers/data-structures.hpp"
 
 namespace Utils{
     template <typename T>
-    int Comparator<T>::operator()(const T& A, const T& B){
+    int Comparator<T>::operator()(T& A, T& B){
         if(A > B) return 1;
         if(A == B) return 0;
 
@@ -20,3 +21,4 @@ namespace Utils{
 
 template struct Utils::Comparator<int>;
 template struct Utils::Comparator<double>;
+template struct Utils::Comparator<DataStructures::SGraph::Path>;

@@ -210,8 +210,8 @@ int DoublyLinkedList<T,Node>::Size(){
 }
 
 template <typename T, class Node>
-string DoublyLinkedList<T,Node>::ToString(){
-    string ret_str;
+std::string DoublyLinkedList<T,Node>::ToString(){
+    std::string ret_str;
     Node* travel = this->head;
     char buffer[512];
 
@@ -240,7 +240,7 @@ string DoublyLinkedList<T,Node>::ToString(){
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<double>;
 
-template class DoublyLinkedList<int, HashEntryNode<string> >;
+template class DoublyLinkedList<int, HashEntryNode<std::string> >;
 template class DoublyLinkedList<int, HashEntryNode<int> >;
 template class DoublyLinkedList<int, HashEntryNode<double> >;
 

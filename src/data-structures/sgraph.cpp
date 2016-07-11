@@ -89,8 +89,8 @@ bool SGraph::IsConnected(){
 
 bool SGraph::IsTree(){
     Stack<int> travel_vertex;
-    set<int> closed;
-    set<int>::iterator c_it;
+    std::set<int> closed;
+    std::set<int>::iterator c_it;
     SetVertex::iterator it = this->vertices.begin();
     int current_vertex = *it;
     travel_vertex.Push(current_vertex);
@@ -198,7 +198,6 @@ void SGraph::ConvertToMGraph(MGraph& x){
 }
 
 int SGraph::FindNoIncomingVertex(){
-    int i = 0;
     SetVertex::iterator it_0;
     SetVertex::iterator it_1;
     bool is_noincoming = true;
@@ -216,7 +215,7 @@ int SGraph::FindNoIncomingVertex(){
     return -1;
 }
 
-string SGraph::ToString(){
+std::string SGraph::ToString(){
     return "NOT YET IMPLEMENTED";
 }
 

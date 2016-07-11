@@ -126,7 +126,7 @@ void CircularDoublyLinkedList<T,Node>::RemoveEnd(){
 template class CircularDoublyLinkedList<int>;
 template class CircularDoublyLinkedList<double>;
 
-template class CircularDoublyLinkedList<int, HashEntryNode<string> >;
+template class CircularDoublyLinkedList<int, HashEntryNode<std::string> >;
 template class CircularDoublyLinkedList<int, HashEntryNode<int> >;
 template class CircularDoublyLinkedList<int, HashEntryNode<double> >;
 

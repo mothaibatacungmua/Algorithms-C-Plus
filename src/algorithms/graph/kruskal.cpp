@@ -63,7 +63,7 @@ namespace Algorithms{
             }
 
             for(i = 0; i < save_pointer.Size(); i++){
-                delete save_pointer[i];
+                delete (UnionFind*)save_pointer[i];
             }
 
             return true;

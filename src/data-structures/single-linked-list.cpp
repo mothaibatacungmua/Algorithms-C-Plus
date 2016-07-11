@@ -105,8 +105,8 @@ int SingleLinkedList<T,Node>::Size(){
 }
 
 template <typename T, class Node>
-string SingleLinkedList<T,Node>::ToString(){
-    string ret_str;
+std::string SingleLinkedList<T,Node>::ToString(){
+    std::string ret_str;
     Node* travel = this->head;
 
     ret_str.append("[");

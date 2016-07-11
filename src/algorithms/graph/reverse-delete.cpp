@@ -15,14 +15,8 @@ using namespace DataStructures;
 namespace Algorithms{
     namespace GraphF{
         bool ReverseDelete(SGraph& graph, SGraph& result){
-            /**
-             * TODO
-             */
-
             result = graph;
             int num_v = graph.GetNumVertices();
-            int i = 0;
-
 
             if(!graph.IsConnected()){
                 return false;

@@ -5,7 +5,10 @@
  *      Author: asm
  */
 #include "../../headers/misc.hpp"
+#include "../../headers/data-structures.hpp"
 #include <stdio.h>
+
+using namespace DataStructures;
 
 namespace Utils{
     template <typename T>
@@ -22,3 +25,4 @@ namespace Utils{
 
 template void Utils::Swap<int>(int& A, int& B);
 template void Utils::Swap<double>(double& A, double& B);
+template void Utils::Swap<SGraph::Path>(SGraph::Path& A, SGraph::Path& B);

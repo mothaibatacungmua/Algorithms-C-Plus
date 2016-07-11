@@ -111,15 +111,15 @@ int Hashmap<K,V,Hash>::Size(){
 }
 
 template <typename K, typename V, class Hash>
-string Hashmap<K,V,Hash>::ToString(){
+std::string Hashmap<K,V,Hash>::ToString(){
     return "NOT IMPLEMENTED YET";
 }
 
 /* build some useful classes */
 
-template class Hashmap<string, string>;
-template class Hashmap<int, string>;
-template class Hashmap<char, string>;
+template class Hashmap<std::string, std::string>;
+template class Hashmap<int, std::string>;
+template class Hashmap<char, std::string>;
 template class Hashmap<int, int>;
-template class Hashmap<string, int>;
+template class Hashmap<std::string, int>;
 template class Hashmap<int, Vector<double> >;

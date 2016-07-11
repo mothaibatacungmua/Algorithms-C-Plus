@@ -8,7 +8,7 @@ namespace Algorithms{
     namespace GraphF{
         /* Topological ordering */
         bool TopologicalOrdering(SGraph& DAG, Vector<int>& result){
-            MGraph A = DAG;
+            SGraph A = DAG;
             int num_ver = A.GetNumVertices();
             result.Resize(num_ver);
 

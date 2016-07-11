@@ -138,8 +138,8 @@ template <typename V>
 bool Matrix<V>::DeleteColumn(Vector<int> col){
     if(col.Size() == 0) return false;
 
-    set<int> filter;
-    set<int>::iterator it;
+    std::set<int> filter;
+    std::set<int>::iterator it;
     //filter valid columns
     for(int i = 0; i < col.Size(); i++){
         if(col[i] <= (this->ncol - 1)) filter.insert(col[i]);
@@ -187,7 +187,7 @@ bool Matrix<V>::DeleteRow(int row){
 
 template <typename V>
 bool Matrix<V>::DeleteRow(Vector<int> row){
-    set<int> filter;
+    std::set<int> filter;
 
     //filter valid rows
     for(int i = 0; i < row.Size(); i++){
@@ -227,7 +227,7 @@ bool Matrix<V>::BindColumns(Matrix<V>& m){
 
     for(int i = 0; i < this->nrow; i++){
         for(int j=0; j < (this->ncol + add_ncol); j++){
-            new_mat[i][j] = (j < this->ncol)? *this[i][j]:m[i][j-this->ncol];
+            new_mat[i][j] = (j < this->ncol)? (*this)[i][j]:m[i][j-this->ncol];
         }
     }
 
@@ -259,7 +259,7 @@ bool Matrix<V>::BindRows(Matrix<V>& m){
 
     for(int i = 0; i < (this->nrow + add_nrow); i++){
         for(int j=0; j < this->ncol; j++){
-            new_mat[i][j] = (i < this->nrow)? *this[i][j]:m[i][j-this->ncol];
+            new_mat[i][j] = (i < this->nrow)? (*this)[i][j]:m[i][j-this->ncol];
         }
     }
 
@@ -276,8 +276,8 @@ bool Matrix<V>::BindRows(Vector<V>* rows, int numrow){
 }
 
 template <typename V>
-string Matrix<V>::ToString(){
-    string ret;
+std::string Matrix<V>::ToString(){
+    std::string ret;
     for(int i = 0; i < this->nrow; i++){
         ret.append(" ");
         ret.append(this->matrix[i].ToString());
@@ -289,4 +289,4 @@ string Matrix<V>::ToString(){
 
 template class Matrix<int>;
 template class Matrix<double>;
-template class Matrix<string>;
+template class Matrix<std::string>;

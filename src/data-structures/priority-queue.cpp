@@ -121,8 +121,8 @@ int PriorityQueue<T,Comp>::Size(){
 }
 
 template <typename T, class Comp>
-string PriorityQueue<T,Comp>::ToString(){
-    string ret_str = "[";
+std::string PriorityQueue<T,Comp>::ToString(){
+    std::string ret_str = "[";
     for(int i = 0; i < current_length; i++){
         ret_str.append(Utils::ToString(this->heap[i]));
     }
@@ -135,3 +135,4 @@ string PriorityQueue<T,Comp>::ToString(){
 
 template class PriorityQueue<int>;
 template class PriorityQueue<double>;
+template class PriorityQueue<SGraph::Path>;

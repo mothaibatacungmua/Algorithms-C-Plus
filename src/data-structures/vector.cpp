@@ -49,12 +49,12 @@ Vector<V>::~Vector(){
 }
 
 template <typename V>
-vector<V>& Vector<V>::GetStorage(){
+std::vector<V>& Vector<V>::GetStorage(){
     return this->storage;
 }
 
 template <typename V>
-vector<V>& Vector<V>::SetStorage(Vector<V>& x){
+std::vector<V>& Vector<V>::SetStorage(Vector<V>& x){
     this->storage = x.GetStorage();
 
     return this->storage;
@@ -82,8 +82,9 @@ int Vector<V>::Resize(int length){
 }
 
 template <typename V>
-Vector<V>& Vector<V>::operator =(Vector<V>& x){
-    this->SetStorage(x);
+Vector<V>& Vector<V>::operator =(const Vector<V>& x){
+    Vector<V>* y = const_cast<Vector<V> *>(&x);
+    this->SetStorage(*y);
 
     return *this;
 }
@@ -108,8 +109,8 @@ Vector<V>* Vector<V>::Copy(){
 }
 
 template <typename V>
-string Vector<V>::ToString(){
-    string ret = "";
+std::string Vector<V>::ToString(){
+    std::string ret = "";
 
     for(int i = 0; i < this->storage.size(); i++){
         ret.append(" ");
@@ -141,11 +142,11 @@ int Vector<V>::FindOnce(const V& value){
 
 template <typename V>
 void Vector<V>::RemoveOnce(const V& value){
-    vector<V>::iterator it;
+    typename std::vector<V>::iterator it;
     it = this->storage.begin();
 
     for(;it != this->storage.end(); ++it){
-        if(*it == V) break;
+        if(*it == value) break;
     }
 
     if(it == this->storage.end()) return;
@@ -161,5 +162,5 @@ void Vector<V>::RemoveAll(const V& value){
 
 template class Vector<int>;
 template class Vector<double>;
-template class Vector<string>;
+template class Vector<std::string>;
 template class Vector<MGraph::Edge>;

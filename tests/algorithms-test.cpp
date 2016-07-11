@@ -114,7 +114,11 @@ void AlgorithmsTest::testCheckGraphIsConnected(){
 }
 
 void AlgorithmsTest::testCheckGraphIsTree(){
+    bool c = this->undirected_graph->IsTree();
+    CPPUNIT_ASSERT_EQUAL(c, false);
 
+    c = this->tree->IsTree();
+    CPPUNIT_ASSERT_EQUAL(c, true);
 }
 
 void AlgorithmsTest::testTopologicalOrdering(){

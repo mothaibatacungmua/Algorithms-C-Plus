@@ -114,10 +114,14 @@ bool SGraph::IsTree(){
         this->FindAdjacencyVertices(current_vertex, adjac_vertices);
 
         for(int i = 0; i < adjac_vertices.Size(); i++){
-            for(c_it = closed.begin(); c_it != closed.end(); ++c_it){
-                if(this->GetEdgeW(adjac_vertices[i], *c_it) != std::numeric_limits<double>::max()){
-                    return false;
+            if(closed.find(adjac_vertices[i]) == closed.end()){
+                for(c_it = closed.begin(); c_it != closed.end(); ++c_it){
+                    if(*c_it == current_vertex) continue;
+                    if(this->HasEdge(adjac_vertices[i], *c_it)){
+                        return false;
+                    }
                 }
+                travel_vertex.Push(adjac_vertices[i]);
             }
         }
     }
@@ -304,6 +308,28 @@ bool SGraph::HasVertex(int vertex){
     return (this->vertices.find(vertex) != this->vertices.end());
 }
 
+bool SGraph::HasEdge(int head, int tail){
+    SGraph::Edge e(head, tail);
+    return this->HasEdge(e);
+}
+
 bool SGraph::HasEdge(SGraph::Edge edge){
-    return (this->edges.find(edge) != this->edges.end());
+    SetEdge::iterator it;
+    SGraph::Edge e = edge;
+
+    it = this->edges.find(edge);
+    if(it != this->edges.end())
+        return true;
+
+
+    if(this->undirected){
+        e.head = edge.tail;
+        e.tail = edge.head;
+        it = this->edges.find(e);
+        if(it != this->edges.end()){
+            return true;
+        }
+    }
+
+    return false;
 }

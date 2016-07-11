@@ -87,6 +87,7 @@ bool MGraph::IsTree(){
                closed.find(i) == closed.end()){
 
                 for(it=closed.begin(); it != closed.end(); ++it){
+                    if(*it == current_vertex) continue;
                     if(this->matrix[i][*it] != 0) return false;
                 }
                 travel_vertex.Push(i);

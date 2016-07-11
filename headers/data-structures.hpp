@@ -426,6 +426,7 @@ namespace DataStructures{
         bool AddVertex(int vertex);
         bool HasVertex(int vertex);
         bool HasEdge(Edge edge);
+        bool HasEdge(int head, int tail);
         int GetNumVertices();
         int GetNumEdges();
         void FindAdjacencyVertices(int vertex, Vector<int>& ret);

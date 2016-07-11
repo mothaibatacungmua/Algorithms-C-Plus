@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "../../../headers/data-structures.hpp"
 #include "../../../headers/algorithms.hpp"
+#include "../../../headers/misc.hpp"
 
 using namespace std;
 using namespace DataStructures;
@@ -15,12 +16,10 @@ using namespace DataStructures;
 namespace Algorithms{
     namespace GraphF{
         bool Dijkstra(SGraph& graph, int start, int goal, Vector<int>& path){
-            /**
-             * TODO
-             */
-
             SGraph::SetEdge edges;
             SGraph::SetEdge::iterator it;
+            SGraph::SetVertex vertices;
+            path.Clear();
             graph.GetEdges(edges);
 
             //check negative edge, quit if exist one
@@ -31,29 +30,46 @@ namespace Algorithms{
             }
 
             Vector<int> adjac_v;
-            PriorityQueue<SGraph::Path> queue;
+            SGraph::WeightedVertex wv;
+            PriorityQueue<SGraph::WeightedVertex> queue;
+            Hashmap<int, int>map_key;
 
-            SGraph::Path travel_path;
-            travel_path.total_weight = 0.0;
-            travel_path.vertices.Insert(start);
-
-            queue.Push(travel_path);
+            wv.vertex = start;
+            wv.weight = 0;
+            int index = queue.Push(wv);
+            map_key.Set(start, index);
 
             while(queue.Size() != 0){
-                travel_path = queue.Head();
+                wv = queue.Head();
                 queue.Pop();
 
-                if(travel_path.vertices[travel_path.vertices.Size() - 1] == goal){
-                    path = travel_path.vertices;
+                map_key.Set(wv.vertex, -1);
+                vertices.insert(wv.vertex);
+                path.Insert(wv.vertex);
+
+                if(wv.vertex == goal){
                     return true;
                 }
 
-                graph.FindAdjacencyVertices(travel_path.vertices[travel_path.vertices.Size() - 1], adjac_v);
+                graph.FindAdjacencyVertices(wv.vertex, adjac_v);
+
                 for(int i = 0; i < adjac_v.Size(); i++){
-                    SGraph::Path new_path = travel_path;
-                    new_path.vertices.Insert(adjac_v[i]);
-                    new_path.total_weight += graph.GetEdgeW(travel_path.vertices[travel_path.vertices.Size() - 1], adjac_v[i]);
-                    queue.Push(new_path);
+                    if(vertices.find(adjac_v[i]) == vertices.end()){
+                        //has key then update
+                        SGraph::WeightedVertex tv;
+                        if(map_key.Get(adjac_v[i], index)){
+                            double min_v = MIN(queue[i].weight, wv.weight + graph.GetEdgeW(wv.vertex,adjac_v[i]));
+                            tv.vertex = queue[index].vertex;
+                            tv.weight = min_v;
+                            index = queue.ChangeValue(tv,index);
+                            map_key.Set(adjac_v[i], index);
+                        }else{
+                            tv.vertex = adjac_v[i];
+                            tv.weight = wv.weight + graph.GetEdgeW(wv.vertex,adjac_v[i]);
+                            index = queue.Push(tv);
+                            map_key.Set(adjac_v[i], index);
+                        }
+                    }
                 }
             }
 

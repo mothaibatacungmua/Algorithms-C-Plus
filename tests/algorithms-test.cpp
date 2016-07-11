@@ -154,10 +154,14 @@ void AlgorithmsTest::testTopologicalOrdering(){
 
     c = GraphF::TopologicalOrdering(*this->topo_graph, result);
     CPPUNIT_ASSERT_EQUAL(c, true);
-
 }
 
 void AlgorithmsTest::testDijkstra(){
+    Vector<int>path;
+    bool c = GraphF::Dijkstra(*this->undirected_graph, 1, 6, path);
+    std::cout<<path.ToString();
+    CPPUNIT_ASSERT_EQUAL(c, true);
+
 
 }
 

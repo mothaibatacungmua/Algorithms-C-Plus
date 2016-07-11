@@ -28,8 +28,8 @@ PriorityQueue<T,Comp>::~PriorityQueue(){
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T,Comp>::HeapifyUp(int pos){
-    if(pos > this->current_length-1) return;
+int PriorityQueue<T,Comp>::HeapifyUp(int pos){
+    if(pos > this->current_length-1) return -1;
 
     int travel = pos;
     T* parent = &this->heap[(travel-1)/2];
@@ -42,13 +42,14 @@ void PriorityQueue<T,Comp>::HeapifyUp(int pos){
         current = &this->heap[travel];
     }
 
+    return travel;
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T,Comp>::HeapifyDown(int pos){
-    if(pos > this->current_length-1) return;
+int PriorityQueue<T,Comp>::HeapifyDown(int pos){
+    if(pos > this->current_length-1) return -1;
 
-    if((2*pos + 1) > current_length-1) return;
+    if((2*pos + 1) > current_length-1) return pos;
 
     int select_path = 2*pos + 1;
     if(2*pos + 2 <= current_length -1){
@@ -62,13 +63,26 @@ void PriorityQueue<T,Comp>::HeapifyDown(int pos){
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T,Comp>::Push(T value){
+int PriorityQueue<T,Comp>::Push(T value){
     /* FIXME: realloc heap */
     if((current_length + 1) > max_length) return;
 
     this->heap[++current_length - 1] = value;
 
     return this->HeapifyUp(current_length - 1);
+}
+
+template <typename T, class Comp>
+int PriorityQueue<T,Comp>::ChangeValue(T value, int pos){
+    this->heap[pos] = value;
+
+    int up = this->HeapifyUp(pos);
+    int down = this->HeapifyDown(pos);
+
+    if(up != pos) return up;
+    if(down != pos) return down;
+
+    return pos;
 }
 
 template <typename T, class Comp>
@@ -136,3 +150,4 @@ std::string PriorityQueue<T,Comp>::ToString(){
 template class PriorityQueue<int>;
 template class PriorityQueue<double>;
 template class PriorityQueue<SGraph::Path>;
+template class PriorityQueue<SGraph::WeightedVertex>;

@@ -177,18 +177,19 @@ namespace DataStructures{
         PriorityQueue(int max_length=100);
         ~PriorityQueue();
         std::vector<T> heap;
-        void Push(T value);
+        int Push(T value);
         T Head();
         void Pop();
         std::string ToString();
         int Size();
         T operator[](int pos);
         T Delete(int pos);
+        int ChangeValue(T value, int pos);
     private:
         int max_length;
         int current_length;
-        void HeapifyUp(int pos);
-        void HeapifyDown(int pos);
+        int HeapifyUp(int pos);
+        int HeapifyDown(int pos);
         Comp compar;
     };
 
@@ -226,7 +227,7 @@ namespace DataStructures{
     template <typename K, typename V, class Hash=Utils::JenkinsHash<K> >
     class Hashmap{
     public:
-        Hashmap(int bucket_length);
+        Hashmap(int bucket_length=100);
         ~Hashmap();
         CircularDoublyLinkedList<int, HashEntryNode<V> >** map;
         void Set(K key, V value);

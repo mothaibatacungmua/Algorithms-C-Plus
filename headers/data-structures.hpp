@@ -369,10 +369,9 @@ namespace DataStructures{
         typedef MGraph::Edge Edge;
         struct EdgeComparator{
             bool operator() (const Edge& x, const Edge& y){
-                if(x.head > y.head) return true;
-                if(x.tail > y.tail) return true;
+                if(x.head != y.head) return x.head < y.head;
 
-                return false;
+                return x.tail < y.tail;
             }
         };
         typedef std::set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
@@ -417,6 +416,7 @@ namespace DataStructures{
 
         bool IsConnected();
         bool IsTree();
+        bool DeleteEdge(int head, int tail);
         bool DeleteEdge(Edge edge);
         void DeleteEdge(Vector<Edge> edges);
         bool DeleteVertex(int vertex);

@@ -105,7 +105,12 @@ void AlgorithmsTest::tearDown(){
 }
 
 void AlgorithmsTest::testCheckGraphIsConnected(){
+    bool c = this->undirected_graph->IsConnected();
+    CPPUNIT_ASSERT_EQUAL(c, true);
 
+    this->undirected_graph->DeleteEdge(5,6);
+    c = this->undirected_graph->IsConnected();
+    CPPUNIT_ASSERT_EQUAL(c, false);
 }
 
 void AlgorithmsTest::testCheckGraphIsTree(){

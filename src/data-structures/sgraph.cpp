@@ -73,16 +73,19 @@ bool SGraph::IsConnected(){
     Vector<int> adjac_vertices;
     travel_vertex.Push(current_vertex);
 
+    int count = 0;
+
     while(travel_vertex.Size() != 0){
         current_vertex = travel_vertex.Head();
         travel_vertex.Pop();
 
+        count += 1;
+
         closed.insert(current_vertex);
 
         this->FindAdjacencyVertices(current_vertex, adjac_vertices);
-
         for(int i = 0; i < adjac_vertices.Size(); i++){
-            if(this->GetEdgeW(current_vertex, adjac_vertices[i]) != std::numeric_limits<double>::max()){
+            if(closed.find(adjac_vertices[i]) == closed.end()){
                 travel_vertex.Push(adjac_vertices[i]);
             }
         }
@@ -120,6 +123,11 @@ bool SGraph::IsTree(){
     }
 
     return true;
+}
+bool SGraph::DeleteEdge(int head, int tail){
+    Edge e(head, tail);
+
+    return this->DeleteEdge(e);
 }
 
 bool SGraph::DeleteEdge(Edge edge){

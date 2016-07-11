@@ -259,6 +259,7 @@ namespace DataStructures{
         void Delete(int first, int last);
         void RemoveOnce(const V& value);
         void RemoveAll(const V& value);
+        void Clear();
         Vector<V>& operator=(const Vector<V>& x);
         V operator[](int index) const;
         V& operator[](int index);

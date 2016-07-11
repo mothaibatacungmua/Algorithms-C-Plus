@@ -93,6 +93,31 @@ void AlgorithmsTest::setUp(){
 
     this->topo_graph = new SGraph(edges, vertices, false);
 
+    /** directed graph
+     *                  1---7
+     *                 / \ /|
+     *                2   3 |
+     *               / \ / \|
+     *              4 - 5   8
+     *                  |
+     *                  6
+     * (1,3), (1,2), (2,4), (2,5),(3,4),(3,5), (3,7), (3,8), (5,6), (6,7), (7,8), (7,1)
+     */
+    edges.clear();
+    edges.insert(SGraph::Edge(1, 3, 1.0));
+    edges.insert(SGraph::Edge(1, 2, 1.0));
+    edges.insert(SGraph::Edge(2, 4, 1.0));
+    edges.insert(SGraph::Edge(2, 5, 1.0));
+    edges.insert(SGraph::Edge(3, 4, 1.0));
+    edges.insert(SGraph::Edge(3, 5, 1.0));
+    edges.insert(SGraph::Edge(3, 7, 1.0));
+    edges.insert(SGraph::Edge(3, 8, 1.0));
+    edges.insert(SGraph::Edge(5, 6, 1.0));
+    edges.insert(SGraph::Edge(6, 7, 1.0));
+    edges.insert(SGraph::Edge(7, 8, 1.0));
+    edges.insert(SGraph::Edge(7, 1, 1.0));
+
+    this->non_topo_graph = new SGraph(edges, vertices, false);
     //std::cout << this->undirected_graph->ToString();
     //std::cout << this->tree->ToString();
     //std::cout << this->topo_graph->ToString();
@@ -102,6 +127,7 @@ void AlgorithmsTest::tearDown(){
     delete tree;
     delete undirected_graph;
     delete topo_graph;
+    delete non_topo_graph;
 }
 
 void AlgorithmsTest::testCheckGraphIsConnected(){
@@ -122,6 +148,12 @@ void AlgorithmsTest::testCheckGraphIsTree(){
 }
 
 void AlgorithmsTest::testTopologicalOrdering(){
+    Vector<int>result;
+    bool c = GraphF::TopologicalOrdering(*this->non_topo_graph, result);
+    CPPUNIT_ASSERT_EQUAL(c, false);
+
+    c = GraphF::TopologicalOrdering(*this->topo_graph, result);
+    CPPUNIT_ASSERT_EQUAL(c, true);
 
 }
 

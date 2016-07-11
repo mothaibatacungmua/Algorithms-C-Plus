@@ -10,7 +10,7 @@ namespace Algorithms{
         bool TopologicalOrdering(SGraph& DAG, Vector<int>& result){
             SGraph A = DAG;
             int num_ver = A.GetNumVertices();
-            result.Resize(num_ver);
+            result.Clear();
 
             while(A.GetNumVertices() != 0){
                 int i = A.FindNoIncomingVertex();

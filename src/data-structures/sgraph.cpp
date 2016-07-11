@@ -223,12 +223,13 @@ int SGraph::FindNoIncomingVertex(){
 
     for(it_0 = this->vertices.begin(); it_0 != this->vertices.end(); ++it_0){
         for(it_1 = this->vertices.begin(); it_1 != this->vertices.end(); ++it_1){
-            if(this->GetEdgeW(*it_1, *it_0) != std::numeric_limits<double>::max()){
+            if(this->HasEdge(*it_1, *it_0)){
                 is_noincoming = false;
             }
         }
 
         if(is_noincoming) return *it_0;
+        is_noincoming = true;
     }
 
     return -1;

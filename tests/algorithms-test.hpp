@@ -30,6 +30,7 @@ private:
     DataStructures::SGraph* undirected_graph;
     DataStructures::SGraph* tree;
     DataStructures::SGraph* topo_graph;
+    DataStructures::SGraph* non_topo_graph;
 public:
     void setUp();
 

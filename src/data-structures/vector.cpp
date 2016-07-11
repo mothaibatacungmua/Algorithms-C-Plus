@@ -160,6 +160,11 @@ void Vector<V>::RemoveAll(const V& value){
     /* TODO */
 }
 
+template <typename V>
+void Vector<V>::Clear(){
+    this->storage.clear();
+}
+
 template class Vector<int>;
 template class Vector<double>;
 template class Vector<std::string>;

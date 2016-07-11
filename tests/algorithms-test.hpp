@@ -27,7 +27,14 @@ class AlgorithmsTest : public CppUnit::TestCase {
     CPPUNIT_TEST( testReverseDelete);
     CPPUNIT_TEST_SUITE_END();
 private:
+    DataStructures::SGraph* undirected_graph;
+    DataStructures::SGraph* tree;
+    DataStructures::SGraph* topo_graph;
 public:
+    void setUp();
+
+    void tearDown();
+
     void testCheckGraphIsTree();
 
     void testCheckGraphIsConnected();

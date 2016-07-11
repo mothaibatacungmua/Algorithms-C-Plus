@@ -10,7 +10,8 @@
 
 #include <string>
 #include <vector>
-#include<set>
+#include <set>
+#include <iostream>
 #include "../headers/comparator.hpp"
 #include "../headers/hashor.hpp"
 
@@ -306,7 +307,7 @@ namespace DataStructures{
 
     class SGraph;
     // Graph, adjacency matrix
-    class MGraph:public Matrix<double>{
+    class MGraph: public Matrix<double>{
     public:
         class Edge{
         public:
@@ -368,7 +369,10 @@ namespace DataStructures{
         typedef MGraph::Edge Edge;
         struct EdgeComparator{
             bool operator() (const Edge& x, const Edge& y){
-                return (x.head == y.head) && (x.tail == y.tail);
+                if(x.head > y.head) return true;
+                if(x.tail > y.tail) return true;
+
+                return false;
             }
         };
         typedef std::set<Edge, EdgeComparator> SetEdge;  //can be changed by Hashmap structure
@@ -407,7 +411,7 @@ namespace DataStructures{
             }
         };
 
-        SGraph(bool undirected, SetEdge& edges, SetVertex& vertices);
+        SGraph(SetEdge& edges, SetVertex& vertices, bool undirected = true);
         SGraph(bool undirected);
         ~SGraph();
 

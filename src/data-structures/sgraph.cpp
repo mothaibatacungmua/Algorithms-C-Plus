@@ -18,10 +18,17 @@
 
 using namespace DataStructures;
 
-SGraph::SGraph(bool undirected, SetEdge& edges, SetVertex& vertices){
+SGraph::SGraph(SetEdge& edges, SetVertex& vertices, bool undirected){
     this->undirected = undirected;
     this->edges = edges;
     this->vertices = vertices;
+
+    SetEdge::iterator it;
+
+    for(it = this->edges.begin(); it != this->edges.end(); ++it){
+        this->AddVertex((*it).head);
+        this->AddVertex((*it).tail);
+    }
 }
 
 SGraph::SGraph(bool undirected){
@@ -216,7 +223,33 @@ int SGraph::FindNoIncomingVertex(){
 }
 
 std::string SGraph::ToString(){
-    return "NOT YET IMPLEMENTED";
+    std::string ret;
+    SetVertex::iterator vit;
+    SetEdge::iterator eit;
+
+    ret.append("[vertices]\n");
+    for(vit = this->vertices.begin(); vit != this->vertices.end(); ++vit){
+        ret.append(Utils::ToString(*vit));
+        ret.append(" ");
+    }
+    ret.append("\n");
+
+    ret.append("[edges]\n");
+    for(eit = this->edges.begin(); eit != this->edges.end(); ++eit){
+        int head = (*eit).head;
+        int tail = (*eit).tail;
+        double weight = (*eit).weight;
+        ret.append("(");
+        ret.append(Utils::ToString(head));
+        ret.append(",");
+        ret.append(Utils::ToString(tail));
+        ret.append(":");
+        ret.append(Utils::ToString(weight));
+        ret.append(") ");
+    }
+    ret.append("\n");
+
+    return ret;
 }
 
 int SGraph::GetNumVertices(){

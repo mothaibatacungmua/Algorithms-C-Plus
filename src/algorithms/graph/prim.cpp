@@ -15,10 +15,6 @@ using namespace DataStructures;
 namespace Algorithms{
     namespace GraphF{
         bool Prim(SGraph& graph, SGraph& result){
-            /**
-             * TODO
-             */
-
             SGraph t_g = graph;
             int num_v = graph.GetNumVertices();
 
@@ -40,11 +36,10 @@ namespace Algorithms{
             t_g.DeleteEdge(e);
             result.AddEdge(e);
 
-            while(result.GetNumVertices() != num_v){
+            while(result.GetNumEdges() < (num_v -1)){
                 t_g.FindAdjacencyVertices(e.head, v_adjac);
-
                 for(int i = 0; i < v_adjac.Size(); i++){
-                    if(!result.HasVertex(v_adjac[i])) continue;
+                    if(result.HasVertex(v_adjac[i])) continue;
                     t.head = e.head;
                     t.tail = v_adjac[i];
                     t.weight = t_g.GetEdgeW(t.head, t.tail);
@@ -53,7 +48,7 @@ namespace Algorithms{
 
                 t_g.FindAdjacencyVertices(e.tail, v_adjac);
                 for(int i = 0; i < v_adjac.Size(); i++){
-                    if(!result.HasVertex(v_adjac[i])) continue;
+                    if(result.HasVertex(v_adjac[i])) continue;
                     t.head = v_adjac[i];
                     t.tail = e.tail;
                     t.weight = t_g.GetEdgeW(t.head, t.tail);
@@ -61,6 +56,8 @@ namespace Algorithms{
                 }
 
                 e = adjacencies.Head();
+                result.AddEdge(e);
+                t_g.DeleteEdge(e);
                 adjacencies.Pop();
             }
 

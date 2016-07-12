@@ -173,10 +173,16 @@ void AlgorithmsTest::testKruskal(){
 }
 
 void AlgorithmsTest::testPrim(){
-
+    SGraph ret;
+    bool c = GraphF::Prim(*this->undirected_graph, ret);
+    //std::cout<<ret.ToString();
+    CPPUNIT_ASSERT_EQUAL(c, true);
 }
 
 void AlgorithmsTest::testReverseDelete(){
-
+    SGraph ret;
+    bool c = GraphF::ReverseDelete(*this->undirected_graph, ret);
+    //std::cout<<ret.ToString();
+    CPPUNIT_ASSERT_EQUAL(c, true);
 }
 

@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../headers/comparator.hpp"
 #include "../headers/hashor.hpp"
-
+#include "../headers/type-parse.hpp"
 
 namespace DataStructures{
     template <typename T>
@@ -360,6 +360,17 @@ namespace DataStructures{
                 return (this->weight == e.weight);
             }
 
+            std::string ToString(){
+                std::string ret;
+                ret.append("(");
+                ret.append(Utils::ToString(this->head));
+                ret.append(",");
+                ret.append(Utils::ToString(this->tail));
+                ret.append("-");
+                ret.append(Utils::ToString(this->weight));
+                ret.append(")");
+                return ret;
+            }
             double weight;
             int head;
             int tail;
@@ -457,7 +468,7 @@ namespace DataStructures{
         };
 
         SGraph(SetEdge& edges, SetVertex& vertices, bool undirected = true);
-        SGraph(bool undirected);
+        SGraph(bool undirected = true);
         ~SGraph();
 
         bool IsConnected();
@@ -495,6 +506,7 @@ namespace DataStructures{
 
     class UnionFind{
     public:
+        UnionFind();
         UnionFind(int key);
         ~UnionFind();
         UnionFind* parent;

@@ -23,4 +23,5 @@ template struct Utils::Comparator<int>;
 template struct Utils::Comparator<double>;
 template struct Utils::Comparator<DataStructures::SGraph::Path>;
 template struct Utils::Comparator<DataStructures::SGraph::WeightedVertex>;
+template struct Utils::Comparator<DataStructures::SGraph::Edge>;
 template struct Utils::Comparator<DataStructures::SGraph::MinEdge>;

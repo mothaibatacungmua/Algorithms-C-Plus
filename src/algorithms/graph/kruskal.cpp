@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <iostream>
 #include "../../../headers/data-structures.hpp"
 #include "../../../headers/algorithms.hpp"
 
@@ -15,9 +16,6 @@ using namespace DataStructures;
 namespace Algorithms{
     namespace GraphF{
         bool Kruskal(SGraph& graph, SGraph& result){
-            /**
-             * TODO
-             */
             SGraph t_g = graph;
             SGraph::SetVertex::iterator it;
             SGraph::SetVertex vertices;
@@ -33,9 +31,10 @@ namespace Algorithms{
 
             Vector<SGraph::Edge> unroll_edges;
             graph.UnrollEdges(unroll_edges);
+
             Algorithms::Sorting::HeapSort(unroll_edges, unroll_edges);
 
-            Hashmap<int, UnionFind> map(100);
+            Hashmap<int, UnionFind> map;
             UnionFind* u = NULL;
             Vector<unsigned int>save_pointer;
 
@@ -60,6 +59,7 @@ namespace Algorithms{
                 }
 
                 u_head->Union(*u_tail);
+                u_head = u_tail = NULL;
             }
 
             for(i = 0; i < save_pointer.Size(); i++){

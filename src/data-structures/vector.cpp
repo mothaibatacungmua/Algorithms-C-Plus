@@ -165,7 +165,8 @@ void Vector<V>::Clear(){
     this->storage.clear();
 }
 
+template class Vector<unsigned int>;
 template class Vector<int>;
 template class Vector<double>;
 template class Vector<std::string>;
-template class Vector<MGraph::Edge>;
+template class Vector<SGraph::Edge>;

@@ -44,6 +44,7 @@ void AlgorithmsTest::setUp(){
     edges.insert(SGraph::Edge(3, 8, 5.0));
     edges.insert(SGraph::Edge(4, 5, 3.0));
     edges.insert(SGraph::Edge(5, 6, 3.0));
+    edges.insert(SGraph::Edge(7, 8, 4.0));
 
     this->undirected_graph = new SGraph(edges, vertices, true);
 
@@ -162,11 +163,13 @@ void AlgorithmsTest::testDijkstra(){
     //std::cout<<path.ToString();
     CPPUNIT_ASSERT_EQUAL(c, true);
 
-
 }
 
 void AlgorithmsTest::testKruskal(){
-
+    SGraph ret;
+    bool c = GraphF::Kruskal(*this->undirected_graph, ret);
+    //std::cout<<ret.ToString();
+    CPPUNIT_ASSERT_EQUAL(c, true);
 }
 
 void AlgorithmsTest::testPrim(){

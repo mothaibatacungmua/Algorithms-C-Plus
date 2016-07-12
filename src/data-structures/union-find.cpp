@@ -14,6 +14,11 @@
 
 using namespace DataStructures;
 
+UnionFind::UnionFind(){
+    this->key = -1;
+    this->size = 0;
+    this->parent = NULL;
+}
 
 UnionFind::UnionFind(int key){
     this->key = key;

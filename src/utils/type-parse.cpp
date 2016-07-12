@@ -11,6 +11,7 @@
 using namespace DataStructures;
 using namespace std;
 
+REGISTER_PARSE_TYPE(unsigned int);
 REGISTER_PARSE_TYPE(int);
 REGISTER_PARSE_TYPE(double);
 REGISTER_PARSE_TYPE(char*);
@@ -25,7 +26,7 @@ namespace Utils{
     template<typename T>
     string ToString(T a){
         char buffer[16];
-        if(COMPARE_TYPE(T,"int")){
+        if(COMPARE_TYPE(T,"int") || COMPARE_TYPE(T,"unsigned int")){
             int cast_int = *(reinterpret_cast<int*>(&a));
             sprintf ( buffer, "%d", cast_int );
             return buffer;
@@ -55,7 +56,7 @@ namespace Utils{
 
     template <typename T>
     unsigned int DoHash(T obj, unsigned int (*hash_func)(char*, size_t)){
-        if(COMPARE_TYPE(T,"int")){
+        if(COMPARE_TYPE(T,"int") || COMPARE_TYPE(T,"unsigned int")){
             return hash_func(reinterpret_cast<char*>(&obj), sizeof(int));
         }
 
@@ -76,6 +77,7 @@ namespace Utils{
     }
 }
 
+template string Utils::ToString<unsigned int>(unsigned int);
 template string Utils::ToString<int>(int);
 template string Utils::ToString<double>(double);
 template string Utils::ToString<string>(string);

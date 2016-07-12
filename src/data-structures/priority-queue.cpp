@@ -168,4 +168,5 @@ template class PriorityQueue<int>;
 template class PriorityQueue<double>;
 template class PriorityQueue<SGraph::Path>;
 template class PriorityQueue<SGraph::WeightedVertex>;
+template class PriorityQueue<SGraph::Edge>;
 template class PriorityQueue<SGraph::MinEdge>;

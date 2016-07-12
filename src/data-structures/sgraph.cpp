@@ -187,7 +187,7 @@ void SGraph::DeleteVertex(Vector<int> vertices){
 bool SGraph::AddEdge(Edge edge){
     this->AddVertex(edge.head);
     this->AddVertex(edge.tail);
-    this->AddEdge(edge);
+    this->edges.insert(edge);
 
     return true;
 }

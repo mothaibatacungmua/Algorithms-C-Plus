@@ -126,3 +126,4 @@ template class Hashmap<int, int>;
 template class Hashmap<std::string, int>;
 template class Hashmap<int, Vector<double> >;
 template class Hashmap<int, SGraph::Edge>;
+template class Hashmap<int, UnionFind>;

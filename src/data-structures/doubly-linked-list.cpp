@@ -250,3 +250,4 @@ template class DoublyLinkedList<int, HashEntryNode<double> >;
 
 template class DoublyLinkedList<int, HashEntryNode<Vector<double> > >;
 template class DoublyLinkedList<int, HashEntryNode<SGraph::Edge> >;
+template class DoublyLinkedList<int, HashEntryNode<UnionFind> >;

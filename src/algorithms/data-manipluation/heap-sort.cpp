@@ -15,16 +15,22 @@ namespace Algorithms{
         template <typename V>
         void HeapSort(Vector<V>& input, Vector<V>& output){
             PriorityQueue<V> queue;
+            Vector<V> save = input;
             output.Resize(0);
 
-            for(int i = 0; i < input.Size(); i++){
-                queue.Push(input[i]);
+            for(int i = 0; i < save.Size(); i++){
+                queue.Push(save[i]);
             }
 
-            for(int i = 0; i < input.Size(); i++){
+            for(int i = 0; i < save.Size(); i++){
                 output.Insert(queue.Head());
-                output.Pop();
+                queue.Pop();
             }
         }
     }
 }
+
+template void Algorithms::Sorting::HeapSort<double>(Vector<double>&,Vector<double>&);
+template void Algorithms::Sorting::HeapSort<int>(Vector<int>&,Vector<int>&);
+template void Algorithms::Sorting::HeapSort<SGraph::Edge>(Vector<SGraph::Edge>&,Vector<SGraph::Edge>&);
+

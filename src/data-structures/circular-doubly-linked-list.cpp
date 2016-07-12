@@ -131,3 +131,4 @@ template class CircularDoublyLinkedList<int, HashEntryNode<int> >;
 template class CircularDoublyLinkedList<int, HashEntryNode<double> >;
 
 template class CircularDoublyLinkedList<int, HashEntryNode<Vector<double> > >;
+template class CircularDoublyLinkedList<int, HashEntryNode<SGraph::Edge> >;

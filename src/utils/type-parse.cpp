@@ -18,6 +18,8 @@ REGISTER_PARSE_TYPE(string);
 REGISTER_PARSE_TYPE(char);
 REGISTER_PARSE_TYPE(MGraph::Edge);
 REGISTER_PARSE_TYPE(SGraph::Path);
+REGISTER_PARSE_TYPE(SGraph::WeightedVertex);
+REGISTER_PARSE_TYPE(SGraph::MinEdge);
 
 namespace Utils{
     template<typename T>
@@ -80,6 +82,8 @@ template string Utils::ToString<string>(string);
 template string Utils::ToString<char>(char);
 template string Utils::ToString<MGraph::Edge>(MGraph::Edge);
 template string Utils::ToString<SGraph::Path>(SGraph::Path);
+template string Utils::ToString<SGraph::WeightedVertex>(SGraph::WeightedVertex);
+template string Utils::ToString<SGraph::MinEdge>(SGraph::MinEdge);
 
 template unsigned int Utils::DoHash<int>(int, unsigned int (*hash_func)(char*, size_t));
 template unsigned int Utils::DoHash<string>(string, unsigned int (*hash_func)(char*, size_t));

@@ -39,6 +39,7 @@ bool Hashmap<K,V,Hash>::Get(K key, V& ret){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
+    //std::cout<<"Get:"<<index<<"\n";
     typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
 
     if(node == NULL) return false;
@@ -55,6 +56,7 @@ void Hashmap<K,V,Hash>::Set(K key, V value){
     unsigned int bucket = hash % this->bucket_length;
     unsigned int index = hash - bucket*this->bucket_length;
 
+    //std::cout<<"Set:"<<index<<"\n";
     typename CircularDoublyLinkedList<int, HashEntryNode<V> >::NodeCls* node = this->map[bucket]->Find(index);
 
     if(node == NULL){
@@ -123,3 +125,4 @@ template class Hashmap<char, std::string>;
 template class Hashmap<int, int>;
 template class Hashmap<std::string, int>;
 template class Hashmap<int, Vector<double> >;
+template class Hashmap<int, SGraph::Edge>;

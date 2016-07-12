@@ -396,10 +396,30 @@ void DataStructuresTest::testPriorityQueuePop(){
 
 void DataStructuresTest::testHashMapSet(){
     /* TODO */
+    DataStructures::Hashmap<int, DataStructures::SGraph::Edge> map;
+    DataStructures::SGraph::Edge wv;
+    wv.head = -1;
+    wv.tail = 2;
+    map.Set(2, wv);
+
+    bool c = map.Get(2, wv);
+    CPPUNIT_ASSERT_EQUAL(true, c);
+
 }
 
 void DataStructuresTest::testHashMapGet(){
-    /* TODO */
+    DataStructures::Hashmap<int, DataStructures::SGraph::Edge> map;
+    DataStructures::SGraph::Edge wv;
+    DataStructures::SGraph::Edge t;
+    wv.head = -1;
+    wv.tail = 2;
+    map.Set(2, wv);
+
+    bool c = map.Get(2, t);
+    CPPUNIT_ASSERT_EQUAL(true, c);
+
+    CPPUNIT_ASSERT_EQUAL(-1, t.head);
+    CPPUNIT_ASSERT_EQUAL(2, t.tail);
 }
 
 void DataStructuresTest::testInitVector(){

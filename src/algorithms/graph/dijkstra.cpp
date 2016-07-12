@@ -30,50 +30,75 @@ namespace Algorithms{
             }
 
             Vector<int> adjac_v;
-            SGraph::WeightedVertex wv;
-            PriorityQueue<SGraph::WeightedVertex> queue;
-            Hashmap<int, int>map_key;
+            SGraph::MinEdge wv;
+            ExtendedPriorityQueue<SGraph::MinEdge> queue;
+            Hashmap<int, SGraph::Edge> store_min_edges;
+            edges.clear();
 
-            wv.vertex = start;
-            wv.weight = 0;
+            wv.v.vertex = start;
+            wv.v.weight = 0;
+            wv.e.head = start;
+            wv.e.tail = -1;
+
             int index = queue.Push(wv);
-            map_key.Set(start, index);
 
             while(queue.Size() != 0){
                 wv = queue.Head();
                 queue.Pop();
 
-                map_key.Set(wv.vertex, -1);
-                vertices.insert(wv.vertex);
-                path.Insert(wv.vertex);
+                vertices.insert(wv.v.vertex);
+                store_min_edges.Set(wv.v.vertex, wv.e);
+                edges.insert(wv.e);
 
-                if(wv.vertex == goal){
-                    return true;
+                if(wv.v.vertex == goal){
+                    break;
                 }
 
-                graph.FindAdjacencyVertices(wv.vertex, adjac_v);
+                graph.FindAdjacencyVertices(wv.v.vertex, adjac_v);
 
                 for(int i = 0; i < adjac_v.Size(); i++){
                     if(vertices.find(adjac_v[i]) == vertices.end()){
                         //has key then update
-                        SGraph::WeightedVertex tv;
-                        if(map_key.Get(adjac_v[i], index)){
-                            double min_v = MIN(queue[i].weight, wv.weight + graph.GetEdgeW(wv.vertex,adjac_v[i]));
-                            tv.vertex = queue[index].vertex;
-                            tv.weight = min_v;
-                            index = queue.ChangeValue(tv,index);
-                            map_key.Set(adjac_v[i], index);
-                        }else{
-                            tv.vertex = adjac_v[i];
-                            tv.weight = wv.weight + graph.GetEdgeW(wv.vertex,adjac_v[i]);
-                            index = queue.Push(tv);
-                            map_key.Set(adjac_v[i], index);
+                        SGraph::MinEdge tv;
+                        index = queue.GetIndexByKey(adjac_v[i]);
+
+                        if(index != -1){
+                            double min_v = MIN(queue[index].v.weight, wv.v.weight + graph.GetEdgeW(wv.v.vertex,adjac_v[i]));
+                            if(min_v < queue[index].v.weight){
+                                tv = queue[index];
+                                tv.v.weight = min_v;
+                                tv.e.tail = wv.v.vertex;
+                                tv.e.head = adjac_v[i];
+                                queue.ChangeValue(tv, index);
+                            }
+
+                        }else{ //if not then add new
+                            tv.v.vertex = adjac_v[i];
+                            tv.v.weight = wv.v.weight + graph.GetEdgeW(wv.v.vertex,adjac_v[i]);
+                            tv.e.tail = wv.v.vertex;
+                            tv.e.head = adjac_v[i];
+                            queue.Push(tv);
                         }
                     }
                 }
             }
 
-            return false;
+
+            //std::cout<<"\n";
+            //for(it=edges.begin(); it!=edges.end();++it){
+            //    std::cout<<"("<<(*it).tail<<","<<(*it).head<<") ";
+            //}
+
+            int start_v = goal;
+            SGraph::Edge travel;
+
+            while(start_v != -1){
+                path.Insert(start_v);
+                store_min_edges.Get(start_v, travel);
+                start_v = travel.tail;
+            }
+
+            return true;
         }
     }
 }

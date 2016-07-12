@@ -182,6 +182,7 @@ namespace DataStructures{
         void Pop();
         std::string ToString();
         int Size();
+        int Find(T value);
         T operator[](int pos);
         T Delete(int pos);
         int ChangeValue(T value, int pos);
@@ -240,6 +241,32 @@ namespace DataStructures{
     private:
         int bucket_length;
         Hash hash;
+    };
+
+    template <typename T, class Comp=Utils::Comparator<T> >
+    class ExtendedPriorityQueue{
+    public:
+        ExtendedPriorityQueue(int max_length=100);
+        ~ExtendedPriorityQueue();
+        std::vector<T> heap;
+        int Push(T value);
+        T Head();
+        void Pop();
+        std::string ToString();
+        int Size();
+        int Find(T value);
+        T operator[](int pos);
+        T Delete(int pos);
+        int ChangeValue(T value, int pos);
+        int GetIndexByKey(int k);
+    private:
+        void SwapValueByKey(int k1, int k2);
+        Hashmap<int, int>* map_indices;
+        int max_length;
+        int current_length;
+        int HeapifyUp(int pos);
+        int HeapifyDown(int pos);
+        Comp compar;
     };
 
     //Vector
@@ -409,6 +436,23 @@ namespace DataStructures{
                 this->total_weight = x.total_weight;
 
                 return *this;
+            }
+        };
+
+        struct MinEdge{
+            WeightedVertex v;
+            Edge e;
+
+            int GetKey(){
+                return v.vertex;
+            }
+
+            bool operator> (const MinEdge& x){
+                return (this->v.weight > x.v.weight);
+            }
+
+            bool operator== (const MinEdge& x){
+                return (this->v.weight == x.v.weight);
             }
         };
 

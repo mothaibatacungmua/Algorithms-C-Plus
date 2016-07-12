@@ -26,3 +26,5 @@ namespace Utils{
 template void Utils::Swap<int>(int& A, int& B);
 template void Utils::Swap<double>(double& A, double& B);
 template void Utils::Swap<SGraph::Path>(SGraph::Path& A, SGraph::Path& B);
+template void Utils::Swap<SGraph::WeightedVertex>(SGraph::WeightedVertex& A, SGraph::WeightedVertex& B);
+template void Utils::Swap<SGraph::MinEdge>(SGraph::MinEdge& A, SGraph::MinEdge& B);

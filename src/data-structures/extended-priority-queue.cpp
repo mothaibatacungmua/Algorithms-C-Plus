@@ -1,9 +1,11 @@
 /*
- * priority-queue.cpp
+ * extended-priority-queue.cpp
  *
- *  Created on: Apr 24, 2016
+ *  Created on: Jul 12, 2016
  *      Author: asm
  */
+
+
 #include <iostream>
 #include <string>
 #include "../../headers/type-parse.hpp"
@@ -14,21 +16,23 @@
 using namespace DataStructures;
 
 template <typename T, class Comp>
-PriorityQueue<T,Comp>::PriorityQueue(int max_length){
+ExtendedPriorityQueue<T,Comp>::ExtendedPriorityQueue(int max_length){
     if(max_length <= 0) return;
 
+    this->map_indices = new Hashmap<int, int>();
     this->heap.resize(max_length);
     this->max_length = max_length;
     this->current_length = 0;
 }
 
 template <typename T, class Comp>
-PriorityQueue<T,Comp>::~PriorityQueue(){
+ExtendedPriorityQueue<T,Comp>::~ExtendedPriorityQueue(){
     this->heap.clear();
+    delete this->map_indices;
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::HeapifyUp(int pos){
+int ExtendedPriorityQueue<T,Comp>::HeapifyUp(int pos){
     if(pos > this->current_length-1) return -1;
 
     int travel = pos;
@@ -36,6 +40,7 @@ int PriorityQueue<T,Comp>::HeapifyUp(int pos){
     T* current = &this->heap[travel];
 
     while(this->compar(*current, *parent) < 0){
+        this->SwapValueByKey(current->GetKey(), parent->GetKey());
         Utils::Swap(*current, *parent);
         travel = (travel - 1)/2;
         parent = &this->heap[(travel-1)/2];
@@ -46,7 +51,7 @@ int PriorityQueue<T,Comp>::HeapifyUp(int pos){
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::HeapifyDown(int pos){
+int ExtendedPriorityQueue<T,Comp>::HeapifyDown(int pos){
     if(pos > this->current_length-1) return -1;
 
     if((2*pos + 1) > current_length-1) return pos;
@@ -57,6 +62,7 @@ int PriorityQueue<T,Comp>::HeapifyDown(int pos){
     }
 
     if(this->compar(this->heap[pos], this->heap[select_path]) > 0){
+        this->SwapValueByKey(this->heap[pos].GetKey(), this->heap[select_path].GetKey());
         Utils::Swap(this->heap[pos], this->heap[select_path]);
         return this->HeapifyDown(select_path);
     }
@@ -65,17 +71,18 @@ int PriorityQueue<T,Comp>::HeapifyDown(int pos){
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::Push(T value){
+int ExtendedPriorityQueue<T,Comp>::Push(T value){
     /* FIXME: realloc heap */
     if((current_length + 1) > max_length) return -1;
 
     this->heap[++current_length - 1] = value;
+    this->map_indices->Set(value.GetKey(), current_length - 1);
 
     return this->HeapifyUp(current_length - 1);
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::ChangeValue(T value, int pos){
+int ExtendedPriorityQueue<T,Comp>::ChangeValue(T value, int pos){
     this->heap[pos] = value;
 
     int up = this->HeapifyUp(pos);
@@ -89,9 +96,10 @@ int PriorityQueue<T,Comp>::ChangeValue(T value, int pos){
 }
 
 template <typename T, class Comp>
-void PriorityQueue<T,Comp>::Pop(){
+void ExtendedPriorityQueue<T,Comp>::Pop(){
     if(current_length <= 0) return;
 
+    this->SwapValueByKey(this->heap[0].GetKey(), this->heap[current_length-1].GetKey());
     Utils::Swap(this->heap[0],this->heap[current_length-1]);
 
     current_length--;
@@ -100,14 +108,14 @@ void PriorityQueue<T,Comp>::Pop(){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T,Comp>::Head(){
+T ExtendedPriorityQueue<T,Comp>::Head(){
     if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
 
     return this->heap[0];
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T,Comp>::Delete(int pos){
+T ExtendedPriorityQueue<T,Comp>::Delete(int pos){
     if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
 
     T ret = this->heap[current_length-1];
@@ -118,6 +126,8 @@ T PriorityQueue<T,Comp>::Delete(int pos){
     }
 
     ret = this->heap[pos];
+
+    this->SwapValueByKey(this->heap[pos].GetKey(), this->heap[current_length-1].GetKey());
     Utils::Swap(this->heap[pos], this->heap[current_length-1]);
 
     this->HeapifyDown(pos);
@@ -126,19 +136,19 @@ T PriorityQueue<T,Comp>::Delete(int pos){
 }
 
 template <typename T, class Comp>
-T PriorityQueue<T,Comp>::operator [](int pos){
+T ExtendedPriorityQueue<T,Comp>::operator [](int pos){
     if(current_length <= 0) throw ErrorCodes::OUT_OF_INDEX;
 
     return this->heap[pos > (current_length - 1)?(current_length - 1):pos];
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::Size(){
+int ExtendedPriorityQueue<T,Comp>::Size(){
     return current_length;
 }
 
 template <typename T, class Comp>
-int PriorityQueue<T,Comp>::Find(T value){
+int ExtendedPriorityQueue<T,Comp>::Find(T value){
     int travel = 0;
 
     while(travel < current_length){
@@ -152,7 +162,18 @@ int PriorityQueue<T,Comp>::Find(T value){
 }
 
 template <typename T, class Comp>
-std::string PriorityQueue<T,Comp>::ToString(){
+void ExtendedPriorityQueue<T,Comp>::SwapValueByKey(int k1, int k2){
+    int i1, i2;
+
+    if(!this->map_indices->Get(k1, i1)) return;
+    if(!this->map_indices->Get(k2, i2)) return;
+
+    this->map_indices->Set(k1, i2);
+    this->map_indices->Set(k2, i1);
+}
+
+template <typename T, class Comp>
+std::string ExtendedPriorityQueue<T,Comp>::ToString(){
     std::string ret_str = "[";
     for(int i = 0; i < current_length; i++){
         ret_str.append(Utils::ToString(this->heap[i]));
@@ -164,8 +185,15 @@ std::string PriorityQueue<T,Comp>::ToString(){
 
 }
 
-template class PriorityQueue<int>;
-template class PriorityQueue<double>;
-template class PriorityQueue<SGraph::Path>;
-template class PriorityQueue<SGraph::WeightedVertex>;
-template class PriorityQueue<SGraph::MinEdge>;
+template <typename T, class Comp>
+int ExtendedPriorityQueue<T,Comp>::GetIndexByKey(int k){
+    int i;
+
+    if(!this->map_indices->Get(k, i)) return -1;
+
+    return i;
+}
+
+template class ExtendedPriorityQueue<SGraph::MinEdge>;
+
+

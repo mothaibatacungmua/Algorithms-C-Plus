@@ -132,6 +132,10 @@ Node* DoublyLinkedList<T,Node>::Find(T value){
         travel = travel->next;
     }
 
+    if(this->tail != NULL && *travel == value){
+        return travel;
+    }
+
     return NULL;
 }
 
@@ -245,3 +249,4 @@ template class DoublyLinkedList<int, HashEntryNode<int> >;
 template class DoublyLinkedList<int, HashEntryNode<double> >;
 
 template class DoublyLinkedList<int, HashEntryNode<Vector<double> > >;
+template class DoublyLinkedList<int, HashEntryNode<SGraph::Edge> >;

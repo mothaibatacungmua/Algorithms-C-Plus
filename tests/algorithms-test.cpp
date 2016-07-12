@@ -159,7 +159,7 @@ void AlgorithmsTest::testTopologicalOrdering(){
 void AlgorithmsTest::testDijkstra(){
     Vector<int>path;
     bool c = GraphF::Dijkstra(*this->undirected_graph, 1, 6, path);
-    std::cout<<path.ToString();
+    //std::cout<<path.ToString();
     CPPUNIT_ASSERT_EQUAL(c, true);
 
 

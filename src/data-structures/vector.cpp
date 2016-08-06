@@ -170,3 +170,4 @@ template class Vector<int>;
 template class Vector<double>;
 template class Vector<std::string>;
 template class Vector<SGraph::Edge>;
+template class Vector<Complex>;

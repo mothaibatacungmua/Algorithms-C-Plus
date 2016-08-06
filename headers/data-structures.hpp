@@ -12,6 +12,7 @@
 #include <vector>
 #include <set>
 #include <iostream>
+#include <math.h>
 #include "../headers/comparator.hpp"
 #include "../headers/hashor.hpp"
 #include "../headers/type-parse.hpp"
@@ -515,6 +516,57 @@ namespace DataStructures{
         UnionFind& Union(UnionFind& x);
         UnionFind* Find();
 
+    };
+
+    struct Complex{
+        double real;
+        double img;
+
+        static double norm(const Complex& x){
+            return sqrt(x.real*x.real + x.img*x.img);
+        }
+
+        Complex operator*(const Complex& x){
+            Complex c = {};
+            c.real = this->real*x.real - this->img*x.img;
+            c.img = this->real*x.img + this->img*x.real;
+            return c;
+        }
+
+        Complex operator*(const double factor){
+            Complex c = *this;
+            c.real *= factor;
+            c.img *= factor;
+            return c;
+        }
+
+        Complex operator+(const Complex& x){
+            Complex c = {};
+            c.real = this->real + x.real;
+            c.img = this->img + x.img;
+            return c;
+        }
+
+        Complex operator-(const Complex& x){
+            Complex c = {};
+            c.real = this->real - x.real;
+            c.img = this->img - x.img;
+            return c;
+        }
+
+        Complex operator/(const double factor){
+            Complex c = *this;
+            c = c*(1/factor);
+            return c;
+        }
+
+        Complex operator/(const Complex& x){
+            Complex c = *this;
+            double factor = Complex::norm(x)*Complex::norm(x);
+            c = c*x/factor;
+
+            return c;
+        }
     };
 }
 
